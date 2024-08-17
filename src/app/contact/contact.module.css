@@ -1,0 +1,70 @@
+.contactUs {
+    padding: 50px 20px;
+    /* background-color: #f5f5f5; */
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 36px;
+    /* color: #333; */
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    font-size: 18px;
+    /* color: #666; */
+    margin-bottom: 40px;
+  }
+  
+  .contactDetails {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .detailItem {
+    flex: 1;
+    min-width: 250px;
+    margin: 20px;
+  }
+  
+  .detailItem h3 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .detailItem p {
+    font-size: 18px;
+    /* color: #333; */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+    }
+  
+    .title {
+      font-size: 28px;
+    }
+  
+    .description {
+      font-size: 16px;
+    }
+  
+    .contactDetails {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .detailItem {
+      margin: 10px 0;
+    }
+  }
+  

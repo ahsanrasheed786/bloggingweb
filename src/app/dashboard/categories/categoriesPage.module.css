@@ -1,0 +1,128 @@
+.input{
+width: 40vw;
+display: block;
+margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 16px;
+color: #333;
+}
+.button{
+  background: green;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.ul {
+  list-style: none;
+  /* cursor: pointer; */
+}
+.cate{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px
+}
+.delbutton{
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+.mostpopular{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+
+}
+.mostpopularitem{
+  margin:10px;
+  background: #333;
+  padding:10px;
+  border-radius: 10px;
+  max-width:200px
+}
+.mostpopularcontent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image{
+  border-radius: 20px;
+  margin: 10px 10px;
+}
+
+/* categoriesPage.module.css */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 500px;
+}
+
+.closeButton {
+  background: red;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+}
+
+.modalInput {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+}
+
+.modalButton {
+  background: blue;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 768px) {
+  .input{
+    width: 60vw;
+    }
+    
+}
