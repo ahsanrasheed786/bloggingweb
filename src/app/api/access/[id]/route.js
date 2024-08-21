@@ -1,9 +1,56 @@
+// import prisma from "@/utils/connect";
+
+// // Handle PATCH request to update the isAdmin status
+// export async function PATCH(req) {
+//   const url = new URL(req.url);
+//   const id = url.pathname.split('/').pop(); 
+
+//   try {
+//     const { isAdmin } = await req.json();
+
+//     // Validate input
+//     if (typeof isAdmin !== 'boolean') {
+//       return new Response(JSON.stringify({ error: 'Invalid input' }), { status: 400 });
+//     }
+
+//     // Update the user in the database
+//     const updatedAccess = await prisma.access.update({
+//       where: { id },
+//       data: { isAdmin },
+//     });
+
+//     return new Response(JSON.stringify(updatedAccess), { status: 200 });
+//   } catch (error) {
+//     console.error('Error updating access:', error);
+//     return new Response(JSON.stringify({ error: 'Failed to update data' }), { status: 500 });
+//   }
+// }
+
+// // Handle DELETE request to delete a user
+// export async function DELETE(req) {
+//   const url = new URL(req.url);
+//   const id = url.pathname.split('/').pop();
+
+//   try {
+//     // Delete the user from the database
+//     const deletedAccess = await prisma.access.delete({
+//       where: { id },
+//     });
+
+//     return new Response(JSON.stringify(deletedAccess), { status: 200 });
+//   } catch (error) {
+//     console.error('Error deleting access:', error); 
+//     return new Response(JSON.stringify({ error: 'Failed to delete data' }), { status: 500 });
+//   }
+// }
+
+
+
 import prisma from "@/utils/connect";
 
 // Handle PATCH request to update the isAdmin status
-export async function PATCH(req) {
-  const url = new URL(req.url);
-  const id = url.pathname.split('/').pop(); // Extract ID from the URL path
+export async function PATCH(req, { params }) {
+  const { id } = params; // Access the dynamic id from the URL
 
   try {
     const { isAdmin } = await req.json();
@@ -21,15 +68,14 @@ export async function PATCH(req) {
 
     return new Response(JSON.stringify(updatedAccess), { status: 200 });
   } catch (error) {
-    console.error('Error updating access:', error); // Log the error for debugging
+    console.error('Error updating access:', error);
     return new Response(JSON.stringify({ error: 'Failed to update data' }), { status: 500 });
   }
 }
 
 // Handle DELETE request to delete a user
-export async function DELETE(req) {
-  const url = new URL(req.url);
-  const id = url.pathname.split('/').pop(); // Extract ID from the URL path
+export async function DELETE(req, { params }) {
+  const { id } = params; // Access the dynamic id from the URL
 
   try {
     // Delete the user from the database
@@ -39,7 +85,7 @@ export async function DELETE(req) {
 
     return new Response(JSON.stringify(deletedAccess), { status: 200 });
   } catch (error) {
-    console.error('Error deleting access:', error); // Log the error for debugging
+    console.error('Error deleting access:', error);
     return new Response(JSON.stringify({ error: 'Failed to delete data' }), { status: 500 });
   }
 }
