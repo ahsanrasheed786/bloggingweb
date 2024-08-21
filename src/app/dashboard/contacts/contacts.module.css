@@ -1,0 +1,101 @@
+.container {
+  padding: 20px;
+  background: url('/path-to-your-background.svg') no-repeat center center;
+  background-size: cover;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.heading {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.subheading {
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+.messageList {
+  list-style: none;
+  padding: 0;
+}
+
+.unread {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-left: 5px solid #ff0000;
+}
+
+.read {
+  background-color: #e0ffe0;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-left: 5px solid #00ff00;
+}
+
+.readButton, .readButtonDisabled {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.readButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.readButton:hover {
+  background-color: #0056b3;
+}
+
+.readButtonDisabled {
+  background-color: #6c757d;
+  color: white;
+  cursor: not-allowed;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.contactInfo {
+  margin-top: 30px;
+}
+
+.contactInfo p {
+  font-size: 1.2em;
+}
+
+.contactInfo a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contactInfo a:hover {
+  text-decoration: underline;
+}
+
+.statsBox {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

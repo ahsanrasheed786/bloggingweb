@@ -22,9 +22,9 @@ export async function generateMetadata({ params }) {
   const data = await getData(slug);
   return {
     title: data?.metaTitle,
-    description: data?.descs || "this blog backend description is Empty",
+    description: data?.metaDisc || "this blog backend description is Empty",
     keywords: data?.metaKeywords,
-    author: data?.metaAuthor,
+    author: data?.metaAuthor ||"Ahsan Rasheed",
     robots: data?.metaRobots,
   };
 }
@@ -63,8 +63,7 @@ const SinglePage = async ({ params }) => {
         <div className={styles.post}>
           <div
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: data?.desc }}
-          />
+            dangerouslySetInnerHTML={{ __html: data?.desc }}/>
           <div className={styles.comment}>
             <Comments postSlug={slug}/>
           </div>

@@ -79,10 +79,12 @@ model Post {
   userEmail String
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
-  metaTitle String?   @default("ahsan") 
-  metaKeywords String?  @default("ahsan")
-  metaAuthor String?  @default("ahsan")
-  metaRobots String?  @default("ahsan") 
+  metaTitle String?   @default("") 
+  metaDisc String?  @default("")
+  metaKeywords String?  @default("")
+  metaAuthor String?  @default("")
+  metaRobots String?  @default("") 
+  doctor  String?
   
 }
 
@@ -95,3 +97,30 @@ model Comment {
   postSlug  String
   post      Post     @relation(fields: [postSlug], references: [slug])
 }
+
+model Access {
+  id      String  @id @default(cuid()) @map("_id") 
+  name    String
+  email    String 
+  isAdmin Boolean 
+}
+
+model Contact {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}
+
+model  Varifydoctor {
+  id        String   @id @default(cuid()) @map("_id")
+  photo    String?
+  name      String
+  degree     String
+  experience String?
+  message   String
+  createdAt DateTime @default(now())
+  specialist  String?
+ }

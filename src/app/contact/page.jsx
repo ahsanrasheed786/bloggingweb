@@ -1,30 +1,95 @@
-import styles from "./contact.module.css";
+'use client';
 
-const ContactUs = () => {
+import { useState } from 'react';
+import styles from './contact.module.css';
+
+const ContactPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = { name, email, message };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        console.error('Error submitting form');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
   return (
-    <section className={styles.contactUs}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Contact Us</h1>
-        <p className={styles.description}>
-          We're here to help and answer any questions you might have. We look forward to hearing from you!
-        </p>
-        <div className={styles.contactDetails}>
-          <div className={styles.detailItem}>
-            <h3>Email</h3>
-            <p>rasheedahsan786@gmail.com</p>
-          </div>
-          <div className={styles.detailItem}>
-            <h3>Phone</h3>
-            <p>+92340-4099242</p>
-          </div>
-          <div className={styles.detailItem}>
-            <h3>Address</h3>
-            <p>Main Bazar Street, Depalpur, Punjab, Pakistan</p>
-          </div>
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <h1 className={styles.heading}>Contact Us</h1>
+        {submitted ? (
+          <p className={styles.thankYouMessage}>Thank you for reaching out to us. We will get back to you soon!</p>
+        ) : (
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="message">Message:</label>
+              <textarea
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+                className={styles.textarea}
+              />
+            </div>
+            <button type="submit" className={styles.submitButton}>Submit</button>
+          </form>
+        )}
+        <div className={styles.contactInfo}>
+          <p><strong>Email:</strong> your-email@example.com</p>
+          <p><strong>Phone:</strong> +1234567890</p>
+          <p><strong>Socials:</strong> 
+            <a href="https://twitter.com/yourprofile">Twitter</a>, 
+            <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
+          </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default ContactUs;
+export default ContactPage;

@@ -1,48 +1,152 @@
 .section {
+    padding: 20px;
     font-size: 14px;
     font-weight: 600;
     text-align: center;
 }
 
-.th {
-    border: 1px solid white;
-    padding: 3px;
-}
-.willhide {
-    border: 1px solid white;
-    padding: 3px;
-}
-.editinputs {
-    display: block;
-    width: 100%;
-    padding: 3px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin: 10px 0;
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
-.editDataImage {
-    max-width: 80px;
-    max-height: 80px;
-    object-fit: cover;
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 300px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.cardTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color:black;
+}
+
+.cardImage {
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.cardDate, .cardAuthor {
+    font-size: 12px;
+    color: #555;
+}
+
+.cardActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.editButton, .deleteButton {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.editButton {
+    background-color: #007bff;
+}
+
+.deleteButton {
+    background-color: #dc3545;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 90%;
+    /* max-width: 600px; */
+}
+
+.editinputs {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.editorContainer {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.reactQuill {
+    width: 100%;
+    height: 300px; 
+    color: #555;
+    overflow: auto;
+}
+
+.previewContainer {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.previewTextarea {
+    width: 100%;
+    height: 200px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    color: black;
+    background: #f5f5f5;
+    overflow: auto;
+}
+
+.inputFile {
+    margin-bottom: 10px;
 }
 
 .greenbtn {
-    background: green;
-    padding: 10px 20px;
+    background-color: #4CAF50; /* Example green color */
+    border: none;
     color: white;
-    border-radius: 4px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    margin-right: 10px;
+    border-radius: 4px;
 }
 
-.garybtn {
-    background: gray;
-    padding: 10px 20px;
+.closebtn {
+    background-color: #f44336; /* Example red color */
+    border: none;
     color: white;
-    border-radius: 4px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    margin-right: 10px;
+    border-radius: 4px;
 }
 
 .popUp {
@@ -52,45 +156,5 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.reactQuill {
-    display: block;
-    color: black;
-    margin: 10px 0;
-    width: 70vw;
-    padding: 3px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-.inputFile {
-    display: block;
-    margin: 10px 0;
-    padding: 3px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-
-@media screen and (max-width: 1024px) {
-    .section {
-        font-size: 12px;
-    }
-    .willhide{
-        display: none;
-    }
+    z-index: 900;
 }

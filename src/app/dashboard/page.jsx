@@ -6,6 +6,8 @@ import Chart from "chart.js/auto";
 import styles from "./dashboard.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import Loader from '@/components/loader/Loader';
 
 // Helper function to format date and time according to user's time zone
 const formatDateTime = (dateTime) => {
@@ -36,7 +38,57 @@ const Dashboard = () => {
   const [weekly, setWeekly] = useState([]);
   const [monthly, setMonthly] = useState([]);
   const [selector, setSelector] = useState('daily');
-const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(false);
+
+  const [unauthorized, setUnauthorized] = useState(false);
+  const [adminArray, setAdminArray] = useState([]);
+  const [fetchingLoader, setFetchingLoader] = useState(true);
+  const [accessData, setAccessData] = useState([]);
+  const [fetching, setFetching] = useState(true);
+
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+
+
+
+  // ================varifying isAdmin==================
+useEffect(() => {
+  async function fetchAccessData() {
+    try {
+      const response = await fetch('/api/access/');
+      if (response.ok) {
+        const data = await response.json();
+        setAccessData(data);
+        setAdminArray(data.filter((item) => item.isAdmin === true));
+      } else {
+        setError('Failed to fetch access data.');
+      }
+    } catch (err) {
+      setError('An error occurred while fetching access data.');
+    } finally {
+      setFetching(false);
+    }
+  }
+
+  fetchAccessData();
+}, []);
+
+useEffect(() => {
+  if (!fetching) {
+    if (!adminArray.some((item) => item.email === userEmail)) {
+      setUnauthorized(true);
+      setFetchingLoader(false);
+    } else {
+      setFetchingLoader(false);
+    }
+  }
+}, [fetching, adminArray, userEmail]);
+
+// ==================varifiying isAdmin ended=============
+
+
+
+
   useEffect(() => {
     const fetchStats = async () => {
       const res = await fetch(
@@ -157,6 +209,25 @@ const [menu, setMenu] = useState(false);
     setFilterType(type);
   };
 
+
+  if (fetchingLoader) {
+    return <Loader />;
+  }
+
+  if (unauthorized) {
+    return (
+      <div className={styles.unauthorizedContainer}>
+        <p className={styles.unauthorizedMessage}>Unauthorized access</p>
+        <button onClick={() => window.history.back()} className={styles.backButton}>
+          Go Back
+        </button>
+      </div>
+    );
+  }
+
+
+
+
   return (
     <div className={styles.container}>
       <div className={styles.filters}>
@@ -175,10 +246,13 @@ const [menu, setMenu] = useState(false);
   <li><Link href={"dashboard/write"}>Add Post</Link></li>
   <li><Link href={"dashboard/posts"}>All Post</Link></li>
   <li><Link href={"dashboard/categories"}>Category</Link></li>
+  <li><Link href={"dashboard/access"}>Access</Link></li>
+  <li><Link href={"dashboard/contacts"}>Contacts</Link></li>
+  <li><Link href={"dashboard/varifydoctor"}>Doctor List</Link></li>
+
 
 </ul>
-  </div>
-}
+  </div>}
           {/* sidebar menue start*/}
 
 
@@ -244,8 +318,7 @@ const [menu, setMenu] = useState(false);
         </select>
         <Line
           data={totalPostsData}
-          options={{ responsive: true, plugins: { legend: { display: false } } }}
-        />
+          options={{ responsive: true, plugins: { legend: { display: false } } }}/>
       </div>
 
       <div className={styles.chart}>
@@ -257,16 +330,14 @@ const [menu, setMenu] = useState(false);
           data={chartData}
           options={{
             onClick: (event, elements) => handlePointClick(elements),
-          }}
-        />
+          }}/>
       </div>
 
       <div className={styles.chart}>
         <h4>Total Views: {stats.totalViews}</h4>
         <Bar
           data={totalViewsData}
-          options={{ responsive: true, plugins: { legend: { display: false } } }}
-        />
+          options={{ responsive: true, plugins: { legend: { display: false } } }}/>
       </div>
 
       <div className={styles.chart}>
@@ -276,8 +347,7 @@ const [menu, setMenu] = useState(false);
         </h4>
         <Bar
           data={popularPostData}
-          options={{ responsive: true, plugins: { legend: { display: false } } }}
-        />
+          options={{ responsive: true, plugins: { legend: { display: false } } }}/>
       </div>
 
       {popularPost && (
@@ -298,8 +368,7 @@ const [menu, setMenu] = useState(false);
               alt={popularPost.title}
               className={styles.postImage}
               width={100}
-              height={100}
-            />
+              height={100}/>
           )}
         </div>
       )}

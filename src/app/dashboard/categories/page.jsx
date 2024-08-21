@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import styles from "./categoriesPage.module.css";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import Loader from '@/components/loader/Loader';
+import { useRouter } from 'next/navigation';
 
 const CategoriesPage = () => {
   const [categories, setCategories] = useState([]);
@@ -11,6 +14,47 @@ const CategoriesPage = () => {
   const [popularPosts, setPopularPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [adminArray, setAdminArray] = useState([]);
+   const [fetching, setFetching] = useState(true);
+  const [unauthorized, setUnauthorized] = useState(false);
+  const [fetchingLoader, setFetchingLoader] = useState(true);
+
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+  const router = useRouter();
+
+  // Fetch access data and verify admin status
+  useEffect(() => {
+    async function fetchAccessData() {
+      try {
+        const response = await fetch('/api/access/');
+        if (response.ok) {
+          const data = await response.json();
+          
+          setAdminArray(data.filter((item) => item.isAdmin === true));
+        } else {
+          console.error('Failed to fetch data');
+        }
+      } catch (err) {
+        console.error('An error occurred while fetching data', err);
+      } finally {
+        setFetching(false);
+      }
+    }
+
+    fetchAccessData();
+  }, []);
+
+  useEffect(() => {
+    if (!fetching) {
+      if (!adminArray.map((item) => item.email).includes(userEmail)) {
+        setUnauthorized(true);
+        setFetchingLoader(false);
+      } else {
+        setFetchingLoader(false);
+      }
+    }
+  }, [fetching, adminArray, userEmail]);
 
   // Fetch all categories from the API
   const fetchCategories = async () => {
@@ -44,9 +88,11 @@ const CategoriesPage = () => {
 
   // Fetch categories and popular posts when the component mounts
   useEffect(() => {
-    fetchCategories();
-    fetchPopularPosts();
-  }, []);
+    if (!fetching && !unauthorized) {
+      fetchCategories();
+      fetchPopularPosts();
+    }
+  }, [fetching, unauthorized]);
 
   // Handle adding a new category
   const handleAddCategory = async (e) => {
@@ -137,6 +183,20 @@ const CategoriesPage = () => {
     setEditCategory(null);
   };
 
+  if (fetchingLoader) {
+    return <Loader />; // Display Loader while data is fetching and verifying
+  }
+
+  if (unauthorized) {
+    return (
+      <div>
+        <h1>Unauthorized Access</h1>
+        <p>You do not have permission to view this page.</p>
+        <button onClick={() => router.back()} className={styles.button}>Go Back</button>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>Categories</h1>
@@ -158,12 +218,9 @@ const CategoriesPage = () => {
           onChange={(e) => setNewCategory({ ...newCategory, slug: e.target.value })}
           required />
         <input
-          // className={styles.input}
           type="color"
-          // placeholder="Image URL"
           value={newCategory.img}
           onChange={(e) => setNewCategory({ ...newCategory, img: e.target.value })} />
-          ....{newCategory.img}
         <input
           className={styles.input}
           type="text"
@@ -215,45 +272,23 @@ const CategoriesPage = () => {
                 onChange={(e) => setEditCategory({ ...editCategory, slug: e.target.value })}
                 required />
               <input
-          type="color"
-          // className={styles.modalInput}
-                placeholder="Image URL"
+                type="color"
                 value={editCategory.img}
                 onChange={(e) => setEditCategory({ ...editCategory, img: e.target.value })} />
-              .....{editCategory.img}
               <input
                 type="text"
                 className={styles.modalInput}
                 placeholder="Category Description"
                 value={editCategory.categoryDesc}
-                onChange={(e) => setEditCategory({ ...editCategory, categoryDesc: e.target.value })} />
-              <button className={styles.modalButton} type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save Category"}
+                onChange={(e) => setEditCategory({ ...editCategory, categoryDesc: e.target.value })}
+                required />
+              <button className={styles.button} type="submit" disabled={loading}>
+                {loading ? "Updating..." : "Update Category"}
               </button>
             </form>
           </div>
         </div>
       )}
-
-      {/* Popular Posts by Category */}
-      {popularPosts.length > 0 && <h2>Most Popular Posts by Category</h2>}
-      <ul className={styles.mostpopular}>
-        {popularPosts.map((category) => (
-          <li className={styles.mostpopularitem} key={category.id}>
-            <h3>{category.title}</h3>
-            {category.post ? (
-              <div className={styles.mostpopularcontent}>
-                <Image className={styles.image} src={category.post.img} alt="" width={100} height={100} />
-                <h4>{category.post.title}</h4>
-                <p dangerouslySetInnerHTML={{ __html: category.post.desc.substring(0, 100) }}></p>
-                <p style={{ fontWeight: 'bold', marginTop: '10px' }}>Views: {category.post.views}</p>
-              </div>
-            ) : (
-              <p>No posts available.</p>
-            )}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

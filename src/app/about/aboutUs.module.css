@@ -1,69 +1,85 @@
-.aboutUs {
-    padding: 50px 20px;
-    /* background-color: #f9f9f9; */
-    text-align: center;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .title {
-    font-size: 36px;
-    /* color: #333; */
-    margin-bottom: 20px;
-  }
-  
-  .description {
-    font-size: 18px;
-    /* color: #666; */
-    line-height: 1.6;
-    margin-bottom: 40px;
-  }
-  
-  .team {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .teamMember {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    text-align: center;
-  }
-  
-  .image {
-    width: 100%;
-    border-radius: 50%;
-    margin-bottom: 15px;
-  }
-  
-  .name {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .role {
-    font-size: 16px;
-    color: #777;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .team {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .teamMember {
-      max-width: 100%;
-    }
-  }
-  
+ 
+
+.aboutSection {
+  /* background-color: #f4f4f4;/ */
+  padding: 40px 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.aboutHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.aboutHeader h1 {
+  font-size: 2.5em;
+ }
+
+.aboutHeader p {
+  font-size: 1.2em;
+ }
+
+.aboutContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.aboutStory, .aboutTeam, .aboutContact {
+  margin-bottom: 40px;
+}
+
+.aboutStory h2, .aboutTeam h2, .aboutContact h2 {
+  font-size: 2em;
+   margin-bottom: 20px;
+}
+
+.aboutStory p, .aboutContact p {
+  font-size: 1.1em;
+   line-height: 1.6;
+}
+
+.teamMembers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.teamMember {
+  flex: 1;
+  min-width: 200px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.teamImage {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.teamMember h3 {
+  font-size: 1.2em;
+ }
+
+.teamMember p {
+  font-size: 1em;
+ }
+
+.aboutContact ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.aboutContact li {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}

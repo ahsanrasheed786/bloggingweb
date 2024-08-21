@@ -2,49 +2,105 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'; // Import ReactQuill's styles
 import style from './editPost.module.css';
+import { useSession } from "next-auth/react";
+import Loader from '@/components/loader/Loader';
+import dynamic from "next/dynamic";
 
 const AdminPosts = () => {
   const [posts, setPosts] = useState([]);
   const [editPost, setEditPost] = useState(null);
   const [editData, setEditData] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
-  const [value, setValue] = useState("");
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [value, setValue] = useState(""); // For ReactQuill editor
+  const [htmlContent, setHtmlContent] = useState(""); // For HTML preview
+  const [loading, setLoading] = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
+  const [adminArray, setAdminArray] = useState([]);
+  const [fetchingLoader, setFetchingLoader] = useState(true);
+  const [fetching, setFetching] = useState(true);
+  const [htmlpreview, setHtmlpreview] = useState(false);
+  const [preview, setPreview] = useState(false);
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  useEffect(() => {
+    async function fetchAccessData() {
+      try {
+        const response = await fetch('/api/access/');
+        if (response.ok) {
+          const data = await response.json();
+          setAdminArray(data.filter((item) => item.isAdmin === true));
+        } else {
+          console.error('Failed to fetch access data.');
+        }
+      } catch (err) {
+        console.error('An error occurred while fetching access data.');
+      } finally {
+        setFetching(false);
+      }
+    }
+    fetchAccessData();
+  }, []);
+
+  useEffect(() => {
+    if (!fetching) {
+      if (!adminArray.some((item) => item.email === userEmail)) {
+        setUnauthorized(true);
+        setFetchingLoader(false);
+      } else {
+        setFetchingLoader(false);
+      }
+    }
+  }, [fetching, adminArray, userEmail]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('http://localhost:3000/api/posts');
+      const res = await fetch('/api/posts');
       const data = await res.json();
       setPosts(data.posts);
     };
-
     fetchPosts();
   }, []);
+
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB', options).replace(',', '');
+  };
 
   const handleEdit = (post) => {
     setEditPost(post);
     setEditData({ ...post });
     setValue(post.desc); // Set the current post description in the editor
+    setHtmlContent(post.desc); // Set HTML content for preview
     setSelectedImage(post.img);
   };
 
   const handleDelete = async (slug) => {
     const confirmed = window.confirm('Are you sure you want to delete this post?');
     if (confirmed) {
-      await fetch(`http://localhost:3000/api/posts/${slug}`, {
+      await fetch(`/api/posts/${slug}`, {
         method: 'DELETE',
       });
       setPosts(posts.filter(post => post.slug !== slug));
     }
   };
 
+  const handelhtmlPreview = () => {
+    setHtmlpreview(!htmlpreview);
+  };
+
+  const handelPreview = () => {
+    setPreview(!preview);
+  };
+
   const handleUpdate = async () => {
-    setLoading(true); // Start loading
+    setLoading(true);
     const { id, createdAt, ...updateData } = editData;
-    updateData.desc = value; // Update the description with the ReactQuill content
+    updateData.desc = value;
 
     try {
       let res;
@@ -54,12 +110,12 @@ const AdminPosts = () => {
         formData.append('image', selectedImage);
         formData.append('data', JSON.stringify(updateData));
 
-        res = await fetch(`http://localhost:3000/api/posts/${editData.slug}`, {
+        res = await fetch(`/api/posts/${editData.slug}`, {
           method: 'PATCH',
           body: formData,
         });
       } else {
-        res = await fetch(`http://localhost:3000/api/posts/${editData.slug}`, {
+        res = await fetch(`/api/posts/${editData.slug}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(updateData),
@@ -69,14 +125,14 @@ const AdminPosts = () => {
       if (res.ok) {
         const updatedPost = await res.json();
         setPosts(posts.map(post => (post.slug === updatedPost.slug ? updatedPost : post)));
-        setEditPost(null); // Close the modal
+        setEditPost(null);
       } else {
         console.error('Failed to update post');
       }
     } catch (error) {
       console.error('Error updating post:', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -86,57 +142,75 @@ const AdminPosts = () => {
     setEditData({ ...editData, img: URL.createObjectURL(file) });
   };
 
+  const handleHtmlContentChange = (e) => {
+    setHtmlContent(e.target.value);
+    setValue(e.target.value);
+  };
+
+  if (fetchingLoader) {
+    return <Loader />;
+  }
+
+  if (unauthorized) {
+    return (
+      <div className={style.unauthorizedContainer}>
+        <p className={style.unauthorizedMessage}>Unauthorized access</p>
+        <button onClick={() => window.history.back()} className={style.backButton}>
+          Go Back
+        </button>
+      </div>
+    );
+  }
+
+  const modules = {
+    toolbar: {
+      container: [
+        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['bold', 'italic', 'underline', 'strike'], // Added 'strike' for strikethrough text
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'align': [] }],
+        ['link', 'image', 'video'], // Added 'video' for embedding videos
+        [{ 'script': 'sub' }, { 'script': 'super' }],
+        ['blockquote', 'code-block'], // Added 'blockquote' and 'code-block' for blockquote and code block formatting
+        [{ 'indent': '-1' }, { 'indent': '+1' }], // Added indent and outdent options
+        ['clean'], 
+      ],
+    }
+  };
+
   return (
     <section className={style.section}>
-      <table style={{ borderCollapse: 'collapse', width: '100%' }}>
-        <thead>
-          <tr>
-            <th className={style.th}>Serial No</th>
-            <th className={style.th}>Title</th>
-            <th className={style.th}>Description</th>
-            <th className={style.willhide}>Meta Title</th>
-            <th className={style.willhide}>Meta Keywords</th>
-            <th className={style.willhide}>Meta Author</th>
-            <th className={style.willhide}>Meta Robots</th>
-            <th className={style.th}>Image</th>
-            <th className={style.willhide}>Views</th>
-            <th className={style.willhide}>CreatedAt</th>
-            <th className={style.th}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts.map((post, index) => (
-            <tr key={post.slug}>
-              <td className={style.th}>{index + 1}</td>
-              <td className={style.th}>{post.title}</td>
-              <td className={style.th} dangerouslySetInnerHTML={{ __html: post.desc.substring(0, 22) }}></td>
-              <td className={style.willhide}>{post.metaTitle}</td>
-              <td className={style.willhide}>{post.metaKeywords}</td>
-              <td className={style.willhide}>{post.metaAuthor}</td>
-              <td className={style.willhide}>{post.metaRobots}</td>
-              <td className={style.th}>
-                {post.img ? (
-                  <Image src={post.img} alt="Post Image" width={70} height={70} 
-                    style={{ maxWidth: '100px', maxHeight: '100px', objectFit: 'cover' }}
-                  />
-                ) : (
-                  'No image'
-                )}
-              </td>
-              <td className={style.willhide}>{post.views || 0}</td>
-              <td className={style.willhide}>{post.createdAt || 0}</td>
-              <td className={style.th}>
-                <button
-                  style={{ background: 'blue', color: 'white', borderRadius: '10px', margin: '5px', padding: '3px', cursor: 'pointer' }}
-                  onClick={() => handleEdit(post)}> Edit</button>
-                <button
-                  style={{ background: 'red', color: 'white', padding: '3px', borderRadius: '10px', cursor: 'pointer', margin: '5px' }}
-                  onClick={() => handleDelete(post.slug)}>  Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className={style.cardsContainer}>
+        {posts.map((post) => (
+          <div key={post.slug} className={style.card}>
+            <h3 className={style.cardTitle}>{post.title}</h3>
+            {post.img && (
+              <Image
+                src={post.img}
+                alt="Post Image"
+                width={100}
+                height={60}
+                className={style.cardImage}
+              />
+            )}
+            <p className={style.cardDate}>Created At: {formatDate(post.createdAt)}</p>
+            <p className={style.cardAuthor}>Author: {post.metaAuthor}</p>
+            <div className={style.cardActions}>
+              <button onClick={() => handleEdit(post)} className={style.editButton}>
+                Edit
+              </button>
+              <button onClick={() => handleDelete(post.slug)} className={style.deleteButton}>
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {editPost && (
+        <div className={style.popUp} onClick={() => setEditPost(null)} />
+      )}
 
       {editPost && (
         <div className={style.modal}>
@@ -147,12 +221,18 @@ const AdminPosts = () => {
             className={style.editinputs}
             onChange={(e) => setEditData({ ...editData, title: e.target.value })}
             placeholder="Title"/>
-          <ReactQuill
-            className={style.reactQuill}
-            theme="snow"
-            value={value}
-            onChange={setValue}
-            placeholder="Description"/>
+          <div className={style.editorContainer}>
+            <ReactQuill
+              className={style.reactQuill}
+              theme="snow"
+              value={value}
+              modules={modules}
+              onChange={(content) => {
+                setValue(content);
+                setHtmlContent(content);  
+              }}
+              placeholder="Description"/>
+          </div>
           <input
             type="text"
             value={editData.metaTitle}
@@ -167,44 +247,47 @@ const AdminPosts = () => {
             className={style.editinputs}/>
           <input
             type="text"
-            value={editData.metaAuthor}
-            onChange={(e) => setEditData({ ...editData, metaAuthor: e.target.value })}
-            placeholder="Meta Author"
+            value={editData.metaDisc}
+            onChange={(e) => setEditData({ ...editData, metaDisc: e.target.value })}
+            placeholder="Meta Description"
             className={style.editinputs}/>
-          <select
-            value={editData.metaRobots}
-            onChange={(e) => setEditData({ ...editData, metaRobots: e.target.value })}
-            className={style.editinputs}>
-            <option value="index, follow">Index, Follow</option>
-            <option value="noindex, nofollow">NoIndex, NoFollow</option>
-            <option value="index, nofollow">Index, NoFollow</option>
-            <option value="noindex, follow">NoIndex, Follow</option>
-
-          </select>
           <input
             type="file"
-            className={style.inputFile}
-            onChange={handleImageChange}/>
-          {selectedImage && (
-            <Image 
-              className={style.editDataImage}
-              src={selectedImage}
-              alt="Selected Image"
-              width={100}
-              height={60}/>
-          )}
-          <button
-            className={style.greenbtn}
-            onClick={handleUpdate}
-            disabled={loading} // Disable button while loading
-          >
-            {loading ? 'Updating...' : 'Update'} {/* Show loading text */}
-          </button>
-          <button className={style.garybtn} onClick={() => setEditPost(null)}>Cancel</button>
+            onChange={handleImageChange}
+            className={style.fileInput}/>
+        
+          <div className={style.modalActions}>
+            <button onClick={handelhtmlPreview} style={{backgroundColor: 'blue'}} className={style.greenbtn}>
+              Html Preview
+            </button>
+            <button onClick={handelPreview} style={{backgroundColor: 'blue'}} className={style.greenbtn}>
+              Preview
+            </button>
+            <button onClick={handleUpdate} className={style.greenbtn}>
+              Save
+            </button>
+            <button onClick={() => setEditPost(null)} className={style.closebtn}>
+              Close
+            </button>
+            {htmlpreview &&
+            <div className={style.previewContainer}>
+              <h3>HTML Preview</h3>
+              <textarea
+                className={style.previewTextarea}
+                value={htmlContent}
+                onChange={handleHtmlContentChange}
+              />
+            </div>}
+            {preview && <div className={style.previewContainer}>
+              <h3>Preview</h3>
+              <div
+                className={style.previewTextarea}
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
+              />
+            </div>}
+          </div>
         </div>
       )}
-
-      {editPost && <div className={style.popUp} onClick={() => setEditPost(null)} />}
     </section>
   );
 };
