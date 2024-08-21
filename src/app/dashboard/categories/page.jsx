@@ -59,7 +59,7 @@ const CategoriesPage = () => {
   // Fetch all categories from the API
   const fetchCategories = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/categories");
+      const res = await fetch("/api/categories");
       const data = await res.json();
       if (Array.isArray(data)) {
         setCategories(data);
@@ -74,7 +74,7 @@ const CategoriesPage = () => {
   // Fetch the most popular posts by category
   const fetchPopularPosts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/categories");
+      const res = await fetch("/api/categories");
       const data = await res.json();
       if (Array.isArray(data)) {
         setPopularPosts(data);
@@ -99,7 +99,7 @@ const CategoriesPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/categories", {
+      const res = await fetch("/api/categories", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const CategoriesPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/api/categories`, {
+      const res = await fetch(`/api/categories`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -151,7 +151,7 @@ const CategoriesPage = () => {
   const handleDeleteCategory = async (id) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/api/categories`, {
+      const res = await fetch(`/api/categories`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

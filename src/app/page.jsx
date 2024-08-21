@@ -10,7 +10,7 @@ export default function Home({ searchParams }) {
   
   let data = null;
 
-  fetch("http://localhost:3000/api/categories")
+  fetch("api/categories")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");

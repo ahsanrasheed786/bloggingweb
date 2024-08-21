@@ -92,7 +92,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchStats = async () => {
       const res = await fetch(
-        `http://localhost:3000/api/stats?month=${month}&day=${day}&from=${fromDate}&to=${toDate}`
+        `/api/stats?month=${month}&day=${day}&from=${fromDate}&to=${toDate}`
       );
       const data = await res.json();
       setStats(data);
