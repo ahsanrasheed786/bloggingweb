@@ -1,6 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+ 
 generator client {
   provider = "prisma-client-js"
 }
@@ -79,13 +79,12 @@ model Post {
   userEmail String
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
-  metaTitle String?   @default("") 
-  metaDisc String?  @default("")
-  metaKeywords String?  @default("")
-  metaAuthor String?  @default("")
-  metaRobots String?  @default("") 
-  doctor  String?
-  
+  metaTitle String?   @default("ah") 
+  metaDisc String?  @default("as")
+  metaKeywords String?  @default("as")
+  metaAuthor String?  @default("ahs")
+  metaRobots String?  @default("asj") 
+  doctor String?  @default("doctor")
 }
 
 model Comment {
@@ -102,7 +101,7 @@ model Access {
   id      String  @id @default(cuid()) @map("_id") 
   name    String
   email    String 
-  isAdmin Boolean 
+  isAdmin Boolean  @default(false)
 }
 
 model Contact {

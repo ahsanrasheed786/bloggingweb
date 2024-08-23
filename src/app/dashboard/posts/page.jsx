@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-// import ReactQuill from "react-quill";
+import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'; // Import ReactQuill's styles
 import style from './editPost.module.css';
 import { useSession } from "next-auth/react";
@@ -25,7 +25,28 @@ const AdminPosts = () => {
   const [preview, setPreview] = useState(false);
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const [varifyDoctor, setVarifyDoctor] = useState([]);
+  const [doctorVal, setDoctorVal] = useState([]);
+ 
+  useEffect(() => {
+    fetchVarifyDoctor();
+  }, []);
+
+  const fetchVarifyDoctor = async () => {
+    try {
+      const res = await fetch( `/api/varifydoctor `);
+      if (!res.ok) throw new Error('Failed to fetch data');
+      const data = await res.json();
+      setVarifyDoctor(data);
+    } catch (error) {
+      console.error('Error fetching varify authors:', error);
+    }
+  };
+
+ 
+ console.log(varifyDoctor)
+ 
   useEffect(() => {
     async function fetchAccessData() {
       try {
@@ -114,6 +135,8 @@ const AdminPosts = () => {
           method: 'PATCH',
           body: formData,
         });
+ 
+
       } else {
         res = await fetch(`/api/posts/${editData.slug}`, {
           method: 'PATCH',
@@ -251,6 +274,19 @@ const AdminPosts = () => {
             onChange={(e) => setEditData({ ...editData, metaDisc: e.target.value })}
             placeholder="Meta Description"
             className={style.editinputs}/>
+ 
+          <select
+           className={style.select}
+           value={editData.doctor}  
+           onChange={(e) => setEditData({ ...editData, doctor: e.target.value })}
+           >
+           {varifyDoctor.map((item, index) => (
+           <option key={index} value={item.id}    >
+          {`${item.name} ${item.specialist} (${item.experience})`}
+            </option>
+           ))}
+          </select>
+ 
           <input
             type="file"
             onChange={handleImageChange}

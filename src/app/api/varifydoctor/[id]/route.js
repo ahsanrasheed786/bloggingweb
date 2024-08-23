@@ -1,6 +1,6 @@
 import prisma from "@/utils/connect";
 
-export async function GET({ params }) {
+export async function GET(request,{ params }) {
   try {
     const entry = await prisma.varifydoctor.findUnique({
       where: { id: params.id },

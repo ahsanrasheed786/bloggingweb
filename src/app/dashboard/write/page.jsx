@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
-// import ReactQuill from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -35,8 +35,8 @@ const WritePage = () => {
   const [fullscreen, setFullscreen] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [varifyDoctor, setVarifyDoctor] = useState([]);
-  const [doctorVal, setDoctorVal] = useState([]);
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const [doctorVal, setDoctorVal] = useState('');
+  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
@@ -163,7 +163,8 @@ const WritePage = () => {
           metaAuthor,
           metaRobots,
           metaDisc,
-          // doctor :doctorVal,
+          doctor :doctorVal || "ahsan",
+
         }),
       });
       // console.log(doctorVal)
@@ -264,7 +265,6 @@ const WritePage = () => {
       </select>
 
       <select className={styles.select} onChange={(e) => setCatSlug (e.target.value)}>
-
         {categories.map((item, index) => (
          <option key={index} value={item.slug}>
 
@@ -272,11 +272,10 @@ const WritePage = () => {
           </option>
         ))}
       </select>
-
-      <select className={styles.select} onChange={(e) => setDoctorVal(e.target.value)}>
+      <select   className={styles.select} onChange={(e) => setDoctorVal(e.target.value)}>
         {varifyDoctor.map((item, index) => (
-         <option key={item._id } value={item.name}>
-
+         <option key={index} value={item.id}>
+ 
             {item.name + " " + item.specialist + " "  + " (" +item.experience+")"}
           </option>
         ))}
