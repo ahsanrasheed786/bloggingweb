@@ -5,6 +5,8 @@ import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/components/comments/Comments";
 import QuestionAndAnswer from "@/components/questionAndAnswer/QuestionAndAnswer";
+import LikeButton from "@/components/likeButton/LikeButton";
+import RatingComponent from "@/components/ratingComponent/RatingComponent";
 
 const getData = async (slug) => {
   const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
@@ -83,10 +85,13 @@ const SinglePage = async ({ params }) => {
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{ __html: data?.desc }} />
-           {/* questions and answers component   */}
+        <RatingComponent initialRating={data?.rating || 0} postId={data.id} />
+        <LikeButton postId={data.id}  />
+
           <div className={styles.comment}>
             <Comments postSlug={slug} />
           </div>
+          {/* questions and answers component   */}
           <QuestionAndAnswer postSlug={slug}  />
 
         </div>

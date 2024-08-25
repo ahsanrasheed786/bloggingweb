@@ -47,8 +47,23 @@ model User {
   sessions      Session[]
   Post          Post[]
   Comment       Comment[]
-  Question     Question[]
+  Question      Question[]
+
+  likedPosts    Like[]    // Relation to the Like model
 }
+
+model Like {
+  id        String   @id @default(cuid()) @map("_id")
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  // Unique constraint to prevent the same user from liking the same post multiple times
+  @@unique([postId, userId])
+}
+
+
 
 model VerificationToken {
   identifier String   @id @map("_id")
@@ -68,26 +83,32 @@ model Category {
 }
 
 model Post {
-  id        String    @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
-  slug      String    @unique
-  title     String
-  desc      String
-  img       String?
-  views     Int       @default(0)
-  catSlug   String
-  cat       Category  @relation(fields: [catSlug], references: [slug])
-  userEmail String
-  user      User      @relation(fields: [userEmail], references: [email])
-  comments  Comment[]
-  questions Question[]
-  updatedAt    DateTime  @updatedAt
-  metaTitle String?   @default("ah") 
-  metaDisc String?  @default("as")
-  metaKeywords String?  @default("as")
-  metaAuthor String?  @default("ahs")
-  metaRobots String?  @default("asj") 
-  doctor String?  @default("doctor")
+  id            String    @id @default(cuid()) @map("_id")
+  createdAt     DateTime  @default(now())
+  slug          String    @unique
+  title         String
+  desc          String
+  img           String?
+  views         Int       @default(0)
+  catSlug       String
+  cat           Category  @relation(fields: [catSlug], references: [slug])
+  userEmail     String
+  user          User      @relation(fields: [userEmail], references: [email])
+  comments      Comment[]
+  questions     Question[]
+  updatedAt     DateTime  @updatedAt
+  metaTitle     String?   @default("ah")
+  metaDisc      String?   @default("as")
+  metaKeywords  String?   @default("as")
+  metaAuthor    String?   @default("ahs")
+  metaRobots    String?   @default("asj")
+  doctor        String?   @default("doctor")
+
+  // New fields for reviews and likes
+  totalReviews  Int       @default(0)
+  averageRating Float     @default(0.0)
+  totalLikes    Int       @default(0)
+   likes         Like[]    // Relation to the Like model
 }
 
 
