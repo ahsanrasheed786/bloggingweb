@@ -47,6 +47,7 @@ model User {
   sessions      Session[]
   Post          Post[]
   Comment       Comment[]
+  Question     Question[]
 }
 
 model VerificationToken {
@@ -79,6 +80,8 @@ model Post {
   userEmail String
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
+  questions Question[]
+  updatedAt    DateTime  @updatedAt
   metaTitle String?   @default("ah") 
   metaDisc String?  @default("as")
   metaKeywords String?  @default("as")
@@ -86,6 +89,23 @@ model Post {
   metaRobots String?  @default("asj") 
   doctor String?  @default("doctor")
 }
+
+
+
+model Question {
+  id        String    @id @default(cuid()) @map("_id")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  desc      String
+  userEmail String
+  user      User      @relation(fields: [userEmail], references: [email])
+  postSlug  String
+  post      Post      @relation(fields: [postSlug], references: [slug])
+  isRead    Boolean   @default(false)
+  answer    String?
+}
+
+
 
 model Comment {
   id        String   @id @default(cuid()) @map("_id")
@@ -96,6 +116,7 @@ model Comment {
   postSlug  String
   post      Post     @relation(fields: [postSlug], references: [slug])
 }
+ 
 
 model Access {
   id      String  @id @default(cuid()) @map("_id") 

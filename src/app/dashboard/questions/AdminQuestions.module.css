@@ -1,0 +1,142 @@
+.container {
+  padding: 20px;
+  /* color: #ddd; */
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: rgb(64, 59, 59);
+  text-align: center;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  background-color: #e3f2fd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.summary p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.questiondiv{
+  color:black;
+}
+.questionItem {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.unread {
+  background-color: #fadddd;
+}
+
+.read {
+  background-color: #dcfcdc;
+}
+
+.questionItem button {
+  background-color: #007bff;
+   border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.questionItem button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.saveButton,
+.closeButton {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.closeButton {
+  background-color: #dc3545;
+  color: white;
+}
+.deletebtn{
+  background-color: #dc3545;
+  color: #ddd;
+}
+
+.saveButton:hover {
+  background-color: #218838;
+}
+
+.closeButton:hover {
+  background-color: #c82333;
+}
+
+
