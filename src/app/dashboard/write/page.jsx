@@ -167,7 +167,19 @@ const [ articalBody, setArticalBody] = useState("");
           metaRobots,
           metaDisc,
           doctor :doctorVal || "ahsan",
-
+          // fqa:{
+          //   question ,
+          //   question2,
+          //   answer ,
+          //   answer2, 
+          // },
+          //  artical:{
+          //  heading ,
+          //  featureImage, 
+          //  discription ,
+          //  articalBody, 
+          // }
+        
         }),
       });
       // console.log(doctorVal)

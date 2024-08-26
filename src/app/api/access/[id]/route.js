@@ -46,7 +46,7 @@
 
 
 
-import prisma from "@/utils/connect";
+import prisma from "@/utils/connect.js";
 
 // Handle PATCH request to update the isAdmin status
 export async function PATCH(req, { params }) {
