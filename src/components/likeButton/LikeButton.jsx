@@ -1,47 +1,3 @@
-// "use client";
-
-// import { useState, useEffect } from 'react';
-// import styles from './LikeButton.module.css';
-
-// const LikeButton = ({ postId, initialLikes, hasLiked }) => {
-//   const [likes, setLikes] = useState(initialLikes);
-//   const [liked, setLiked] = useState(hasLiked);
-
-//   const handleLike = async () => {
-//     try {
-//       const response = await fetch('/api/likes', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ postId }),
-//       });
-
-//       if (response.ok) {
-//         const { message } = await response.json();
-//         setLikes(likes + (liked ? -1 : 1));
-//         setLiked(!liked);
-//         console.log(message);
-//       } else {
-//         console.error('Failed to process like');
-//       }
-//     } catch (error) {
-//       console.error('Error processing the like:', error);
-//     }
-//   };
-
-//   return (
-//     <div className={styles.container}>
-//       <button onClick={handleLike} className={liked ? styles.liked : styles.likeButton}>
-//         {liked ? 'Unlike' : 'Like'}
-//       </button>
-//       <span className={styles.likeCount}>{likes} Likes</span>
-//     </div>
-//   );
-// };
-
-// export default LikeButton;
-
-
-
 
 
 
@@ -52,15 +8,15 @@ import { useEffect, useState } from 'react';
 import styles from './LikeButton.module.css';
 
 const LikeButton = ({ postId, initialLikes }) => {
-  const [likes, setLikes] = useState(initialLikes);
+  // const [likes, setLikes] = useState(initialLikes || 0);
   const [liked, setLiked] = useState(false);
    useEffect(() => {
     const fetchLikeStatus = async () => {
+      const x = await initialLikes
       try {
         const response = await fetch(`/api/likes/status?postId=${postId}`);
         if (response.ok) {
-          const { hasLiked, likes} = await response.json();
-          setLikes(likes);
+          const { hasLiked} = await response.json();
           setLiked(hasLiked);
          } else {
           console.error('Failed to fetch like status');
@@ -71,7 +27,7 @@ const LikeButton = ({ postId, initialLikes }) => {
     };
 
     fetchLikeStatus();
-  }, [postId]);
+  }, [postId] );
 
   const handleLike = async () => {
     try {
@@ -82,7 +38,7 @@ const LikeButton = ({ postId, initialLikes }) => {
       });
 
       if (response.ok) {
-        setLikes(likes + (liked ? -1 : 1));
+        // setLikes(likes + (liked ? -1 : 1));
         setLiked(!liked);
       } else {
         console.error('Failed to like/unlike the post');
@@ -97,7 +53,7 @@ const LikeButton = ({ postId, initialLikes }) => {
       <button onClick={handleLike} className={liked ? styles.liked : styles.likeButton}>
         {liked ? 'Unlike' : 'Like'}
       </button>
-      <span className={styles.likeCount}>Likes:{likes}</span>
+      {/* <span className={styles.likeCount}>Likes:{likes}</span> */}
     </div>
   );
 };

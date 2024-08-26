@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -27,6 +27,18 @@ const WritePage = () => {
   const [metaAuthor, setMetaAuthor] = useState("");
   const [metaRobots, setMetaRobots] = useState("index, follow");
   const [metaDisc, setMetaDisc] = useState("");
+  // =======FQA ======
+  const [question, setQuestion] = useState("");
+  const [question2, setQuestion2] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [answer2, setAnswer2] = useState("");
+// ==========artical=========
+const [heading, setHeading] = useState("");
+const [featureImage, setFeatureImage] = useState("");
+const [discription, setDiscription] = useState("");
+const [ articalBody, setArticalBody] = useState("");
+// ==========artical=========
+
   const [author, setAuthor] = useState([]);
   const [unauthorized, setUnauthorized] = useState(false);
   const [adminArray, setAdminArray] = useState([]);
@@ -36,7 +48,7 @@ const WritePage = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   const [doctorVal, setDoctorVal] = useState('');
-  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
@@ -61,8 +73,6 @@ const WritePage = () => {
   }, []);
 
 
-
-
   useEffect(() => {
     fetchVarifyDoctor();
   }, []);
@@ -77,13 +87,6 @@ const WritePage = () => {
       console.error('Error fetching varify authors:', error);
     }
   };
-
-
-
-
-
-
-
 
   
   useEffect(() => {
@@ -227,30 +230,30 @@ const WritePage = () => {
 
   return (
     <div className={styles.container}>
+           <input
+        type="file"
+        onChange={(e) => setFile(e.target.files[0])}
+        className={styles.fileInput}/>
       <input
         type="text"
         placeholder="Title"
         className={styles.input}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+        onChange={(e) => setTitle(e.target.value)}/>
       <input
         type="text"
         placeholder="Meta Title"
         className={styles.input}
-        onChange={(e) => setMetaTitle(e.target.value)}
-      />
+        onChange={(e) => setMetaTitle(e.target.value)}/>
       <input
         type="text"
         placeholder="Meta Disc"
         className={styles.input}
-        onChange={(e) => setMetaDisc(e.target.value)}
-      />
+        onChange={(e) => setMetaDisc(e.target.value)}/>
       <input
         type="text"
         placeholder="Meta Keywords (comma separated)"
         className={styles.input}
-        onChange={(e) => setMetaKeywords(e.target.value)}
-      />
+        onChange={(e) => setMetaKeywords(e.target.value)} />
       <select className={styles.select} onChange={(e) => setMetaAuthor(e.target.value)}>
         {author.map((item, index) => (
           <option key={index} value={item}>
@@ -280,11 +283,87 @@ const WritePage = () => {
           </option>
         ))}
       </select>
+{/* ===========metadata starts=============== */}
+<hr/>
+         <h3>MetaData Markup</h3>    
+     <input
+        type="text"
+        placeholder="Meta Title"
+        className={styles.input}
+        onChange={(e) => setMetaTitle(e.target.value)}/>
       <input
-        type="file"
-        onChange={(e) => setFile(e.target.files[0])}
-        className={styles.fileInput}
-      />
+        type="text"
+        placeholder="Meta Disc"
+        className={styles.input}
+        onChange={(e) => setMetaDisc(e.target.value)}/>
+      <input
+        type="text"
+        placeholder="Meta Keywords (comma separated)"
+        className={styles.input}
+        onChange={(e) => setMetaKeywords(e.target.value)}/>
+      <select className={styles.select} onChange={(e) => setMetaAuthor(e.target.value)}>
+        {author.map((item, index) => (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+
+      <select className={styles.select} onChange={(e) => setMetaRobots(e.target.value)}>
+        <option value="index, follow">index, follow</option>
+        <option value="noindex, nofollow">noindex, nofollow</option>
+      </select>
+
+ 
+{/* ===========blog schema =============== */}
+     <hr/>
+     <h3>Blog schema Markup</h3>
+      <input
+        type="text"
+        placeholder="headline"
+        className={styles.input}
+        onChange={(e) => setHeading(e.target.value)}/>
+      <input
+        type="text"
+        placeholder="Discription"
+        className={styles.input}
+        onChange={(e) => setDiscription(e.target.value)}/>
+      <input
+        type="text"
+        placeholder="Article Body"
+        className={styles.input}
+        onChange={(e) => setArticalBody(e.target.value)}/>
+        <input
+        type="text"
+        placeholder="Feature Image Url"
+        className={styles.input}
+        onChange={(e) => setFeatureImage(e.target.value)}/>
+
+{/* ===========FQA schema=============== */}
+<hr/>
+<h3>FQA schema Markup</h3>
+     <input
+        type="text"
+        placeholder="Question 1"
+        className={styles.input}
+        onChange={(e) => setQuestion(e.target.value)}/>
+      <input
+        type="text"
+        placeholder="Answer 1"
+        className={styles.input}
+        onChange={(e) => setAnswer(e.target.value)}/>
+      <input
+        type="text"
+        placeholder="Question 2"
+        className={styles.input}
+        onChange={(e) => setQuestion2(e.target.value)}/>
+        <input
+        type="text"
+        placeholder="Answer 2"
+        className={styles.input}
+        onChange={(e) => setAnswer2(e.target.value)}/>
+{/* ===========FQA schema ends=============== */}
+ 
       
  {media && (
         <div className={styles.previewContainer}>
@@ -292,9 +371,8 @@ const WritePage = () => {
             src={media} 
             alt="Preview" 
             className={styles.previewImage} 
-            width={50} // Example width
-            height={50} // Example height
-          />
+            width={50}  
+            height={50} />
         </div>
       )}
 
@@ -314,9 +392,11 @@ const WritePage = () => {
             value={value}
             onChange={setValue}
             modules={modules}
-            placeholder="Tell your story..."
-          />
+            placeholder="Tell your story..."/>
         </ReactScroller>
+
+
+
       </div>
  
       <div className={styles.buttonContainer}>
