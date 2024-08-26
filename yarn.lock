@@ -562,12 +562,10 @@
   resolved "https://registry.npmjs.org/@panva/hkdf/-/hkdf-1.1.1.tgz"
   integrity sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==
 
-"@prisma/client@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-5.2.0.tgz"
-  integrity sha512-AiTjJwR4J5Rh6Z/9ZKrBBLel3/5DzUNntMohOy7yObVnVoTNVFi2kvpLZlFuKO50d7yDspOtW6XBpiAd0BVXbQ==
-  dependencies:
-    "@prisma/engines-version" "5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f"
+"@prisma/client@^5.18.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-5.18.0.tgz#526e4281a448f214c0ff81d65c39243608c98294"
+  integrity sha512-BWivkLh+af1kqC89zCJYkHsRcyWsM8/JHpsDMM76DjP3ZdEquJhXa4IeX+HkWPnwJ5FanxEJFZZDTWiDs/Kvyw==
 
 "@prisma/debug@5.18.0":
   version "5.18.0"
@@ -578,11 +576,6 @@
   version "5.18.0-25.4c784e32044a8a016d99474bd02a3b6123742169"
   resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-5.18.0-25.4c784e32044a8a016d99474bd02a3b6123742169.tgz#203426ebf4ec4e1acce7da4a59ec8f0df92b29e7"
   integrity sha512-a/+LpJj8vYU3nmtkg+N3X51ddbt35yYrRe8wqHTJtYQt7l1f8kjIBcCs6sHJvodW/EK5XGvboOiwm47fmNrbgg==
-
-"@prisma/engines-version@5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f":
-  version "5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f"
-  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-5.2.0-25.2804dc98259d2ea960602aca6b8e7fdc03c1758f.tgz"
-  integrity sha512-jsnKT5JIDIE01lAeCj2ghY9IwxkedhKNvxQeoyLs6dr4ZXynetD0vTy7u6wMJt8vVPv8I5DPy/I4CFaoXAgbtg==
 
 "@prisma/engines@5.18.0":
   version "5.18.0"
