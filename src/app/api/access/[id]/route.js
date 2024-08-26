@@ -66,7 +66,11 @@ export async function PATCH(req, { params }) {
       data: { isAdmin },
     });
 
-    return new Response(JSON.stringify(updatedAccess), { status: 200 });
+    // return new Response(JSON.stringify(updatedAccess), { status: 200 });
+    return new Response(JSON.stringify(updatedAccess), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });    
   } catch (error) {
     console.error('Error updating access:', error);
     return new Response(JSON.stringify({ error: 'Failed to update data' }), { status: 500 });
