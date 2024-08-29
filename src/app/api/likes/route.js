@@ -127,12 +127,11 @@ export async function POST(req) {
   const session = await getAuthSession();
 
   try {
-    const userId = session.user.email; // Retrieve user ID from the session
+    const userId = session.user.email;  
 
-    // Check if the user has already liked the post
-    const existingLike = await prisma.like.findUnique({
+     const existingLike = await prisma.like.findUnique({
       where: { 
-        postId_userId: { postId, userId } // Adjust this to match your schema
+        postId_userId: { postId, userId }  
       }
     });
 
@@ -143,8 +142,7 @@ export async function POST(req) {
           id: existingLike.id 
         },
       });
-      
-      // Decrement the like count in the post
+ 
       await prisma.post.update({
         where: { id: postId },
         data: { totalLikes: { decrement: 1 } },
@@ -152,8 +150,7 @@ export async function POST(req) {
 
       return new Response(JSON.stringify({ message: 'Like removed' }), { status: 200 });
     } else {
-      // Create a like
-      await prisma.like.create({
+       await prisma.like.create({
         data: {
           userId: userId,
           postId: postId,

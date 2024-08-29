@@ -249,7 +249,7 @@ useEffect(() => {
   <li><Link href={"dashboard/access"}>Access</Link></li>
   <li><Link href={"dashboard/contacts"}>Contacts</Link></li>
   <li><Link href={"dashboard/questions"}>Questions</Link></li>
-  <li><Link href={"dashboard/varifydoctor"}>Doctor List</Link></li>
+  <li><Link href={"dashboard/author"}>Doctor List</Link></li>
 
 
 </ul>

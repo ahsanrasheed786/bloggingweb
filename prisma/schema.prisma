@@ -47,22 +47,11 @@ model User {
   Post          Post[]
   Comment       Comment[]
   Question      Question[]
-
-  likedPosts Like[] // Relation to the Like model
+ likedPosts Like[] // Relation to the Like model
   ratings    Rating[] // Relation to the Rating model
 }
 
-model Like {
-  id      String   @id @default(cuid()) @map("_id")
-  postId  String
-  post    Post     @relation(fields: [postId], references: [id])
-  userId  String
-  user    User     @relation(fields: [userId], references: [id])
-  ratings Rating[] // Relation to the Rating model
 
-  // Unique constraint to prevent the same user from liking the same post multiple times
-  @@unique([postId, userId])
-}
 
 model VerificationToken {
   identifier String   @id @map("_id")
@@ -76,11 +65,22 @@ model Category {
   id           String  @id @default(cuid()) @map("_id")
   slug         String  @unique
   title        String
-  img          String?
-  categoryDesc String? @default("this is default desc")
-  Posts        Post[]
+  color          String?
+  categoryDesc String? @default(" ")
+  posts        Post[]
 }
 
+model Like {
+  id      String   @id @default(cuid()) @map("_id")
+  postId  String
+  post    Post     @relation(fields: [postId], references: [id])
+  userId  String
+  user    User     @relation(fields: [userId], references: [id])
+  ratings Rating[] // Relation to the Rating model
+
+  // Unique constraint to prevent the same user from liking the same post multiple times
+  @@unique([postId, userId])
+}
 model Post {
   id            String    @id @default(cuid()) @map("_id")
   createdAt     DateTime  @default(now())
@@ -88,9 +88,10 @@ model Post {
   title         String
   desc          String
   img           String?
+  imgAlt        String?
   views         Int       @default(0)
-  catSlug       String
-  cat           Category  @relation(fields: [catSlug], references: [slug])
+  catSlug       String?
+  cat           Category?  @relation(fields: [catSlug], references: [slug])
   userEmail     String
   user          User      @relation(fields: [userEmail], references: [email])
   comments      Comment[]
@@ -107,9 +108,10 @@ model Post {
   totalLikes    Int       @default(0)    // Total number of likes
   ratings       Rating[]
   likes         Like[]    // Relation to the Like model
+  artical       Json      @default("{}")  
+  fqa           Json      @default("[]")
 }
-
-
+ 
 model Rating {
   id     String  @id @default(cuid()) @map("_id")
   rating Int
@@ -164,6 +166,8 @@ model Contact {
 
 model Varifydoctor {
   id         String   @id @default(cuid()) @map("_id")
+  image      String?
+  coverImage String?
   photo      String?
   name       String
   degree     String

@@ -1,6 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
-
+ 
 // GET SINGLE POST
 export const GET = async (req, { params }) => {
   const { slug } = params;
@@ -8,6 +8,7 @@ export const GET = async (req, { params }) => {
   try {
     const post = await prisma.post.update({
       where: { slug },
+      // select: {  catSlug: false},
       data: { views: { increment: 1 } },
       include: { user: true },
     });
@@ -20,7 +21,6 @@ export const GET = async (req, { params }) => {
     );
   }
 };
-
 // UPDATE A POST
 export const PATCH = async (req, { params }) => {
   const { slug } = params;
@@ -29,6 +29,8 @@ export const PATCH = async (req, { params }) => {
     const body = await req.json();
     const updatedPost = await prisma.post.update({
       where: { slug },
+      // { catSlug: { $exists: false } },  // Check if catSlug doesn't exist
+      // { $set: { catSlug: null } } ,
       data: body,
     });
 
@@ -41,7 +43,7 @@ export const PATCH = async (req, { params }) => {
     );
   }
 };
-
+ 
 
 // DELETE A POST
 export const DELETE = async (req, { params }) => {

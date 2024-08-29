@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
             <ThemeProvider>
               <div className="container">
                 <div className="wrapper">
-                  <Navbar />
+                <Navbar />
                   {children}
                   <Footer />
                 </div>

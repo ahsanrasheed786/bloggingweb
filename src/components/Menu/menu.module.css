@@ -1,18 +1,22 @@
 .container {
-  flex: 2;
-  margin-top: 60px;
+  flex: 2; 
+   margin-top: 60px;
 }
 
-.subtitle {
+.subtitle { 
   color: gray;
-  font-size: 16px;
+  font-size: 16px; 
   font-weight: 400;
 }
 .title {
   font-size: 28px;
 }
 
+.container {
+  /* display: none; */
+  position: sticky;
 
+}
 @media screen and (max-width: 1024px) {
   .container {
     display: none;

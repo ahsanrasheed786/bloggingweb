@@ -109,7 +109,7 @@ const CategoriesPage = () => {
 
       if (res.status === 201) {
         fetchCategories();
-        setNewCategory({ title: "", slug: "", img: "", categoryDesc: "" });
+        setNewCategory({ title: "", slug: "", color: "", categoryDesc: "" });
       } else {
         console.error("Failed to add category");
       }
@@ -219,8 +219,8 @@ const CategoriesPage = () => {
           required />
         <input
           type="color"
-          value={newCategory.img}
-          onChange={(e) => setNewCategory({ ...newCategory, img: e.target.value })} />
+          value={newCategory.color}
+          onChange={(e) => setNewCategory({ ...newCategory, color: e.target.value })} />
         <input
           className={styles.input}
           type="text"
@@ -241,7 +241,7 @@ const CategoriesPage = () => {
               <h3>{category.title}</h3>
               <p>{category.slug}</p>
               <p>{category.categoryDesc}</p>
-              <p>Color:<div style={{ backgroundColor: `${category.img}` ,height: "20px", width: "20px" }}></div></p>
+              <p>Color:<div style={{ backgroundColor: `${category.color}` ,height: "20px", width: "20px" }}></div></p>
             </div>
             <div>
               <button className={styles.button} onClick={() => openEditModal(category)}>Edit</button>
@@ -273,8 +273,8 @@ const CategoriesPage = () => {
                 required />
               <input
                 type="color"
-                value={editCategory.img}
-                onChange={(e) => setEditCategory({ ...editCategory, img: e.target.value })} />
+                value={editCategory.color}
+                onChange={(e) => setEditCategory({ ...editCategory, color: e.target.value })} />
               <input
                 type="text"
                 className={styles.modalInput}

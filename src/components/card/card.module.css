@@ -6,9 +6,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr ; 
   gap: 50px;
-  background: #403f3f;
+  /* background: #403f3f; */
+  border :1px solid #ddd;
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px;
 }
 
 .imageContainer {

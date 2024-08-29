@@ -1,13 +1,13 @@
-// src/app/dashboard/varifyauthor/page.jsx
+
 
 "use client"
 
 import { useState, useEffect } from 'react';
 import styles from './varifyauthor.module.css';
-import Link from 'next/link';
+// import Link from 'next/link';
 import Loader from '@/components/loader/Loader';
 import { useSession } from "next-auth/react";
-const API_URL = '/api/varifydoctor'; // Update with your API URL
+const API_URL = '/api/author';  
 
 const VarifyauthorPage = () => {
   const [currentAuthor, setCurrentAuthor] = useState(null);
@@ -55,11 +55,6 @@ const VarifyauthorPage = () => {
 
 
 
-
-
-
-
-
   useEffect(() => {
     fetchVarifyAuthors();
   }, []);
@@ -75,17 +70,20 @@ const VarifyauthorPage = () => {
     }
   };
 
+  
   const handleAdd = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = {
       name: formData.get('name'),
+      image: formData.get('image'),
+      coverImage: formData.get('coverImage'),
       degree: formData.get('degree'),
       specialist: formData.get('specialist'),
       experience: formData.get('experience'),
       message: formData.get('message'),
     };
-
+  
     try {
       await fetch(API_URL, {
         method: 'POST',
@@ -94,25 +92,27 @@ const VarifyauthorPage = () => {
         },
         body: JSON.stringify(data),
       });
-
+  
       fetchVarifyAuthors();
+      event.target.reset();   
     } catch (error) {
       console.error('Error adding varify author:', error);
     }
   };
-
+  
   const handleEdit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = {
       name: formData.get('name'),
       degree: formData.get('degree'),
-      specialist: specialist.get('specialist'),
-
+      specialist: formData.get('specialist'),
+      image: formData.get('image'),
+      coverImage: formData.get('coverImage'),
       experience: formData.get('experience'),
       message: formData.get('message'),
     };
-
+  
     try {
       await fetch(`${API_URL}/${currentAuthor.id}`, {
         method: 'PUT',
@@ -121,15 +121,16 @@ const VarifyauthorPage = () => {
         },
         body: JSON.stringify(data),
       });
-
+  
       setIsEditing(false);
       setCurrentAuthor(null);
       fetchVarifyAuthors();
+      event.target.reset();   
     } catch (error) {
       console.error('Error updating varify author:', error);
     }
   };
-
+  
   const handleDelete = async (id) => {
     try {
       await fetch(`${API_URL}/${id}`, {
@@ -169,46 +170,54 @@ const VarifyauthorPage = () => {
       <h1 className={styles.title}>Manage Varifyauthor</h1>
       <form
         className={styles.form}
-        onSubmit={isEditing ? handleEdit : handleAdd}
-      >
+        onSubmit={isEditing ? handleEdit : handleAdd}>
         <input
           type="text"
           name="name"
           placeholder="Name"
           defaultValue={isEditing ? currentAuthor.name : ''}
           required
-          className={styles.input}
-        />
+          className={styles.input} />
+            <input
+          type="text"
+          name="image"
+          placeholder="ImageUrl"
+          defaultValue={isEditing ? currentAuthor.image : ''}
+          required
+          className={styles.input} />
+          <input
+          type="text"
+          name="coverImage"
+          placeholder="CoverImage"
+          defaultValue={isEditing ? currentAuthor.coverImage: ''}
+          required
+          className={styles.input} />
         <input
           type="text"
           name="degree"
           placeholder="Degree"
           defaultValue={isEditing ? currentAuthor.degree : ''}
           required
-          className={styles.input}
-        />
+          className={styles.input} />
          <input
           type="text"
           name="specialist"
           placeholder="specialist"
           defaultValue={isEditing ? currentAuthor.specialist : ''}
           required
-          className={styles.input}
-        />
+          className={styles.input}/>
         <input
           type="text"
           name="experience"
           placeholder="Experience"
           defaultValue={isEditing ? currentAuthor.experience : ''}
-          className={styles.input}
-        />
+          className={styles.input}/>
         <textarea
           name="message"
           placeholder="Message"
           defaultValue={isEditing ? currentAuthor.message : ''}
           required
-          className={styles.textarea}
-        />
+          className={styles.textarea}/>
         <button type="submit" className={styles.button}>
           {isEditing ? 'Update Author' : 'Add Author'}
         </button>
@@ -219,8 +228,7 @@ const VarifyauthorPage = () => {
               setIsEditing(false);
               setCurrentAuthor(null);
             }}
-            className={styles.cancelButton}
-          >
+            className={styles.cancelButton}>
             Cancel
           </button>
         )}
@@ -235,14 +243,12 @@ const VarifyauthorPage = () => {
             <p className={styles.authorMessage}>{author.message}</p>
             <button
               onClick={() => handleEditClick(author)}
-              className={styles.editButton}
-            >
+              className={styles.editButton}>
               Edit
             </button>
             <button
               onClick={() => handleDelete(author.id)}
-              className={styles.deleteButton}
-            >
+              className={styles.deleteButton}>
               Delete
             </button>
           </div>

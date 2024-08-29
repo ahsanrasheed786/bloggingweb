@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
-// import ReactQuill from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -28,11 +28,8 @@ const WritePage = () => {
   const [metaRobots, setMetaRobots] = useState("index, follow");
   const [metaDisc, setMetaDisc] = useState("");
   // =======FQA ======
-  const [question, setQuestion] = useState("");
-  const [question2, setQuestion2] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [answer2, setAnswer2] = useState("");
-// ==========artical=========
+  const [fqa, setFqa] = useState([{ question: "", answer: "" }]);
+ // ==========artical=========
 const [heading, setHeading] = useState("");
 const [featureImage, setFeatureImage] = useState("");
 const [discription, setDiscription] = useState("");
@@ -48,7 +45,8 @@ const [ articalBody, setArticalBody] = useState("");
   const [showPreview, setShowPreview] = useState(false);
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   const [doctorVal, setDoctorVal] = useState('');
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const [imgAlt,setImgAlt]= useState('');
+  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
@@ -79,7 +77,7 @@ const [ articalBody, setArticalBody] = useState("");
 
   const fetchVarifyDoctor = async () => {
     try {
-      const res = await fetch( "/api/varifydoctor");
+      const res = await fetch( "/api/author");
       if (!res.ok) throw new Error('Failed to fetch data');
       const data = await res.json();
       setVarifyDoctor(data);
@@ -157,8 +155,9 @@ const [ articalBody, setArticalBody] = useState("");
         method: "POST",
         body: JSON.stringify({
           title,
-          desc: value,
           img: media,
+          imgAlt,
+          desc: value,
           slug: slugify(title),
           catSlug: catSlug || "style",
           metaTitle,
@@ -166,24 +165,16 @@ const [ articalBody, setArticalBody] = useState("");
           metaAuthor,
           metaRobots,
           metaDisc,
+           fqa ,
+           artical:{
+           heading: heading || "heading" ,
+           featureImage: featureImage || "featureImage" , 
+           description : discription || "discription" ,
+           articleBody : articalBody || "articalBody", 
+          },
           doctor :doctorVal || "ahsan",
-          // fqa:{
-          //   question ,
-          //   question2,
-          //   answer ,
-          //   answer2, 
-          // },
-          //  artical:{
-          //  heading ,
-          //  featureImage, 
-          //  discription ,
-          //  articalBody, 
-          // }
-        
         }),
       });
-      // console.log(doctorVal)
-
       if (res.status === 200) {
         const data = await res.json();
         router.push(`/posts/${data.slug}`);
@@ -197,6 +188,12 @@ const [ articalBody, setArticalBody] = useState("");
       setLoading(false);
     }
   };
+  const handleFqaChange = (index, field, value) => {
+    const updatedFqa = [...fqa];
+    updatedFqa[index][field] = value;
+    setFqa(updatedFqa);
+  };
+  const addFqa = () => setFqa([...fqa, { question: "", answer: "" }]);
 
   const toggleFullscreen = () => setFullscreen(!fullscreen);
   const togglePreview = () => setShowPreview(!showPreview);
@@ -246,39 +243,16 @@ const [ articalBody, setArticalBody] = useState("");
         type="file"
         onChange={(e) => setFile(e.target.files[0])}
         className={styles.fileInput}/>
+        <input
+        type="text"
+        placeholder="Image Alt"
+        className={styles.input}
+        onChange={(e) => setImgAlt(e.target.value)}/>
       <input
         type="text"
         placeholder="Title"
         className={styles.input}
         onChange={(e) => setTitle(e.target.value)}/>
-      <input
-        type="text"
-        placeholder="Meta Title"
-        className={styles.input}
-        onChange={(e) => setMetaTitle(e.target.value)}/>
-      <input
-        type="text"
-        placeholder="Meta Disc"
-        className={styles.input}
-        onChange={(e) => setMetaDisc(e.target.value)}/>
-      <input
-        type="text"
-        placeholder="Meta Keywords (comma separated)"
-        className={styles.input}
-        onChange={(e) => setMetaKeywords(e.target.value)} />
-      <select className={styles.select} onChange={(e) => setMetaAuthor(e.target.value)}>
-        {author.map((item, index) => (
-          <option key={index} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
-
-      <select className={styles.select} onChange={(e) => setMetaRobots(e.target.value)}>
-        <option value="index, follow">index, follow</option>
-        <option value="noindex, nofollow">noindex, nofollow</option>
-      </select>
-
       <select className={styles.select} onChange={(e) => setCatSlug (e.target.value)}>
         {categories.map((item, index) => (
          <option key={index} value={item.slug}>
@@ -290,7 +264,6 @@ const [ articalBody, setArticalBody] = useState("");
       <select   className={styles.select} onChange={(e) => setDoctorVal(e.target.value)}>
         {varifyDoctor.map((item, index) => (
          <option key={index} value={item.id}>
- 
             {item.name + " " + item.specialist + " "  + " (" +item.experience+")"}
           </option>
         ))}
@@ -354,26 +327,26 @@ const [ articalBody, setArticalBody] = useState("");
 {/* ===========FQA schema=============== */}
 <hr/>
 <h3>FQA schema Markup</h3>
-     <input
-        type="text"
-        placeholder="Question 1"
-        className={styles.input}
-        onChange={(e) => setQuestion(e.target.value)}/>
-      <input
-        type="text"
-        placeholder="Answer 1"
-        className={styles.input}
-        onChange={(e) => setAnswer(e.target.value)}/>
-      <input
-        type="text"
-        placeholder="Question 2"
-        className={styles.input}
-        onChange={(e) => setQuestion2(e.target.value)}/>
+        {fqa.map((item, index) => (
+      <div key={index}>
         <input
-        type="text"
-        placeholder="Answer 2"
-        className={styles.input}
-        onChange={(e) => setAnswer2(e.target.value)}/>
+          type="text"
+          placeholder={`Question ${index + 1}`}
+          className={styles.input}
+          value={item.question}
+          onChange={(e) => handleFqaChange(index, "question", e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder={`Answer ${index + 1}`}
+          className={styles.input}
+          value={item.answer}
+          onChange={(e) => handleFqaChange(index, "answer", e.target.value)}
+        />
+      </div>
+    ))}
+    <button type="button" onClick={addFqa}>Add FQA</button>
+      
 {/* ===========FQA schema ends=============== */}
  
       
@@ -406,9 +379,6 @@ const [ articalBody, setArticalBody] = useState("");
             modules={modules}
             placeholder="Tell your story..."/>
         </ReactScroller>
-
-
-
       </div>
  
       <div className={styles.buttonContainer}>
