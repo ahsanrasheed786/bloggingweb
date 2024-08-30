@@ -272,8 +272,11 @@ import { useState } from "react";
 const Comments = ({ postSlug, comments }) => {
   const { status } = useSession();
   const [commentsOpen, setCommentsOpen] = useState(false);
+   // ${process.env.WEBSIT_URL}
+    // `http://localhost:3000/api/comments?postSlug=${postSlug}`,
   const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+     `${process.env.WEBSIT_URL}/api/comments?postSlug=${postSlug}`,
+   
     fetcher, {
       initialData: comments,
     }

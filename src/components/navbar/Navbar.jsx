@@ -9,11 +9,11 @@ import { ThemeContext } from "@/context/ThemeContext";
    
 const Navbar = () => {
   const { theme } = useContext(ThemeContext);
-  // const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
  
   return (
      <navbar style={{ backgroundColor:theme=="light"?"white":"#0f172a"  }} className={styles.container}>

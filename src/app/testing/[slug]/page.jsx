@@ -11,7 +11,7 @@ import ShareButton from "@/components/shareButton/ShareButton.jsx";
 
 const getData = async (slug) => {
   // ${process.env.WEBSIT_URL}
-    const res = await fetch(`http://localhost:3000/api/posts/${slug}`);
+    const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`);
     if (!res.ok) {
       throw new Error("Failed to fetch post data");}
     return res.json();};
@@ -47,7 +47,7 @@ const page =async ({ params }) => {
 
     const fetchVarifyDoctor = async (slug) => {
       try {
-        const res = await fetch(`http://localhost:3000/api/author/${slug}`);
+        const res = await fetch(`${process.env.WEBSIT_URL}/api/author/${slug}`);
         if (!res.ok) throw new Error("Failed to fetch doctor data");
         return await res.json();
       } catch (error) {
@@ -56,7 +56,7 @@ const page =async ({ params }) => {
 
     const fetchQuestion = async () => {
           try {
-            const res = await fetch(`http://localhost:3000/api/questions?postSlug=${slug}`);
+            const res = await fetch(`${process.env.WEBSIT_URL}/api/questions?postSlug=${slug}`);
             if (!res.ok) throw new Error("Failed to fetch doctor data");
             return await res.json();
           } catch (error) {
@@ -64,7 +64,7 @@ const page =async ({ params }) => {
         return null;}};    
     const fetchComments = async () => {
               try {
-                const res = await fetch(`http://localhost:3000/api/comments?postSlug=${slug}`);
+                const res = await fetch(`${process.env.WEBSIT_URL}/api/comments?postSlug=${slug}`);
                 if (!res.ok) throw new Error("Failed to fetch doctor data");
                 return await res.json();
               } catch (error) {
@@ -133,12 +133,7 @@ const page =async ({ params }) => {
         "name": "Anonymous",
       },
       "reviewBody": "This post is great for health tips!", // Dynamic review body can be added here
-    };
-  
-
-
-
-
+    }; 
   return (
     
     <div className={styles.container}>
@@ -156,8 +151,8 @@ const page =async ({ params }) => {
             {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png" alt="user"/> */}
             <h3> {doctor?.name}</h3>
             <h4> {doctor?.specialist}</h4>
-            <p>{doctor?.degree}  </p>
-            <p>Exprences :{doctor?.experience}</p>
+            <p className={styles.degree}>{doctor?.degree}  </p>
+            <p>Exprences :{doctor?.experience} yr</p>
             <hr/>
             <p>{doctor?.message} </p>
             <hr/>
@@ -187,26 +182,31 @@ const page =async ({ params }) => {
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
 <section className={styles.mainContent}>  
 <div className={styles.container}>
-  <img src="https://i.ibb.co/xfmkxb0/image-500x300.png" alt="image-500x300"/>
+  {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png"  width={100} alt="image-500x300"/> */}
     {/* image size will be 500*300 */}
     {/* <img src={data.img} alt={data?.imgAlt} /> */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FQAStructre) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewStructuredData) }} />
 
+        {/* <h1 className={styles.title}>{data?.title}</h1> */}
+
       <div className={styles.infoContainer}>
-        <div className={styles.textContainer}>
+      {/* <h1 className={styles.title}>{data?.title}</h1> */}
+
+        {/* <div className={styles.textContainer}>
            <br />
-           <h1 className={styles.title}>{data?.title}</h1>
-        </div>
+        </div> */}
         {data?.img && (
           <div className={styles.imageContainer}>
-            {/* <img src={data.img} alt="" fill className={styles.image} /> */}
+            <img src={data.img} alt="" fill className={styles.image} />
+            {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png"  width={100} alt="image-500x300"/> */}
           </div>
         )}
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
+        <h1 className={styles.title}>{data?.title}</h1>
           <div className={styles.description} dangerouslySetInnerHTML={{ __html: data?.desc }} />
            
            {data.fqa && (
@@ -250,7 +250,7 @@ const page =async ({ params }) => {
             <div className="Qna"> 
              <QuestionAndAnswer questions={questions} postSlug={slug} />
             </div> 
-            <ShareButton title={data.title} url={`http://localhost:3000/${slug}`} /> {/* Pass data for sharing */}
+            <ShareButton title={data.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 
           {/* <QuestionAndAnswer questions={questions} postSlug={slug} /> */}
         </div>
@@ -262,20 +262,6 @@ const page =async ({ params }) => {
 </section>
     {/* <!-- -------------------------right-sidebar---------------------------------------- --> */}
 <section className={styles.rightSidebar}>
-{/* <Menu /> */}
-{/* this is right side */}
-
-{/* <div className={styles.container}>
-      <h2 className={styles.subtitle}>{"What's hot"}</h2>
-      <h1 className={styles.title}>Most Popular</h1>
-      <MenuPosts withImage={false} />
-      <h2 className={styles.subtitle}>Discover by topic</h2>
-      <h1 className={styles.title}>Categories</h1>
-      <MenuCategories />
-      <h2 className={styles.subtitle}>Chosen by the editor</h2>
-      <h1 className={styles.title}>Editors Pick</h1>
-      <MenuPosts withImage={true} />
-    </div> */}
     <div className={styles.container}>
       <h2 className={styles.subtitle}>{"What's hot "}🔥</h2>
       <h2 className={styles.title}>Most Popular</h2>
@@ -283,9 +269,6 @@ const page =async ({ params }) => {
       <h2 className={styles.subtitle}>Discover by topic</h2>
       <h1 className={styles.title}>Categories</h1>
       <MenuCategories />
-      {/* <h2 className={styles.subtitle}>Chosen by the editor</h2>
-      <h1 className={styles.title}>Editors Pick</h1>
-      <MenuPosts withImage={false} /> */}
     </div>
  </section>
 </div>
