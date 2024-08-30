@@ -1,70 +1,109 @@
-.container {
-  margin-top: 50px;
-}
+ /* .container {
+   position: absolute;
+   margin: 10px auto;
+  max-width:30vw;
+  background: gray;
+  /* translate:-25%; } */
 
-.title {
-  color: var(--softTextColor);
-  margin-bottom: 30px;
-}
 
-.write {
+  /* .container {
+    position: absolute;  
+    margin: 0 auto; 
+    max-width: 30vw;
+    background: gray;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+  } */
+  .container {
+    
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 35vw;
+    background: gray;
+    /* padding: 10px; */
+  }
+  
+ .toggleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #0070f3;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 30px;
+  margin-bottom: 10px;
 }
 
-.input {
-  padding: 20px;
+ .write {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+ .input {
   width: 100%;
+  max-width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  margin-bottom: 10px;
 }
 
-.button {
-  padding: 16px 20px;
-  background-color: teal;
-  color: white;
-  font-weight: bold;
+ .button {
+  background-color: #0070f3;
+  color: #fff;
   border: none;
+  padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.comments{
-  margin-top: 50px;
+ .comments {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
-.comment{
-  margin-bottom: 50px;
+ .comment {
+  display: flex;
+  margin-bottom: 15px;
 }
 
-.user {
+ .user {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .image {
   border-radius: 50%;
-  object-fit: cover;
 }
 
 .userInfo {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  color: var(--softTextColor);
 }
 
 .username {
-  font-weight: 500;
-}
-
-.date{
+  font-weight: bold;
   font-size: 14px;
 }
 
-.desc{
-  font-size: 18px;
-  font-weight: 300;
+.date {
+  color: #777;
+  font-size: 12px;
+}
+
+.desc {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }

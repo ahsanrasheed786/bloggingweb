@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -46,7 +46,7 @@ const [ articalBody, setArticalBody] = useState("");
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   const [doctorVal, setDoctorVal] = useState('');
   const [imgAlt,setImgAlt]= useState('');
-  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 

@@ -3,6 +3,7 @@
     /* padding: 20px 6%; */
     flex-wrap: wrap;
     justify-content: space-between;
+    padding-bottom: 50px;
 
 }
 .mainImg{
@@ -70,12 +71,7 @@
     outline: none;
     cursor: pointer;
   }
-  .qna-svg {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    transition: fill 0.3s ease;
-  }
+  
   
   .qnaSvg:hover {
     fill: #0070f3; /* Change color on hover */

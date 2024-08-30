@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-
+import style from './sharebtn.module.css';
 const ShareButton = ({ title, url }) => {
   const handleShare = async () => {
     try {
@@ -22,7 +22,7 @@ const ShareButton = ({ title, url }) => {
   };
 
   return (
-    <button onClick={handleShare} className="share-button">
+    <button onClick={handleShare} className={style.shareButton}>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-share-2">
         <circle cx="18" cy="5" r="3"></circle>
         <circle cx="6" cy="12" r="3"></circle>

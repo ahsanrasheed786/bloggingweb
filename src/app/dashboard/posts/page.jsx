@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css'; // Import ReactQuill's styles
+// import 'react-quill/dist/quill.snow.css'; // Import ReactQuill's styles
 import style from './editPost.module.css';
 import { useSession } from "next-auth/react";
 import Loader from '@/components/loader/Loader';
@@ -27,7 +27,7 @@ const AdminPosts = () => {
   const [categories,setCategories]=useState([])
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
-  // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   
   useEffect(() => {
