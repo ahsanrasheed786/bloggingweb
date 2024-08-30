@@ -20,12 +20,14 @@ const fetcher = async (url) => {
   return data;
 };
 
-const Comments = ({ postSlug }) => {
+const Comments = ({ postSlug ,comments}) => {
   const { status } = useSession();
 
   const { data, mutate, isLoading } = useSWR(
     `http://localhost:3000/api/comments?postSlug=${postSlug}`,
-    fetcher
+    fetcher,{
+      initialData: comments, 
+    }
   );
 
   const [desc, setDesc] = useState("");

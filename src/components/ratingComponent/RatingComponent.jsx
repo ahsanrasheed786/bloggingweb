@@ -52,16 +52,12 @@
 
 
 
-
-
-
-
 "use client"
 import React, { useState, useEffect } from 'react';
 import StarRatings from 'react-star-ratings';
 import styles from './RatingComponent.module.css';
 
-const RatingComponent = ({ initialRating, postId, userId }) => {
+const RatingComponent = ({ initialRating, postId, userId,averageRating=0 }) => {
   const [rating, setRating] = useState(initialRating);
   const [hasRated, setHasRated] = useState(false);
 
@@ -107,6 +103,8 @@ const RatingComponent = ({ initialRating, postId, userId }) => {
         changeRating={handleRatingChange}
         isSelectable={!hasRated} // Disable rating if the user has already rated
       />
+
+      <p className={styles.averageRating}>Average Rating: {averageRating}</p>
       {hasRated && <p className={styles.ratedMessage}>You have already rated this post</p>}
     </div>
   );

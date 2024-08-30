@@ -254,7 +254,14 @@ const AdminPosts = () => {
           <div key={post.slug} className={style.card}>
             <h3 className={style.cardTitle}>{post.title}</h3>
             {post.img && (
-              <Image
+              // <Image
+              //   src={post.img}
+              //   alt="Post Image"
+              //   width={100}
+              //   height={60}
+              //   className={style.cardImage}
+              // />
+              <img
                 src={post.img}
                 alt="Post Image"
                 width={100}

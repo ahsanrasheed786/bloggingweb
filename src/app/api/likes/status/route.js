@@ -52,13 +52,13 @@ export async function GET(req) {
     
 
     // Get the count of all like documents for the post
-    // const likeCount = await prisma.like.count({
-    //   where: { postId },
-    // });
+    const likeCount = await prisma.like.count({
+      where: { postId },
+    });
 
     return new Response(JSON.stringify({
       hasLiked: !!hasLiked,
-      // likes:likeCount,
+      likes:likeCount,
     //   likeCount, // Add this line to include the number of like documents
     }), {
       status: 200,
