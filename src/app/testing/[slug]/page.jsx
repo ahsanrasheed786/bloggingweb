@@ -73,6 +73,7 @@ const page =async ({ params }) => {
   
      const data = await getData(slug);
      const doctor = await fetchVarifyDoctor(data.doctor);
+    //  const artical=data?.artical 
      const questions = await fetchQuestion();
      const comments = await fetchComments();
  
@@ -93,10 +94,10 @@ const page =async ({ params }) => {
           "url": "https://example.com/logo.jpg",
         },
       },
-      "datePublished": data.createdAt  || "2022-01-01",
-      "dateModified": data.updatedAt   || "2022-01-01",
-      "description": data .artical.discription || "default Article description",
-      "articleBody": data.artical.articalBody || "default Article content",
+      "datePublished": data?.createdAt  || "2022-01-01",
+      "dateModified": data?.updatedAt   || "2022-01-01",
+      "description": data?.artical.description || "default Article description",
+      "articleBody": data?.artical.articleBody || "default Article content",
     };
  
     const FQAStructre = {
