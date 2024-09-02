@@ -12,6 +12,8 @@ import { app } from "@/utils/firebase";
 import Loader from '@/components/loader/Loader';
 import ReactScroller from 'react-scrollbars-custom'; // Import ReactScroller
 import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 const WritePage = () => {
   const { status } = useSession();
   const router = useRouter();
@@ -46,7 +48,6 @@ const [ articalBody, setArticalBody] = useState("");
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   const [doctorVal, setDoctorVal] = useState('');
   const [imgAlt,setImgAlt]= useState('');
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
