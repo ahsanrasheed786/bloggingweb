@@ -193,6 +193,10 @@ const [ articalBody, setArticalBody] = useState("");
     updatedFqa[index][field] = value;
     setFqa(updatedFqa);
   };
+  const removeFqa = (index) => {
+    const updatedFqa = fqa.filter((_, i) => i !== index);
+    setFqa(updatedFqa);
+  };
   const addFqa = () => setFqa([...fqa, { question: "", answer: "" }]);
 
   const toggleFullscreen = () => setFullscreen(!fullscreen);
@@ -343,6 +347,7 @@ const [ articalBody, setArticalBody] = useState("");
           value={item.answer}
           onChange={(e) => handleFqaChange(index, "answer", e.target.value)}
         />
+         <button type="button" onClick={() => removeFqa(index)} className={styles.removeFqaButton}>Remove FQA</button>
       </div>
     ))}
     <button type="button" onClick={addFqa}>Add FQA</button>
@@ -386,30 +391,7 @@ const [ articalBody, setArticalBody] = useState("");
             {showPreview ? "Hide Preview" : "Preview"}
           </button>
         <button className={styles.publish} onClick={handleSubmit} disabled={loading}>
-          {loading ? (
-            <svg
-              version="1.1"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              width="16px"
-              height="16px"
-              viewBox="0 0 24 24"
-              xmlSpace="preserve"
-              fill="#ffffff"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="none"
-                fill="none"
-              />
-              <path d="M12 6v6l4 2" />
-            </svg>
-          ) : (
-            "Publish"
-          )}
+          {loading ? ( "loading...." ) : ( "Publish")}
         </button>
       </div>
 

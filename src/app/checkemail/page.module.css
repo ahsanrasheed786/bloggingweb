@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 2rem;
+}
+
+.header {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.strongText {
+  font-weight: 700;
+  color: #000;
+}
+
+.instructions {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    font-size: 2rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+}

@@ -42,13 +42,24 @@ model User {
   email         String     @unique
   emailVerified DateTime?
   image         String?
+  createdAt     DateTime?  @default(now()) // Make this optional
+  updatedAt     DateTime?  @updatedAt      // Make this optional
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
   Comment       Comment[]
   Question      Question[]
+  
  likedPosts Like[] // Relation to the Like model
   ratings    Rating[] // Relation to the Rating model
+}
+
+model EmailTemplate {
+  id           String   @id @default(cuid()) @map("_id")
+  templateType String   @unique
+  subject      String
+  textBody     String
+  htmlBody     String
 }
 
 

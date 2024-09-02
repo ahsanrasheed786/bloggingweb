@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Message</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .email-header {
+      text-align: center;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      border-radius: 8px 8px 0 0;
+    }
+    .email-body {
+      padding: 20px;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .email-footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #888888;
+    }
+    a.button {
+      display: inline-block;
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    a.button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="email-container">
+    <div class="email-header">
+      <h1>Welcome to CoolZoneMaster</h1>
+    </div>
+    
+    <div class="email-body">
+      <p>Hi <strong>{{userName}}</strong>,</p>
+      <p>We are excited to have you onboard! This is just a quick message to welcome you and let you know that we’re always here if you have any questions.</p>
+
+      <p>Click the button below to get started:</p>
+      <p><a href="https://coolzonemaster.com/start" class="button">Get Started</a></p>
+      
+      <p>Thank you,<br>
+      The CoolZoneMaster Team</p>
+    </div>
+    
+    <div class="email-footer">
+      <p>&copy; 2024 CoolZoneMaster. All rights reserved.</p>
+    </div>
+  </div>
+
+</body>
+</html>
