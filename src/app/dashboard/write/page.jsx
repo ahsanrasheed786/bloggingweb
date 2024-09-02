@@ -47,6 +47,7 @@ const [ articalBody, setArticalBody] = useState("");
   const [showPreview, setShowPreview] = useState(false);
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   const [doctorVal, setDoctorVal] = useState('');
+  const [imageUpload,setImageUpload]=useState('')
   const [imgAlt,setImgAlt]= useState('');
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
@@ -127,6 +128,7 @@ const [ articalBody, setArticalBody] = useState("");
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+          setImageUpload(`${progress}  %` )
         },
         (error) => console.error(error),
         () => {
@@ -247,7 +249,7 @@ const [ articalBody, setArticalBody] = useState("");
            <input
         type="file"
         onChange={(e) => setFile(e.target.files[0])}
-        className={styles.fileInput}/>
+        className={styles.fileInput}/> : {imageUpload}
         <input
         type="text"
         placeholder="Image Alt"
@@ -258,7 +260,7 @@ const [ articalBody, setArticalBody] = useState("");
         placeholder="Title"
         className={styles.input}
         onChange={(e) => setTitle(e.target.value)}/>
-      <select className={styles.select} onChange={(e) => setCatSlug (e.target.value)}>
+      <select className={styles.select} value={categories[0].title} onChange={(e) => setCatSlug (e.target.value)}>
         {categories.map((item, index) => (
          <option key={index} value={item.slug}>
 
@@ -266,7 +268,7 @@ const [ articalBody, setArticalBody] = useState("");
           </option>
         ))}
       </select>
-      <select   className={styles.select} onChange={(e) => setDoctorVal(e.target.value)}>
+      <select   className={styles.select} value={categories[0].id} onChange={(e) => setDoctorVal(e.target.value)}>
         {varifyDoctor.map((item, index) => (
          <option key={index} value={item.id}>
             {item.name + " " + item.specialist + " "  + " (" +item.experience+")"}
@@ -299,8 +301,8 @@ const [ articalBody, setArticalBody] = useState("");
         ))}
       </select>
 
-      <select className={styles.select} onChange={(e) => setMetaRobots(e.target.value)}>
-        <option value="index, follow">index, follow</option>
+      <select className={styles.select}  onChange={(e) => setMetaRobots(e.target.value)}>
+        <option value="index, follow" selected >index, follow</option>
         <option value="noindex, nofollow">noindex, nofollow</option>
       </select>
 

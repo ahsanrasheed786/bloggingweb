@@ -16,17 +16,170 @@ const getData = async (slug) => {
       throw new Error("Failed to fetch post data");}
     return res.json();};
   
+  // export async function generateMetadata({ params }) {
+  //   const { slug } = params;
+  //   const data = await getData(slug);
+  //   return {
+  //     title: data?.metaTitle || "Default Title",
+  //     description: data?.metaDisc || "This blog backend description is empty",
+  //     keywords: data?.metaKeywords || "",
+  //     author: data?.metaAuthor || "Ahsan",
+  //     robots: data?.metaRobots || "index, follow",
+
+  //   };
+  // }
+
+
   export async function generateMetadata({ params }) {
     const { slug } = params;
     const data = await getData(slug);
+  
+    // Structured Data (for JSON-LD)
+    // const structuredData = {
+    //   "@context": "https://schema.org",
+    //   "@type": "Article", // Change to 'WebPage' if it's not an article
+    //   "mainEntityOfPage": {
+    //     "@type": "WebPage",
+    //     "@id": `https://yourdomain.com/${slug}`,
+    //   },
+    //   "headline": data?.metaTitle || "Default Title",
+    //   "description": data?.metaDisc || "This blog backend description is empty",
+    //   "image": data?.ogImage || "/default-og-image.jpg", // Main image URL
+    //   "author": {
+    //     "@type": "Person",
+    //     "name": data?.metaAuthor || "Ahsan",
+    //   },
+    //   "publisher": {
+    //     "@type": "Organization",
+    //     "name": "Your Site Name",
+    //     "logo": {
+    //       "@type": "ImageObject",
+    //       "url": "/logo.jpg", // Your website logo
+    //     },
+    //   },
+    //   "datePublished": data?.publishedDate || "2024-09-02",
+    //   "dateModified": data?.updatedDate || "2024-09-02",
+    // };
+    // const breadcrumb = {
+    //   "@context": "https://schema.org",
+    //   "@type": "BreadcrumbList",
+    //   "itemListElement": [
+    //     {
+    //       "@type": "ListItem",
+    //       "position": 1,
+    //       "name": "Home",
+    //       "item": "https://yourdomain.com/"
+    //     },
+    //     {
+    //       "@type": "ListItem",
+    //       "position": 2,
+    //       "name": data?.category || "Blog",
+    //       "item": `https://yourdomain.com/${data?.category || 'blog'}`
+    //     },
+    //     {
+    //       "@type": "ListItem",
+    //       "position": 3,
+    //       "name": data?.metaTitle || "Current Page",
+    //       "item": `https://yourdomain.com/${slug}`
+    //     }
+    //   ]
+    // };
+    
     return {
       title: data?.metaTitle || "Default Title",
       description: data?.metaDisc || "This blog backend description is empty",
       keywords: data?.metaKeywords || "",
       author: data?.metaAuthor || "Ahsan",
       robots: data?.metaRobots || "index, follow",
+  
+      // Open Graph (OG) Tags
+      openGraph: {
+        type: "article", // or 'website', depending on your page type
+        title: data?.metaTitle || "Default Title",
+        description: data?.metaDisc || "This blog backend description is empty",
+        url: `https://yourdomain.com/${slug}`,
+        images: [
+          {
+            url: data?.ogImage || "/default-og-image.jpg",
+            width: 800,
+            height: 600,
+            alt: data?.metaTitle || "Default OG Image",
+          },
+        ],
+        locale: "en_US",
+        site_name: "Your Site Name",
+      },
+  
+      // Twitter Card Tags
+      twitter: {
+        card: "summary_large_image",
+        title: data?.metaTitle || "Default Title",
+        description: data?.metaDisc || "This blog backend description is empty",
+        images: [data?.twitterImage || "/default-twitter-image.jpg"],
+        creator: "@yourTwitterHandle", // Your Twitter handle
+        site: "@yourTwitterHandle", // Twitter site username
+      },
+  
+      // Canonical URL
+      alternates: {
+        canonical: `https://yourdomain.com/${slug}`,
+      },
+  
+      // Additional SEO Tags
+      viewport: "width=device-width, initial-scale=1",
+      charset: "utf-8",
+      themeColor: "#ffffff", // Set to your brand color
+      "article:section": data?.category || "General", // Useful if you want to categorize articles
+      "article:tag": data?.tags?.join(", ") || "", // Tags for your article
+  
+      // JSON-LD structured data
+      // script: [
+      //   {
+      //     type: "application/ld+json",
+      //     json: structuredData,
+      //   },
+      //   {
+      //     type: "application/ld+json",
+      //     json: breadcrumb,
+      //   }
+      // ],
+      
+  
+      // Favicon, Apple Touch Icon, hreflang,and Web Manifest
+      link: [
+        {
+          rel: "icon",
+          href: "/favicon.ico",
+        },
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/apple-touch-icon.png",
+        },
+        {
+          rel: "manifest",
+          href: "/site.webmanifest",
+        },
+        {
+          rel: "alternate",
+          hreflang: "en",
+          href: `https://yourdomain.com/${slug}`,
+        },
+        {
+          rel: "alternate",
+          hreflang: "fr",
+          href: `https://yourdomain.com/fr/${slug}`,
+        },
+        {
+          rel: "alternate",
+          hreflang: "es",
+          href: `https://yourdomain.com/es/${slug}`,
+        }
+      ]
+      
     };
   }
+  
 
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
