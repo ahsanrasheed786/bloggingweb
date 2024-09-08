@@ -8,9 +8,6 @@ import RatingComponent from "@/components/ratingComponent/RatingComponent";
 import MenuPosts from "@/components/menuPosts/MenuPosts";
 import MenuCategories from "@/components/menuCategories/MenuCategories";
 import ShareButton from "@/components/shareButton/ShareButton.jsx";  
-import TextToSpeech from "@/components/speech/TextToSpeech";
-
-const articleContent = "This is the article content to be read out loud.";
 
 const getData = async (slug) => {
   // ${process.env.WEBSIT_URL}
@@ -100,13 +97,13 @@ const getData = async (slug) => {
         type: "article", // or 'website', depending on your page type
         title: data?.metaTitle || "Default Title",
         description: data?.metaDisc || "This blog backend description is empty",
-        url: `${process.env.WEBSIT_URL}/${slug}`,
+        url: `https://yourdomain.com/${slug}`,
         images: [
           {
-            // url: data?.ogImage || "/default-og-image.jpg",
+            url: data?.ogImage || "/default-og-image.jpg",
             width: 800,
             height: 600,
-            // alt: data?.metaTitle || "Default OG Image",
+            alt: data?.metaTitle || "Default OG Image",
           },
         ],
         locale: "en_US",
@@ -117,23 +114,23 @@ const getData = async (slug) => {
       twitter: {
         card: "summary_large_image",
         title: data?.metaTitle || "Default Title",
-        // description: data?.metaDisc || "This blog backend description is empty",
-        // images: [data?.twitterImage || "/default-twitter-image.jpg"],
+        description: data?.metaDisc || "This blog backend description is empty",
+        images: [data?.twitterImage || "/default-twitter-image.jpg"],
         creator: "@yourTwitterHandle", // Your Twitter handle
         site: "@yourTwitterHandle", // Twitter site username
       },
   
       // Canonical URL
       alternates: {
-        canonical: `${process.env.WEBSIT_URL}/${slug}`,
+        canonical: `https://yourdomain.com/${slug}`,
       },
   
       // Additional SEO Tags
       viewport: "width=device-width, initial-scale=1",
       charset: "utf-8",
       themeColor: "#ffffff", // Set to your brand color
-      // "article:section": data?.category || "General", // Useful if you want to categorize articles
-      // "article:tag": data?.tags?.join(", ") || "", // Tags for your article
+      "article:section": data?.category || "General", // Useful if you want to categorize articles
+      "article:tag": data?.tags?.join(", ") || "", // Tags for your article
   
       // JSON-LD structured data
       // script: [
@@ -166,17 +163,17 @@ const getData = async (slug) => {
         {
           rel: "alternate",
           hreflang: "en",
-          href: `${process.env.WEBSIT_URL}/${slug}`,
+          href: `https://yourdomain.com/${slug}`,
         },
         {
           rel: "alternate",
           hreflang: "fr",
-          href: `${process.env.WEBSIT_URL}/fr/${slug}`,
+          href: `https://yourdomain.com/fr/${slug}`,
         },
         {
           rel: "alternate",
           hreflang: "es",
-          href: `${process.env.WEBSIT_URL}/es/${slug}`,
+          href: `https://yourdomain.com/es/${slug}`,
         }
       ]
       
@@ -228,7 +225,7 @@ const page =async ({ params }) => {
         return null;}};    
   
      const data = await getData(slug);
-     const doctor = await fetchVarifyDoctor(data?.doctor);
+     const doctor = await fetchVarifyDoctor(data.doctor);
     //  const artical=data?.artical 
      const questions = await fetchQuestion();
      const comments = await fetchComments();
@@ -236,8 +233,8 @@ const page =async ({ params }) => {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": data?.artical?.heading || "default Article Title",
-      "image": data?.artical?.featureImage || "default https://example.com/image.jpg",
+      "headline": data?.artical.heading || "default Article Title",
+      "image": data?.artical.featureImage || "default https://example.com/image.jpg",
       "author": {
         "@type": "Person",
         "name": data?.metaAuthor  || "John Doe",
@@ -252,19 +249,19 @@ const page =async ({ params }) => {
       },
       "datePublished": data?.createdAt  || "2022-01-01",
       "dateModified": data?.updatedAt   || "2022-01-01",
-      "description": data?.artical?.description || "default Article description",
-      "articleBody": data?.artical?.articleBody || "default Article content",
+      "description": data?.artical.description || "default Article description",
+      "articleBody": data?.artical.articleBody || "default Article content",
     };
  
     const FQAStructre = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": data?.fqa?.map((item) => ({
+      "mainEntity": data.fqa.map((item) => ({
         "@type": "Question",
-        "name": item?.question,
+        "name": item.question,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": item?.answer,
+          "text": item.answer,
         },
       })),
     };
@@ -273,8 +270,8 @@ const page =async ({ params }) => {
       "@type": "Review",
       "itemReviewed": {
         "@type": "CreativeWork",
-        "name": data?.title || "Article Title defautl",
-        "image": data?.artical?.featureImage || " https://default/image.jpg",
+        "name": data.title || "Article Title defautl",
+        "image": data?.artical.featureImage || " https://default/image.jpg",
         "author": {
           "@type": "Person",
           "name": data?.metaAuthor|| "John Doe",
@@ -282,7 +279,7 @@ const page =async ({ params }) => {
       },
       "reviewRating": {
         "@type": "Rating",
-        "ratingValue": data?.totalRating?.average|| "default 4.5",
+        "ratingValue": data?.totalRating.average|| "default 4.5",
         "bestRating": "5",
       },
       "author": {
@@ -385,7 +382,7 @@ const page =async ({ params }) => {
       <div className={styles.user}>
             {data?.user?.image && (
               <div className={styles.userImageContainer}>
-                <Image src={data?.user?.image} alt="" fill className={styles.avatar} />
+                <Image src={data.user.image} alt="" fill className={styles.avatar} />
               </div>
             )}
             <div className={styles.userTextContainer}>
@@ -398,23 +395,19 @@ const page =async ({ params }) => {
           <div className={styles.postLinks}>
           <LikeButton postId={data.id} likes={data?.totalLikes} />
           <div className="comments-svg" > 
-             <Comments  postSlug={slug} comments={comments} />
+             <Comments postSlug={slug} comments={comments} />
            </div>
           <div className="review-svg">
-           <RatingComponent initialRating={data?.totalRating?.average ||4.5} averageRating={data?.totalRating.average} postId={data.id} />
+           <RatingComponent initialRating={data?.totalRating.average ||4.5} averageRating={data?.totalRating.average} postId={data.id} />
             {/* {data?.totalRating.average} */}
            </div>
             <div className="Qna"> 
              <QuestionAndAnswer questions={questions} postSlug={slug} />
             </div> 
-            <ShareButton title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
+            <ShareButton title={data.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 
           {/* <QuestionAndAnswer questions={questions} postSlug={slug} /> */}
         </div>
-          <TextToSpeech article={articleContent} />
-          {/* <TextToSpeech article={data?.desc} /> */}
-{/* {console.log(data?.desc)} */}
-
         {/* <Menu />  */}
       </div>
     </div>   
