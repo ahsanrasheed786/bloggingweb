@@ -10,8 +10,7 @@ const LoginPage = () => {
   const { status } = useSession();
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [showEmailInputs, setShowEmailInputs] = useState(false);
+   const [showEmailInputs, setShowEmailInputs] = useState(false);
   const {theme } = useContext(ThemeContext);  
    if (status === "loading") {
     return <div className={styles.loading}>Loading...</div>;
@@ -21,15 +20,27 @@ const LoginPage = () => {
     router.push("/");  
   }
 
+  // const handleEmailSignIn = async (e) => {
+  //   e.preventDefault();
+  //   const result = await signIn('email', { email, redirect: false });
+
+  //   if (result?.ok) {
+  //     router.push(`/checkemail?email=${email}`);
+  //   }
+  // };
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
-    const result = await signIn('email', { email, redirect: false });
-
+    const result = await signIn('email', {
+      email,
+      redirect: false,
+      //  name,
+    });
+  
     if (result?.ok) {
       router.push(`/checkemail?email=${email}`);
     }
   };
-
+  
   const handleEmailButtonClick = () => {
     setShowEmailInputs(true);
   };
@@ -69,13 +80,13 @@ const LoginPage = () => {
         {showEmailInputs && (
           <form className={styles.emailSignIn} onSubmit={handleEmailSignIn}>
             <input
-              type="text"
-              className={styles.emailInput}
-              placeholder="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required/>
-            <input
+            //   type="text"
+            //   className={styles.emailInput}
+            //   placeholder="Full Name"
+            //   value={name}
+            //   onChange={(e) => setName(e.target.value)}
+            //   required/>
+            // <input
               type="email"
               className={styles.emailInput}
               placeholder="Enter your email"
