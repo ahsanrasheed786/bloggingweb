@@ -1,79 +1,84 @@
- 
-  .container {
-    background-color: var(--bg);  
-    /* position: absolute; */
-    /* position: relative; */
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-    margin-top:30px;
-    /* max-width: 35vw; */
-    }
-    /* .container {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 600px; 
-      padding: 10px;
-      background-color: var(--bg);
-    } */
-    
-   .commentBtnDiv{ 
-    display: flex;
-    /* position: absolute; */
-    flex-direction: row;
-    gap: 5px;
-   }
- .toggleButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #0070f3;
+.container {
+  margin-top: 30px;
   display: flex;
-  align-items: center;
-  /* margin-bottom: 10px; */
+  justify-content: center;
+  align-items: flex-start;
 }
 
- .write {
-  margin-top: 10px;
+.write {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  background-color: #fff;
+  /* padding: 20px; */
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
- .input {
+.input {
   width: 100%;
-  max-width: 100%;
-  height: 40px;
-  padding: 10px;
-  border-radius: 30px;
+  height: 120px;
+  padding: 12px;
+  border-radius: 10px;
   border: 1px solid #ddd;
   resize: vertical;
-  margin-bottom: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 15px;
+  line-height: 1.5;
 }
 
- .button {
+.input:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+.button {
   background-color: #0070f3;
   color: #fff;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 12px 20px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
 }
 
- .comments {
+.button:hover {
+  background-color: #005bb5;
+}
+
+.comments {
+  width: 100%;
+  max-width: 600px;
   border-top: 1px solid #ddd;
-  padding-top: 10px;
+  padding-top: 15px;
+  margin: 0 auto;
   max-height: 400px;
   overflow-y: auto;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
- .comment {
+.comment {
   display: flex;
-  margin-bottom: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  gap: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }
 
- .user {
+.comment:last-child {
+  border-bottom: none;
+}
+
+.user {
   display: flex;
   align-items: center;
   margin-right: 10px;
@@ -81,41 +86,56 @@
 
 .image {
   border-radius: 50%;
+  border: 2px solid #ddd;
 }
 
 .userInfo {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  justify-content: center;
 }
 
 .username {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
+  color: #333;
 }
 
 .date {
   color: #777;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .desc {
   flex: 1;
   padding: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-
 .comments::-webkit-scrollbar {
-  width: 8px;  
+  width: 8px;
 }
 
 .comments::-webkit-scrollbar-thumb {
-  background-color: #0070f3;  
-  border-radius: 10px;  
+  background-color: #0070f3;
+  border-radius: 10px;
 }
 
 .comments::-webkit-scrollbar-track {
-  background-color: #f1f1f1;  
+  background-color: #f1f1f1;
+}
+
+.loginLink {
+  color: #0070f3;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 15px;
+  display: inline-block;
+} 
+
+.loginLink:hover {
+  text-decoration: underline;
 }

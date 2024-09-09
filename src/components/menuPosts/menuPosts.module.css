@@ -19,10 +19,9 @@
 }
 
 .image {
-  border-radius: 50%;
   border: 3px solid lightgray;
-  object-fit: cover;
-}
+  max-width: 100px;
+ }
 
 .textContainer {
   flex: 4;
@@ -40,30 +39,8 @@
   width: max-content;
 }
 
-.category.travel {
-  background-color: #ff7857;
-}
-
-.culture {
-  background-color: #ffb14f;
-}
-
-.food {
-  background-color: #7fb881;
-}
-
-.fashion {
-  background-color: #ff7887;
-}
-
-.coding {
-  background-color: #775aec;
-}
-
-.style {
-  background-color: #789cff;
-}
-
+ 
+ 
 .postTitle {
   font-size: 18px;
   font-weight: 500;

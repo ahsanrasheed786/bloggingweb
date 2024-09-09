@@ -10,8 +10,7 @@ const AuthLinks = () => {
   // const { status } = useSession();
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
-// console.log(userEmail)
-  return (
+   return (
     <>
       {status === "unauthenticated" ? (
         <Link href="/login" className={styles.link}>

@@ -13,8 +13,8 @@ import { ThemeContext } from "@/context/ThemeContext"; // Use ThemeContext to ac
 
 const QuestionBox = ({ postSlug, questions }) => {
   const { status } = useSession();
-  const { questionBox, setQuestionBox } = useContext(ThemeContext); // Correctly use context
- console.log(questionBox)
+  const { questionBox, setQuestionBox ,theme} = useContext(ThemeContext); // Correctly use context
+//  console.log(questionBox)
   const data = questions;
 
   const [desc, setDesc] = useState("");
@@ -30,10 +30,11 @@ const QuestionBox = ({ postSlug, questions }) => {
     mutate();
     setDesc("");
   };
-
+  // const background= localStorage.getItem("theme");
+// console.log(background)
   return (
     <main> 
-    <div className={styles.container}>   
+    <div style={{ backgroundColor: theme=="dark" ? '#0f172a' : 'white' }} className={styles.container}>   
        {questionBox && (
         <>
           <h1 className={styles.title}>Questions</h1>
@@ -50,7 +51,7 @@ const QuestionBox = ({ postSlug, questions }) => {
             </div>
           ) : (
             <Link href="/login">Login to ask a question</Link> )}
-            <div className={styles.questions}>
+            <div  className={styles.questions}>
             {!data ? (
               "Loading..."
             ) : Array.isArray(data) && data.length ? (

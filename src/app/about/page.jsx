@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./aboutUs.module.css"; // Use CSS modules
+import styles from "./aboutUs.module.css";  
 
 const AboutUs = () => {
   return (
