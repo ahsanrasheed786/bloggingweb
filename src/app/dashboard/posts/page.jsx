@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import Loader from '@/components/loader/Loader';
 import dynamic from "next/dynamic";
 
-const AdminPosts = () => {
+const AdminPosts = () => { 
   const [posts, setPosts] = useState([]);
   const [singlePost,setSinglePost]=useState([]);
   const [editPost, setEditPost] = useState(null);
