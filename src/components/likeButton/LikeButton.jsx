@@ -11,8 +11,7 @@ const LikeButton = ({ postId }) => {
     const fetchLikeStatus = async () => {
        try {
         const response = await fetch(`/api/likes/status?postId=${postId}`);
-        // console.log(response.likes)
-        if (response.ok) {
+         if (response.ok) {
           const { hasLiked,likes} = await response.json();
           setLiked(hasLiked);
           setTotalLikes(likes)
@@ -48,9 +47,7 @@ const LikeButton = ({ postId }) => {
 
   return (
     <div className={styles.container}>
-      {/* <div>
-
-      </div> */}
+    
        <button onClick={handleLike} 
       style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
         <svg 

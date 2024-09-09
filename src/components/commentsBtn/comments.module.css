@@ -1,14 +1,16 @@
  
-  .container {
+  /* .container {
     background-color: var(--bg);  
     position: absolute;
-    /* position: relative; */
-    left: 50%;
+     left: 50%;
     transform: translateX(-50%);
     max-width: 35vw;
-    /* background: gray; */
+    } */
+   .commentBtnDiv{ 
+     display: flex;
+     flex-direction: row;
+     gap: 5px;
    }
-  
  .toggleButton {
   background: none;
   border: none;
@@ -17,10 +19,9 @@
   color: #0070f3;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-}
+ }
 
- .write {
+ /* .write {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -35,9 +36,9 @@
   border: 1px solid #ddd;
   resize: vertical;
   margin-bottom: 10px;
-}
+} */
 
- .button {
+ /* .button {
   background-color: #0070f3;
   color: #fff;
   border: none;
@@ -89,4 +90,4 @@
   padding: 10px;
   border-radius: 5px;
   background-color: #f9f9f9;
-}
+} */

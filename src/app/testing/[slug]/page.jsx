@@ -1,17 +1,16 @@
 import Menu from "@/components/Menu/Menu";
 import styles from "./testing.module.css";
 import Image from "next/image";
-import Comments from "@/components/comments/Comments";
-import QuestionAndAnswer from "@/components/questionAndAnswer/QuestionAndAnswer";
+import Comments from "@/components/commentsBtn/CommentsBtn";
+import QuestionAndAnswer from "@/components/questionBtn/QuestionBtn";
 import LikeButton from "@/components/likeButton/LikeButton";
 import RatingComponent from "@/components/ratingComponent/RatingComponent";
 import MenuPosts from "@/components/menuPosts/MenuPosts";
 import MenuCategories from "@/components/menuCategories/MenuCategories";
 import ShareButton from "@/components/shareButton/ShareButton.jsx";  
 import TextToSpeech from "@/components/speech/TextToSpeech";
-
-const articleContent = "This is the article content to be read out loud.";
-
+import CommentsBox from "@/components/commentDiv/commentsBox";
+import QuestionBox from "@/components/questionsDiv/QuestionBox";
 const getData = async (slug) => {
   // ${process.env.WEBSIT_URL}
     const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`);
@@ -339,32 +338,20 @@ const page =async ({ params }) => {
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
 <section className={styles.mainContent}>  
 <div className={styles.container}>
-  {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png"  width={100} alt="image-500x300"/> */}
-    {/* image size will be 500*300 */}
-    {/* <img src={data.img} alt={data?.imgAlt} /> */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FQAStructre) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewStructuredData) }} />
 
-        {/* <h1 className={styles.title}>{data?.title}</h1> */}
-
-      <div className={styles.infoContainer}>
-      {/* <h1 className={styles.title}>{data?.title}</h1> */}
-
-        {/* <div className={styles.textContainer}>
-           <br />
-        </div> */}
-        {data?.img && (
+ 
+          {data?.img && (
           <div className={styles.imageContainer}>
             <img src={data.img} alt="" fill className={styles.image} />
-            {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png"  width={100} alt="image-500x300"/> */}
-          </div>
-        )}
-      </div>
-      <div className={styles.content}>
+           </div> )}         
+       <div className={styles.content}>
         <div className={styles.post}>
         <h1 className={styles.title}>{data?.title}</h1>
-          <div className={styles.description} dangerouslySetInnerHTML={{ __html: data?.desc }} />
+        <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
+       <div className={styles.description} dangerouslySetInnerHTML={{ __html: data?.desc }} />
            
            {data.fqa && (
         <div className= {styles.fqaContainer}>
@@ -396,25 +383,23 @@ const page =async ({ params }) => {
           {/* publish by ended */}
           <hr className= {styles.hr}/>
           <div className={styles.postLinks}>
-          <LikeButton postId={data.id} likes={data?.totalLikes} />
+          <LikeButton postId={data?.id} likes={data?.totalLikes} />
           <div className="comments-svg" > 
              <Comments  postSlug={slug} comments={comments} />
            </div>
           <div className="review-svg">
-           <RatingComponent initialRating={data?.totalRating?.average ||4.5} averageRating={data?.totalRating.average} postId={data.id} />
-            {/* {data?.totalRating.average} */}
-           </div>
+           <RatingComponent initialRating={data?.totalRating?.average ||4.5}  ratingCount={data?.totalRating?.count} postId={data.id} />
+            </div>
             <div className="Qna"> 
              <QuestionAndAnswer questions={questions} postSlug={slug} />
             </div> 
             <ShareButton title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 
           {/* <QuestionAndAnswer questions={questions} postSlug={slug} /> */}
-        </div>
-          <TextToSpeech article={articleContent} />
-          {/* <TextToSpeech article={data?.desc} /> */}
-{/* {console.log(data?.desc)} */}
+          <CommentsBox postSlug={slug} comments={comments} />
+          <QuestionBox questions={questions} postSlug={slug}/>
 
+        </div>
         {/* <Menu />  */}
       </div>
     </div>   
@@ -423,7 +408,8 @@ const page =async ({ params }) => {
 </section>
     {/* <!-- -------------------------right-sidebar---------------------------------------- --> */}
 <section className={styles.rightSidebar}>
-    <div className={styles.container}>
+<div className={styles.desktopSpeech}><TextToSpeech article={data?.desc} /></div>
+<div className={styles.container}>
       <h2 className={styles.subtitle}>{"What's hot "}🔥</h2>
       <h2 className={styles.title}>Most Popular</h2>
       <MenuPosts withImage={false} post={popular} />

@@ -1,0 +1,147 @@
+ 
+
+.container {
+  /* position: absolute; */
+  /* left: 50%;
+  transform: translateX(-50%); */
+  max-width: 35vw;
+  min-width: 30vw;
+ }
+ /* .questionBtnDiv{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+ } */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.write {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  margin-bottom: 10px;
+  transition: border 0.3s ease;
+}
+
+.input:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+.button {
+  align-self: flex-end;
+  padding: 8px 20px;
+  background-color: #0070f3;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #005bb5;
+}
+
+.questions {
+  margin-top: 20px;
+}
+
+.question {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.image {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+}
+
+.desc {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.reply {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.reply h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+ 
+.linksBtn{
+  background-color: transparent;
+  color: #0070f3;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+ 
+
+.qna-svg {
+  stroke: #0070f3;
+  width: 24px;
+  height: 24px;
+}
+.questions {
+  margin-top: 20px;
+  max-height: 300px;  
+  overflow-y: auto;   
+  padding-right: 10px;  
+}
+
+.questions::-webkit-scrollbar {
+  width: 8px;  
+}
+
+.questions::-webkit-scrollbar-thumb {
+  background-color: #0070f3;  
+  border-radius: 10px;  
+}
+
+.questions::-webkit-scrollbar-track {
+  background-color: #f1f1f1;  
+}

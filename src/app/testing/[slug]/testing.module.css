@@ -17,14 +17,16 @@
 
 
 .leftSidebar{
+  display: none;
     flex-basis: 23%;
-    align-self: flex-start;
+     align-self: flex-start;
     position: sticky;
     top: 73px;
  }
 .rightSidebar{
-  flex-basis: 18%;
-  align-self: flex-start;
+  flex-basis: 25%;
+  /* flex-basis: 18%; */
+ align-self: flex-start;
   position: sticky;
   top: 73px;
 }
@@ -32,17 +34,20 @@
   font-size: 12px;
 }
 .mainContent{
-     flex-basis: 47%;
+     /* flex-basis: 47%; */
+     flex-basis:70%;
   }
-
-
-.infoContainer {
-   display: flex; 
-    align-items: center;
-    /* gap: 50px;  */
+ .imageContainer{
+    display:flex;
+    justify-content: center;
+     /* align-items:center; */
+ }
+ .imageContainer {
+    flex: 1;
+    height: 350px;
+    position: relative;
   }
-  
-  .textContainer {
+ .textContainer {
     flex: 1;
   }
   
@@ -76,8 +81,6 @@
     outline: none;
     cursor: pointer;
   }
-  
-  
   .qnaSvg:hover {
     fill: #0070f3; /* Change color on hover */
   }
@@ -89,7 +92,6 @@
     height: 50px;
     position: relative;
   }
-  
   .avatar {
     border-radius: 50%;
     object-fit: cover;
@@ -106,17 +108,6 @@
     font-size: 20px;
     font-weight: 500;
   }
-  
-  .imageContainer {
-    flex: 1;
-    height: 350px;
-    position: relative;
-  }
-  
-  .image {
-    object-fit: cover;
-  }
-  
   .content {
     display: flex;
     gap: 50px;
@@ -219,32 +210,31 @@
 
 .fqaContainer {
   padding: 20px;
-  /* background-color: #f9f9f9; */
-}
+ }
 
 .fqaItem {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  /* background-color: #fff; */
-}
+ }
 
 .fqaQuestion {
   font-size: 18px;
   cursor: pointer;
   padding: 10px;
-  /* background-color: #f0f0f0; */
-}
+ }
 
 .fqaQuestion:hover {
-  background-color: #e0e0e0;
+  background-color: rgb(159, 156, 156);
 }
 
 .fqaAnswer {
   padding: 10px;
   font-size: 16px;
-  /* background-color: #fff; */
-  border-left: 3px solid #4caf50;
+   border-left: 3px solid #4caf50;
+}
+.mobileSpeech{
+  display:none;
 }
 /* ================fqa css ends ==== */
 
@@ -255,15 +245,22 @@
     flex-basis: 100%;
     position: relative;
     top: unset;
+    
+  }
+  .mobileSpeech{
+    display:block;
+  }
+  .desktopSpeech{
+    display:none;
   }
   .adCard{
     display: none;
   }
   .mainContent{
     flex-basis: 100%;
-}
-  
-}
+} }
+
+ 
 
 
   @media screen and (max-width: 1536px) {
