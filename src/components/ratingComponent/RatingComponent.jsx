@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import StarRatings from 'react-star-ratings';
 import styles from './RatingComponent.module.css';
 
-const RatingComponent = ({ initialRating, postId, userId,ratingCount=1 }) => {
+const RatingComponent = ({ initialRating, postId, userId,  }) => {
   const [rating, setRating] = useState(initialRating);
   const [hasRated, setHasRated] = useState(false);
    const [ratingBtn,setRatingBtn]=useState(false);
@@ -45,7 +45,8 @@ const RatingComponent = ({ initialRating, postId, userId,ratingCount=1 }) => {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
          </button>
-         {rating}
+         {/* {rating} */}
+         {rating.toFixed(1)}
       </div>
     <div className={styles.ratingContainer}>
         <div className={styles.rating}>
@@ -59,10 +60,7 @@ const RatingComponent = ({ initialRating, postId, userId,ratingCount=1 }) => {
         changeRating={handleRatingChange}
         isSelectable={!hasRated} // Disable rating if the user has already rated
       />}
-
-   {ratingBtn && <p className={styles.averageRating}>{ratingCount}</p>}
-      {/* {ratingBtn && hasRated && <p className={styles.ratedMessage}>You have already rated this post</p>} */}
-      </div> 
+        </div> 
     </div>
     </main>
   );

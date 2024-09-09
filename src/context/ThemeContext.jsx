@@ -22,7 +22,7 @@ export const ThemeContextProvider = ({ children }) => {
   const toggle = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
-
+ 
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);

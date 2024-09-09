@@ -1,7 +1,5 @@
  .ratingContainer {
-     display: flex;
-    /* background:rgb(143, 244, 151); */
-    /* border-radius: 10px; */
+     display: flex; 
     align-items: center;
     justify-content: center;
   }
@@ -21,12 +19,7 @@
 
   .rating {
     margin-top: 50px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 35vw;
-     /* border:1px solid gray; */
-    /* border-radius:20px; */
+    position: absolute; 
      display: flex;
     flex-direction: column;  
     align-items: center;  

@@ -323,13 +323,13 @@ const page =async ({ params }) => {
           <div className={styles.postLinks}>
           <LikeButton postId={data?.id} likes={data?.totalLikes} />
           <div className="comments-svg" > 
-             <Comments  postSlug={slug} comments={comments} />
+             <Comments   length={comments.length} />
            </div>
           <div className="review-svg">
-           <RatingComponent initialRating={data?.totalRating?.average ||4.5}  ratingCount={data?.totalRating?.count} postId={data.id} />
+           <RatingComponent initialRating={data?.totalRating?.average ||4.5}   postId={data.id} />
             </div>
             <div className="Qna"> 
-             <QuestionAndAnswer questions={questions} postSlug={slug} />
+             <QuestionAndAnswer length={questions.length}  />
             </div> 
             <ShareButton title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 

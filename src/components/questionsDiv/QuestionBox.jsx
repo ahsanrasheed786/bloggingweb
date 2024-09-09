@@ -1,5 +1,3 @@
- 
-
 
 "use client";
 
@@ -15,11 +13,9 @@ const QuestionBox = ({ postSlug, questions }) => {
   const { status } = useSession();
   const { questionBox, setQuestionBox ,theme} = useContext(ThemeContext);  
    const data = questions;
-
   const [desc, setDesc] = useState("");
-
   const handleSubmit = async () => {
-    await fetch("/api/comments", {
+    await fetch("/api/questions", {
       method: "POST",
       body: JSON.stringify({ desc, postSlug }),
       headers: {
@@ -35,8 +31,7 @@ const QuestionBox = ({ postSlug, questions }) => {
     <div style={{ backgroundColor: theme=="dark" ? '#0d1422' : 'white' }} className={styles.container}>   
        {questionBox && (
         <>
-          {/* <h1 className={styles.title}>Questions</h1> */}
-          {status === "authenticated" ? (
+           {status === "authenticated" ? (
             <div className={styles.write}>
               <textarea
                 placeholder="Ask a question..."
