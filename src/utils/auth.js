@@ -50,36 +50,36 @@ export const authOptions = {
       return session;
     },
 
-    // async signIn({ user, account }) {
-    //   // Ensure `user` and `account` objects are defined
-    //   if (user && account) {
-    //     if (account.provider === "email") {
-    //       // Send thank you email for email sign-ins after verification
-    //       await sendThankYouEmail(user.email, user.name);
-    //     } else {
-    //       // Send thank you email for OAuth sign-ins
-    //       // await sendThankYouEmail(user.email, user.name);
-    //     }
-    //   }
-    //   return true;
-    // },
     async signIn({ user, account }) {
+      // Ensure `user` and `account` objects are defined
       if (user && account) {
         if (account.provider === "email") {
-          const userName = user.name || "User";
-          await prisma.user.upsert({
-            where: { email: user.email },
-            update: { name: userName },
-            create: { email: user.email, name: userName },
-          });
-          await sendThankYouEmail(user.email, userName);
-        } else if (["github", "google", "facebook"].includes(account.provider)) {
-          const userName = user.name || "User";
-          await sendThankYouEmail(user.email, userName);
+          // Send thank you email for email sign-ins after verification
+          await sendThankYouEmail(user?.email, user?.name || "User");
+        } else {
+          // Send thank you email for OAuth sign-ins
+          // await sendThankYouEmail(user.email, user.name);
         }
       }
       return true;
     },
+    // async signIn({ user, account }) {
+    //   if (user && account) {
+    //     if (account.provider === "email") {
+    //       const userName = user.name || "User";
+    //       await prisma.user.upsert({
+    //         where: { email: user.email },
+    //         update: { name: userName },
+    //         create: { email: user.email, name: userName },
+    //       });
+    //       await sendThankYouEmail(user.email, userName);
+    //     } else if (["github", "google", "facebook"].includes(account.provider)) {
+    //       const userName = user.name || "User";
+    //       await sendThankYouEmail(user.email, userName);
+    //     }
+    //   }
+    //   return true;
+    // },
     async redirect({ url, baseUrl }) {
       // Redirect to the previous page if available, otherwise redirect to base URL
       if (url.startsWith(baseUrl)) {
