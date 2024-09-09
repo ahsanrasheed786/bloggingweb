@@ -26,23 +26,23 @@ const QuestionAndAnswer = ({ postSlug, questions }) => {
     initialData: questions, // Initial data from server-side fetch
   });
 
-    const handleSubmit = async () => {
-    if (!desc.trim()) return;  
-    try {
-      const response = await fetch("/api/questions", {
-        method: "POST",
-        body: JSON.stringify({ desc, postSlug }),
-        headers: { "Content-Type": "application/json" },
-      });
+  //   const handleSubmit = async () => {
+  //   if (!desc.trim()) return;  
+  //   try {
+  //     const response = await fetch("/api/questions", {
+  //       method: "POST",
+  //       body: JSON.stringify({ desc, postSlug }),
+  //       headers: { "Content-Type": "application/json" },
+  //     });
 
-      if (!response.ok) throw new Error("Failed to submit the question");
+  //     if (!response.ok) throw new Error("Failed to submit the question");
 
-      setDesc(""); 
-       await mutate(`/api/questions?postSlug=${postSlug}`); 
-    } catch (error) {
-      console.error("Failed to submit question:", error);
-    }
-  };
+  //     setDesc(""); 
+  //      await mutate(`/api/questions?postSlug=${postSlug}`); 
+  //   } catch (error) {
+  //     console.error("Failed to submit question:", error);
+  //   }
+  // };
 
   if (error) return <div>Error loading questions.</div>;
 

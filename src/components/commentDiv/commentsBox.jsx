@@ -11,8 +11,8 @@ import { ThemeContext } from "@/context/ThemeContext";
  
 const CommentsBox = ({ postSlug, comments }) => {
   const { status } = useSession();
-  const { questionAndCommentsOpen,theme } = useContext(ThemeContext);  
-//  console.log(questionAndCommentsOpen)
+  const { commentsOpen,theme } = useContext(ThemeContext);  
+//  console.log(commentsOpen)
   const data = comments;
 
   const [desc, setDesc] = useState("");
@@ -31,7 +31,7 @@ const CommentsBox = ({ postSlug, comments }) => {
 
   return (
     <main> 
-     { questionAndCommentsOpen &&  
+     { commentsOpen &&  
         <div style={{ backgroundColor: theme=="dark" ? '#0d1422' : 'white' }} className={styles.container}>
 
         {status === "authenticated" &&   (

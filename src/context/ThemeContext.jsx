@@ -9,10 +9,10 @@ const getFromLocalStorage = () => {
     const value = localStorage.getItem("theme");
     return value || "light";
   }
-};
+}; 
 
 export const ThemeContextProvider = ({ children }) => {
-  const [questionAndCommentsOpen, setQuestionAndCommentsOpen] = useState(false);
+  const [commentsOpen, setCommentsOpen] = useState(false);
   const [questionBox, setQuestionBox] = useState(false);
 
   const [theme, setTheme] = useState(() => {
@@ -28,7 +28,7 @@ export const ThemeContextProvider = ({ children }) => {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggle ,questionAndCommentsOpen, setQuestionAndCommentsOpen,questionBox, setQuestionBox}}>
+    <ThemeContext.Provider value={{ theme, toggle ,commentsOpen, setCommentsOpen,questionBox, setQuestionBox}}>
       {children}
     </ThemeContext.Provider>
   );

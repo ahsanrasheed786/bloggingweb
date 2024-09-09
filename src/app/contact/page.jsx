@@ -47,24 +47,16 @@ const ContactPage = () => {
             <div className={styles.formGroup}>
               <label htmlFor="name">Name:</label>
               <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className={styles.input}
-              />
+                type="text" id="name" value={name}
+                onChange={(e) => setName(e.target.value)} required
+                className={styles.input}/>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="email">Email:</label>
               <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className={styles.input}
-              />
+                type="email"id="email" value={email}
+                onChange={(e) => setEmail(e.target.value)} required
+                className={styles.input} />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="message">Message:</label>
@@ -73,18 +65,17 @@ const ContactPage = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
-                className={styles.textarea}
-              />
+                className={styles.textarea} />
             </div>
             <button type="submit" className={styles.submitButton}>Submit</button>
           </form>
-        )}
+        )} 
         <div className={styles.contactInfo}>
-          <p><strong>Email:</strong> your-email@example.com</p>
-          <p><strong>Phone:</strong> +1234567890</p>
+          <p><strong>Email:</strong> {process.env.EMAIL}</p>
+          <p><strong>Phone:</strong>{process.env.PHONE}</p>
           <p><strong>Socials:</strong> 
-            <a href="https://twitter.com/yourprofile">Twitter</a>, 
-            <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
+            <a href={process.env.TWITTER}>Twitter</a>, 
+            <a href={process.env.LINKEDIN}>LinkedIn</a>
           </p>
         </div>
       </div>

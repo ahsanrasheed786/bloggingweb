@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
+// import Link from "next/link";
 import styles from "./comments.module.css";
-import Image from "next/image";
+// import Image from "next/image";
 import useSWR from "swr";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { useContext, useState } from "react";
-import CommentsBox from "../commentDiv/commentsBox";
+// import CommentsBox from "../commentDiv/commentsBox";
 import { ThemeContext } from "@/context/ThemeContext"; // Use ThemeContext to access context values
 
 const fetcher = async (url) => {
@@ -22,7 +22,7 @@ const fetcher = async (url) => {
 };
 
 const Comments = ({ postSlug, comments }) => {
-  const { status } = useSession();
+  // const { status } = useSession();
   const { data, mutate, isLoading } = useSWR(
     `/api/comments?postSlug=${postSlug}`,
     fetcher,
@@ -31,7 +31,7 @@ const Comments = ({ postSlug, comments }) => {
     }
   );
 
-  const { questionAndCommentsOpen, setQuestionAndCommentsOpen } = useContext(ThemeContext); // Correctly use context
+  const {  commentsOpen, setCommentsOpen } = useContext(ThemeContext); // Correctly use context
   const [desc, setDesc] = useState("");
 
   const handleSubmit = async () => {
@@ -46,7 +46,7 @@ const Comments = ({ postSlug, comments }) => {
     setDesc("");
   };
 
-  const toggleComments = () => setQuestionAndCommentsOpen(!questionAndCommentsOpen);
+  const toggleComments = () => setCommentsOpen(!commentsOpen);
 
   return (
     <main>
@@ -66,10 +66,7 @@ const Comments = ({ postSlug, comments }) => {
           </svg>
         </button>
         {data?.length}
-      </div>
-      {/* {questionAndCommentsOpen && (
-        <CommentsBox postSlug={postSlug} comments={data} />
-      )} */}
+      </div> 
     </main>
   );
 };

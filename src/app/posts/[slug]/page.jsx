@@ -11,81 +11,18 @@ import TextToSpeech from "@/components/speech/TextToSpeech";
 import CommentsBox from "@/components/commentDiv/commentsBox";
 import QuestionBox from "@/components/questionsDiv/QuestionBox";
 const getData = async (slug) => {
-  // ${process.env.WEBSIT_URL}
-    const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`);
+     const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`);
     if (!res.ok) {
       throw new Error("Failed to fetch post data");}
     return res.json();};
   
-  // export async function generateMetadata({ params }) {
-  //   const { slug } = params;
-  //   const data = await getData(slug);
-  //   return {
-  //     title: data?.metaTitle || "Default Title",
-  //     description: data?.metaDisc || "This blog backend description is empty",
-  //     keywords: data?.metaKeywords || "",
-  //     author: data?.metaAuthor || "Ahsan",
-  //     robots: data?.metaRobots || "index, follow",
-
-  //   };
-  // }
-
+ 
 
   export async function generateMetadata({ params }) {
     const { slug } = params;
     const data = await getData(slug);
   
-    // Structured Data (for JSON-LD)
-    // const structuredData = {
-    //   "@context": "https://schema.org",
-    //   "@type": "Article", // Change to 'WebPage' if it's not an article
-    //   "mainEntityOfPage": {
-    //     "@type": "WebPage",
-    //     "@id": `https://yourdomain.com/${slug}`,
-    //   },
-    //   "headline": data?.metaTitle || "Default Title",
-    //   "description": data?.metaDisc || "This blog backend description is empty",
-    //   "image": data?.ogImage || "/default-og-image.jpg", // Main image URL
-    //   "author": {
-    //     "@type": "Person",
-    //     "name": data?.metaAuthor || "Ahsan",
-    //   },
-    //   "publisher": {
-    //     "@type": "Organization",
-    //     "name": "Your Site Name",
-    //     "logo": {
-    //       "@type": "ImageObject",
-    //       "url": "/logo.jpg", // Your website logo
-    //     },
-    //   },
-    //   "datePublished": data?.publishedDate || "2024-09-02",
-    //   "dateModified": data?.updatedDate || "2024-09-02",
-    // };
-    // const breadcrumb = {
-    //   "@context": "https://schema.org",
-    //   "@type": "BreadcrumbList",
-    //   "itemListElement": [
-    //     {
-    //       "@type": "ListItem",
-    //       "position": 1,
-    //       "name": "Home",
-    //       "item": "https://yourdomain.com/"
-    //     },
-    //     {
-    //       "@type": "ListItem",
-    //       "position": 2,
-    //       "name": data?.category || "Blog",
-    //       "item": `https://yourdomain.com/${data?.category || 'blog'}`
-    //     },
-    //     {
-    //       "@type": "ListItem",
-    //       "position": 3,
-    //       "name": data?.metaTitle || "Current Page",
-    //       "item": `https://yourdomain.com/${slug}`
-    //     }
-    //   ]
-    // };
-    
+ 
     return {
       title: data?.metaTitle || "Default Title",
       description: data?.metaDisc || "This blog backend description is empty",
@@ -93,36 +30,33 @@ const getData = async (slug) => {
       author: data?.metaAuthor || "Ahsan",
       robots: data?.metaRobots || "index, follow",
   
-      // Open Graph (OG) Tags
-      openGraph: {
+       openGraph: {
         type: "article", // or 'website', depending on your page type
         title: data?.metaTitle || "Default Title",
         description: data?.metaDisc || "This blog backend description is empty",
         url: `${process.env.WEBSIT_URL}/${slug}`,
         images: [
           {
-            // url: data?.ogImage || "/default-og-image.jpg",
+            url: data?.artical?.featureImage || "",
             width: 800,
             height: 600,
-            // alt: data?.metaTitle || "Default OG Image",
+            alt: data?.imgAlt || "Default Image",
           },
         ],
         locale: "en_US",
-        site_name: "Your Site Name",
+        site_name: "Coolzonemaster",
       },
   
-      // Twitter Card Tags
-      twitter: {
+       twitter: {
         card: "summary_large_image",
         title: data?.metaTitle || "Default Title",
-        // description: data?.metaDisc || "This blog backend description is empty",
-        // images: [data?.twitterImage || "/default-twitter-image.jpg"],
+        description: data?.metaDisc || "This blog backend description is empty",
+        images: [data?.artical?.featureImage || "/default-twitter-image.jpg"],
         creator: "@yourTwitterHandle", // Your Twitter handle
         site: "@yourTwitterHandle", // Twitter site username
       },
   
-      // Canonical URL
-      alternates: {
+       alternates: {
         canonical: `${process.env.WEBSIT_URL}/${slug}`,
       },
   
@@ -130,22 +64,27 @@ const getData = async (slug) => {
       viewport: "width=device-width, initial-scale=1",
       charset: "utf-8",
       themeColor: "#ffffff", // Set to your brand color
-      // "article:section": data?.category || "General", // Useful if you want to categorize articles
+      "article:section": data?.category || "General", // Useful if you want to categorize articles
       // "article:tag": data?.tags?.join(", ") || "", // Tags for your article
   
-      // JSON-LD structured data
-      // script: [
+       //  script: [
       //   {
       //     type: "application/ld+json",
       //     json: structuredData,
       //   },
       //   {
       //     type: "application/ld+json",
-      //     json: breadcrumb,
-      //   }
+      //     json: FQAStructre,
+      //   },
+      //   {
+      //     type: "application/ld+json",
+      //     json: reviewStructuredData,
+      //   },
+      //   // {
+      //   //   type: "application/ld+json",
+      //   //   json: breadcrumb,
+      //   // }
       // ],
-      
-  
       // Favicon, Apple Touch Icon, hreflang,and Web Manifest
       link: [
         {
@@ -231,29 +170,28 @@ const page =async ({ params }) => {
      const questions = await fetchQuestion();
      const comments = await fetchComments();
  
-    const structuredData = {
+     const structuredData = {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": data?.artical?.heading || "default Article Title",
-      "image": data?.artical?.featureImage || "default https://example.com/image.jpg",
+      "headline": data?.artical?.heading || "",
+      "image": data?.artical?.featureImage || "",
       "author": {
         "@type": "Person",
-        "name": data?.metaAuthor  || "John Doe",
+        "name": data?.metaAuthor  || "",
       },
       "publisher": {
         "@type": "Organidata.authorzation",
-        "name": "Coolzone",
+        "name": "Coolzonemaster",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://example.com/logo.jpg",
+          "url": `${process.env.WEBSIT_URL}/favicon.ico`,
         },
       },
       "datePublished": data?.createdAt  || "2022-01-01",
       "dateModified": data?.updatedAt   || "2022-01-01",
-      "description": data?.artical?.description || "default Article description",
-      "articleBody": data?.artical?.articleBody || "default Article content",
+      "description": data?.artical?.description || "",
+      "articleBody": data?.artical?.articleBody || "",
     };
- 
     const FQAStructre = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -272,10 +210,10 @@ const page =async ({ params }) => {
       "itemReviewed": {
         "@type": "CreativeWork",
         "name": data?.title || "Article Title defautl",
-        "image": data?.artical?.featureImage || " https://default/image.jpg",
+        "image": data?.artical?.featureImage || "https://default/image.jpg",
         "author": {
           "@type": "Person",
-          "name": data?.metaAuthor|| "John Doe",
+          "name": data?.metaAuthor|| "Ahsan Rasheed",
         },
       },
       "reviewRating": {
@@ -287,8 +225,9 @@ const page =async ({ params }) => {
         "@type": "Person",
         "name": "Anonymous",
       },
-      "reviewBody": "This post is great for health tips!", // Dynamic review body can be added here
+      "reviewBody": "This post is great for health tips!",  
     }; 
+    
   return (
     
     <div className={styles.container}>
@@ -337,14 +276,14 @@ const page =async ({ params }) => {
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
 <section className={styles.mainContent}>  
 <div className={styles.container}>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FQAStructre) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewStructuredData) }} />
+       {data?.artical && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />}
+        { data?.fqa && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FQAStructre) }} />}
+        {<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewStructuredData) }} />}
 
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img} alt="" fill className={styles.image} />
+            <img src={data?.img} alt={data?.imgAlt} fill className={styles.image} />
            </div> )}         
        <div className={styles.content}>
         <div className={styles.post}>
@@ -352,15 +291,15 @@ const page =async ({ params }) => {
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
        <div className={styles.description} dangerouslySetInnerHTML={{ __html: data?.desc }} />
            
-           {data.fqa && (
+           {data?.fqa && (
         <div className= {styles.fqaContainer}>
           <h2>FAQ</h2>
-          {data.fqa.map((item, index) => (
+          {data?.fqa?.map((item, index) => (
             <details key={index} className= {styles.fqaItem}>
               <summary className= {styles.fqaQuestion}>
                  {item?.question}
               </summary>
-              <p className= {styles.fqaAnswer}>  {item.answer}</p>
+              <p className= {styles.fqaAnswer}>  {item?.answer}</p>
             </details>
           ))}
         </div>
@@ -394,13 +333,11 @@ const page =async ({ params }) => {
             </div> 
             <ShareButton title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 
-          {/* <QuestionAndAnswer questions={questions} postSlug={slug} /> */}
-          <CommentsBox postSlug={slug} comments={comments} />
+           <CommentsBox postSlug={slug} comments={comments} />
           <QuestionBox questions={questions} postSlug={slug}/>
 
         </div>
-        {/* <Menu />  */}
-      </div>
+       </div>
     </div>   
     
  
