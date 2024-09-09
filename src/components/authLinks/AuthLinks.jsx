@@ -85,6 +85,9 @@ const AuthLinks = () => {
   const [unauthorized, setUnauthorized] = useState(false);
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
+console.log(userEmail)
+console.log(adminArray)
+console.log(unauthorized)
 
   useEffect(() => {
     async function fetchAccessData() {
@@ -104,7 +107,7 @@ const AuthLinks = () => {
   }, []);
 
   useEffect(() => {
-    if (!adminArray.some((item) => item.email === userEmail)) {
+    if (adminArray.some((item) => item.email === userEmail)) {
       setUnauthorized(true);
     }
   }, [adminArray, userEmail]);
@@ -117,7 +120,7 @@ const AuthLinks = () => {
         </Link>
       ) : (
         <>
-          {!unauthorized && (
+          { unauthorized && (
             <Link href="/dashboard" className={styles.link}>
               Dashboard
             </Link>
