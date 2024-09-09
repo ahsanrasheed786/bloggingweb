@@ -8,14 +8,13 @@ import styles from "./questionBox.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState ,useContext} from "react";
-import { ThemeContext } from "@/context/ThemeContext"; // Use ThemeContext to access context values
+import { ThemeContext } from "@/context/ThemeContext";  
 
 
 const QuestionBox = ({ postSlug, questions }) => {
   const { status } = useSession();
-  const { questionBox, setQuestionBox ,theme} = useContext(ThemeContext); // Correctly use context
-//  console.log(questionBox)
-  const data = questions;
+  const { questionBox, setQuestionBox ,theme} = useContext(ThemeContext);  
+   const data = questions;
 
   const [desc, setDesc] = useState("");
 
@@ -30,14 +29,13 @@ const QuestionBox = ({ postSlug, questions }) => {
     mutate();
     setDesc("");
   };
-  // const background= localStorage.getItem("theme");
-// console.log(background)
+ 
   return (
     <main> 
-    <div style={{ backgroundColor: theme=="dark" ? '#0f172a' : 'white' }} className={styles.container}>   
+    <div style={{ backgroundColor: theme=="dark" ? '#0d1422' : 'white' }} className={styles.container}>   
        {questionBox && (
         <>
-          <h1 className={styles.title}>Questions</h1>
+          {/* <h1 className={styles.title}>Questions</h1> */}
           {status === "authenticated" ? (
             <div className={styles.write}>
               <textarea
@@ -64,8 +62,7 @@ const QuestionBox = ({ postSlug, questions }) => {
                         alt="User Image"
                         width={50}
                         height={50}
-                        className={styles.image} />
-                    )}
+                        className={styles.image} />)}
                     <div className={styles.userInfo}>
                       <span className={styles.username}>{item?.user?.name}</span>
                       <span className={styles.date}>

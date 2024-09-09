@@ -8,11 +8,10 @@ import { useSession } from "next-auth/react";
 import { useState ,useContext} from "react";
 import { ThemeContext } from "@/context/ThemeContext";  
 
-const background= localStorage.getItem("theme");
-
+ 
 const CommentsBox = ({ postSlug, comments }) => {
   const { status } = useSession();
-  const { questionAndCommentsOpen } = useContext(ThemeContext);  
+  const { questionAndCommentsOpen,theme } = useContext(ThemeContext);  
 //  console.log(questionAndCommentsOpen)
   const data = comments;
 
@@ -26,14 +25,14 @@ const CommentsBox = ({ postSlug, comments }) => {
         "Content-Type": "application/json",
       },
     });
-    mutate();
+    mutate(); 
     setDesc("");
   };
 
   return (
     <main> 
      { questionAndCommentsOpen &&  
-        <div style={{ backgroundColor: theme=="dark" ? '#0f172a' : 'white' }} className={styles.container}>
+        <div style={{ backgroundColor: theme=="dark" ? '#0d1422' : 'white' }} className={styles.container}>
 
         {status === "authenticated" &&   (
           <div className={styles.write}>
