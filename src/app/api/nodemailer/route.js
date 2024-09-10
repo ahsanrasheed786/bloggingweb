@@ -20,9 +20,9 @@ export const sendThankYouEmail = async (email, name = "User") => {
   });
 
   // Replace placeholders in the email body
-  const subject = template?.subject.replace('{{name}}', name);
-  const textBody = template?.textBody.replace('{{name}}', name);
-  const htmlBody = template?.htmlBody.replace('{{name}}', name);
+  const subject = template?.subject.replace(' {{userName}}', name);
+  const textBody = template?.textBody.replace(' {{userName}}', name);
+  const htmlBody = template?.htmlBody.replace(' {{userName}}', name);
 
   const mailOptions = {
     from: process.env.EMAIL_FROM,
@@ -40,28 +40,4 @@ export const sendThankYouEmail = async (email, name = "User") => {
   }
 };
 
-
-// export const sendThankYouEmail = async (email, name = "User") => {
-//   const template = await prisma.emailTemplate.findUnique({
-//     where: { templateType: 'thank_you' },
-//   });
-
-//   const subject = template?.subject.replace('{{name}}', name);
-//   const textBody = template?.textBody.replace('{{name}}', name);
-//   const htmlBody = template?.htmlBody.replace('{{name}}', name);
-
-//   const mailOptions = {
-//     from: process.env.EMAIL_FROM,
-//     to: email,
-//     subject: subject || 'Thank you for signing in!',
-//     text: textBody || `Hi ${name},\n\nThank you for signing in! We're glad to have you on board.\n\nBest regards,\nYour Team`,
-//     html: htmlBody || `<p>Hi ${name},</p><p>Thank you for signing in! We're glad to have you on board.</p><p>Best regards,<br>Your Team</p>`,
-//   };
  
-//   try {
-//     await transporter.sendMail(mailOptions);
-//     console.log('Thank you email sent successfully');
-//   } catch (error) {
-//     console.error('Error sending thank you email:', error);
-//   }
-// };
