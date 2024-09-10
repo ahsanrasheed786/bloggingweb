@@ -20,9 +20,9 @@ export const sendThankYouEmail = async (email, name = "User") => {
   });
 
   // Replace placeholders in the email body
-  const subject = template?.subject.replace(' {{userName}}', name);
-  const textBody = template?.textBody.replace(' {{userName}}', name);
-  const htmlBody = template?.htmlBody.replace(' {{userName}}', name);
+  const subject = template?.subject.replace('{{name}}', name);
+  const textBody = template?.textBody.replace('{{name}}', name);
+  const htmlBody = template?.htmlBody.replace('{{name}}', name);
 
   const mailOptions = {
     from: process.env.EMAIL_FROM,
