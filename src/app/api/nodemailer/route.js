@@ -1,7 +1,7 @@
  
 
 
-
+ 
 import nodemailer from 'nodemailer';
 import prisma from '@/utils/connect'; // Adjust the path if necessary
 
@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_SERVER_PASSWORD,
   },
 });
-
+ 
 export const sendThankYouEmail = async (email, name = "User") => {
   // Fetch the email template from the database
   const template = await prisma.emailTemplate.findUnique({

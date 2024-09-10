@@ -71,7 +71,7 @@ const ContactPage = () => {
           </form>
         )} 
         <div className={styles.contactInfo}>
-          <p><strong>Email:</strong> {process.env.EMAIL}</p>
+          <p><strong>Email:</strong>{process.env.EMAIL}</p>
           <p><strong>Phone:</strong>{process.env.PHONE}</p>
           <p><strong>Socials:</strong> 
             <a href={process.env.TWITTER}>Twitter</a>, 
