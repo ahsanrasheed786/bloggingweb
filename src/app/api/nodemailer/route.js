@@ -15,9 +15,8 @@ const transporter = nodemailer.createTransport({
 });
  
 export const sendThankYouEmail = async (email, name = "User") => {
-  // Fetch the email template from the database
-  const template = await prisma.emailTemplate.findUnique({
-    where: { templateType: 'thank_you' },
+   const template = await prisma.emailTemplate.findUnique({
+    where: { templateType: 'Welcome Email' },
   });
 
   // Replace placeholders in the email body
