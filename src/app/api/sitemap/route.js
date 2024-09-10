@@ -16,9 +16,13 @@ export async function GET(req, res) {
   const websiteUrl = process.env.WEBSIT_URL || 'https://coolzonemaster.com';
 
   const staticUrls = [
-    { url: '/', lastModified: new Date().toISOString(), priority: 1.0, changefreq: 'daily' },
-    { url: '/about', lastModified: new Date().toISOString(), priority: 0.8, changefreq: 'yearly' },
-    { url: '/contact', lastModified: new Date().toISOString(), priority: 0.8, changefreq: 'yearly' },
+    { url: '/', lastModified: new Date().toISOString(), priority: 0.9, changefreq: 'daily' },
+    { url: '/about', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: '/contact', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: '/privacy-policy', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: '/terms-of-service', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: '/disclaimer', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+
   ];
 
   const urls = [
@@ -32,7 +36,7 @@ export async function GET(req, res) {
       url: `${websiteUrl}/posts/${post.slug}`,
       createdAt: post.createdAt.toISOString(),
       lastModified: post.updatedAt.toISOString(),
-      priority: 0.9,  // Default priority for blog posts
+      priority: 0.7,  // Default priority for blog posts
       changefreq: 'weekly',  // Set change frequency for posts
       img: post.img ? post.img.replace(/&/g, '&amp;') : null, // Escape special characters
     })),

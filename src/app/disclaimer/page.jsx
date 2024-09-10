@@ -5,32 +5,32 @@ const Disclaimer = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Disclaimer</h1>
       <p className={styles.paragraph}>
-        The information provided on CoolZone is for general informational purposes only. All content, including text, graphics, and images, is not intended to be a substitute for professional medical advice, diagnosis, or treatment.
+        The information provided on CoolZoneMaster is intended for general informational and entertainment purposes only. While we strive to ensure that the information provided is accurate and up-to-date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, or suitability of the information for any purpose.
       </p>
 
-      <h2 className={styles.subtitle}>Medical Advice</h2>
+      <h2 className={styles.subtitle}>Content Accuracy</h2>
       <p className={styles.paragraph}>
-        Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on this website.
+        CoolZoneMaster makes no guarantee regarding the accuracy or reliability of the information found on this website. Content may be updated, altered, or removed at any time without notice. Users should independently verify any information before relying on it.
       </p>
 
-      <h2 className={styles.subtitle}>Fitness Information</h2>
+      <h2 className={styles.subtitle}>Third-Party Content</h2>
       <p className={styles.paragraph}>
-        Any fitness-related information is provided for your convenience and should not be considered as medical advice. Consult a certified fitness professional before starting any exercise program.
+        CoolZoneMaster may include links or references to third-party websites, services, or content. We do not endorse or take responsibility for the accuracy, legality, or appropriateness of such content. Your use of any third-party websites or resources is at your own risk.
       </p>
 
       <h2 className={styles.subtitle}>Limitation of Liability</h2>
       <p className={styles.paragraph}>
-        CoolZone is not responsible for any injuries or damages that result from the use of the content provided on this site. Use of the information on this site is at your own risk.
+        CoolZoneMaster shall not be held liable for any loss or damage arising out of the use of this website or the information provided herein. This includes, but is not limited to, direct, indirect, incidental, or consequential damages.
       </p>
 
-      <h2 className={styles.subtitle}>External Links</h2>
+      <h2 className={styles.subtitle}>Changes to This Disclaimer</h2>
       <p className={styles.paragraph}>
-        Our website may contain links to third-party websites. These links are provided for convenience, and CoolZone does not endorse or assume any responsibility for the content of such sites.
+        CoolZoneMaster reserves the right to modify or update this disclaimer at any time without prior notice. By using this website, you agree to be bound by the most current version of this disclaimer.
       </p>
 
       <h2 className={styles.subtitle}>Contact Us</h2>
       <p className={styles.paragraph}>
-        If you have any questions regarding this disclaimer, please contact us at <a href="mailto:[your email]" className={styles.link}>[your email]</a>.
+        If you have any questions regarding this disclaimer, please contact us at <a href={`mailto:${process.env.EMAIL}`} className={styles.link}>:{process.env.EMAIL}</a>.
       </p>
     </div>
   );

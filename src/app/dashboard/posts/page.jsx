@@ -104,7 +104,7 @@ const AdminPosts = () => {
       const res = await fetch(`/api/posts/${slug}`);
       const data = await res.json();
       // setSinglePost(data.posts);
-      console.log(data)
+      // console.log(data)
     };
   
   const formatDate = (dateString) => {
@@ -499,7 +499,6 @@ const AdminPosts = () => {
           <button type="button" onClick={addFqa} className={style.addFqaButton}>
             Add FQA
           </button>
- 
           <input
             type="file"
             onChange={handleImageChange}

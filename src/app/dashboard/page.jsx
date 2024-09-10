@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Line, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import styles from "./dashboard.module.css";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Loader from '@/components/loader/Loader';
@@ -367,7 +367,7 @@ useEffect(() => {
           </h4>
 
           {popularPost.img && (
-            <Image
+            <img
               src={popularPost.img}
               alt={popularPost.title}
               className={styles.postImage}

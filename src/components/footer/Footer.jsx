@@ -1,3 +1,4 @@
+
 import React from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
@@ -9,14 +10,11 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.info}>
           <div className={styles.logo}>
-            <Image src="/logo.png" alt="lama blog" width={50} height={50} />
-            <h1 className={styles.logoText}>CoolZone</h1>
+            <Image src="/logo.png" alt="CoolZoneMaster logo" width={50} height={50} />
+            <h1 className={styles.logoText}>CoolZoneMaster</h1>
           </div>
           <p className={styles.desc}>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim
-            necessitatibus similique aspernatur obcaecati veritatis. Aperiam cum
-            porro sequi, totam minima consequuntur, aspernatur deleniti vero
-            repellendus dorales.
+            At CoolZoneMaster, we are dedicated to bringing you insightful articles and stories across a wide range of topics. From tech trends to lifestyle tips, we aim to inspire, educate, and entertain our global audience. Join us on this journey to explore the world’s most exciting ideas and innovations.
           </p>
           <div className={styles.icons}>
             <Image src="/facebook.png" alt="Facebook" width={18} height={18} />
@@ -58,7 +56,7 @@ const Footer = () => {
       {/* New Section for Copyright, Privacy Policy, Terms of Service, and Disclaimer */}
       <div className={styles.footerBottom}>
         <p className={styles.copyright}>
-          &copy; 2023 CoolZone. All rights reserved.
+          &copy; 2023 CoolZoneMaster. All rights reserved.
         </p>
         <div className={styles.policies}>
           <Link href="/privacy-policy">Privacy Policy</Link>

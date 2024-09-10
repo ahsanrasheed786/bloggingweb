@@ -69,13 +69,13 @@ const ContactPage = () => {
             </div>
             <button type="submit" className={styles.submitButton}>Submit</button>
           </form>
-        )} 
+        )}  
         <div className={styles.contactInfo}>
-          <p><strong>Email:</strong>{process.env.EMAIL}</p>
-          <p><strong>Phone:</strong>{process.env.PHONE}</p>
+          <p><strong>Email:</strong>coolzonemaster@gmail.com</p>
+          <p><strong>Phone:</strong>+923404099242</p>
           <p><strong>Socials:</strong> 
-            <a href={process.env.TWITTER}>Twitter</a>, 
-            <a href={process.env.LINKEDIN}>LinkedIn</a>
+            <a target='_blank' href='https://twitter.com'>Twitter</a>, 
+            <a target='_blank' href='www.linkedin.com/in/ahsan-rasheed-977693177'>LinkedIn</a>
           </p>
         </div>
       </div>

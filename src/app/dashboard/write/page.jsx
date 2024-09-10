@@ -360,7 +360,7 @@ const [ articalBody, setArticalBody] = useState("");
       
  {media && (
         <div className={styles.previewContainer}>
-          <Image 
+          <img 
             src={media} 
             alt="Preview" 
             className={styles.previewImage} 
