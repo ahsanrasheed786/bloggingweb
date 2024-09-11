@@ -32,10 +32,8 @@ const CommentsBox = ({ postSlug, comments }) => {
         "Content-Type": "application/json",
       },
     });
-    // Simulate fetching updated comments here after posting
-    // setData(updatedComments);
-    setDesc("");
-    setLoading(false); // Stop loading after submitting
+      setDesc("");
+    setLoading(false);  
   };
 
   return (
@@ -50,11 +48,12 @@ const CommentsBox = ({ postSlug, comments }) => {
 {/* <textarea id="comment-input" name="comment"></textarea> */}
               <textarea
                id="comment-input"
+               aria-label="Comment Input"
                 placeholder="Write a comment..."
                 className={styles.input}
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)} />
-              <button className={styles.button} onClick={handleSubmit}>
+              <button className={styles.button} onClick={handleSubmit} aria-label="Submit Comment">
                 Send
               </button>
             </div>
@@ -80,6 +79,7 @@ const CommentsBox = ({ postSlug, comments }) => {
                         width={30}
                         height={30}
                         className={styles.image}
+                        aria-label={`${item?.user?.name}'s profile picture`}
                       />
                     )}
                     <span className={styles.username}>{item?.user?.name}</span>

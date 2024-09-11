@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./menuPosts.module.css"
-
+ 
 const MenuPosts = ({ withImage, post }) => {
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
@@ -12,10 +12,10 @@ const MenuPosts = ({ withImage, post }) => {
     <div className={styles.items}>
       {post && (
         post?.map((item,index)=>(
-          <Link key={index} href={`/posts/${item.post?.slug}`} prefetch={true} className={styles.item}>
+          <Link key={index} href={`/posts/${item.post?.slug}`} prefetch={true} className={styles.item} aria-label={`Read more about ${item.post?.title}`}>
         {item.post?.img &&(
           <div className={styles.imageContainer}>
-            <img src= {item.post?.img} alt="" fill className={styles.image} />
+            <img src= {item.post?.img} loading="lazy"  alt={item.post?.title || "Post image"} fill className={styles.image} />
           </div>
         )}
         <div className={styles.textContainer}>

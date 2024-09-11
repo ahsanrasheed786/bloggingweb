@@ -49,6 +49,7 @@ const LikeButton = ({ postId }) => {
     <div className={styles.container}>
     
        <button onClick={handleLike} 
+       aria-label={liked ? 'Unlike post' : 'Like post'}
       style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
         <svg 
         xmlns="http://www.w3.org/2000/svg" 
@@ -66,7 +67,7 @@ const LikeButton = ({ postId }) => {
 
 export default LikeButton;
 
-
+ 
 
 
  

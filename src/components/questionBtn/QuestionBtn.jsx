@@ -12,7 +12,7 @@ const QuestionAndAnswer = ({   length }) => {
    return (
     <main>
       <div className={styles.questionBtnDiv}>
-      <button className={styles.linksBtn} onClick={() =>{ setQuestionBox(!questionBox);setCommentsOpen(false)}}>
+      <button className={styles.linksBtn} aria-label="Toggle Question Box" onClick={() =>{ setQuestionBox(!questionBox);setCommentsOpen(false)}}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

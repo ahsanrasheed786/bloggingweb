@@ -49,9 +49,10 @@ const RatingComponent = ({ initialRating, postId, userId,  }) => {
          {rating.toFixed(1)}
       </div>
     <div className={styles.ratingContainer}>
-        <div className={styles.rating}>
+        <div className={styles.rating} aria-live="polite">
      {ratingBtn && <StarRatings
         rating={rating}
+        tabIndex={0} 
         starRatedColor="gold"
         starEmptyColor="gray"
         numberOfStars={5}

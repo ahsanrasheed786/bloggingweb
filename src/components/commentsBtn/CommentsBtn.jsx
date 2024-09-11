@@ -12,7 +12,9 @@ const Comments = ({  length  }) => {
   return (
     <main>
       <div className={styles.commentBtnDiv}>
-        <button className={styles.toggleButton} onClick={toggleComments}>
+        <button className={styles.toggleButton} onClick={toggleComments} 
+         aria-label="Toggle comments section"
+         aria-expanded={commentsOpen}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -31,5 +33,6 @@ const Comments = ({  length  }) => {
     </main>
   );
 };
+export default React.memo(Comments);
 
-export default Comments;
+// export default Comments;

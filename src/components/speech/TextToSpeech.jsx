@@ -1,5 +1,3 @@
- 
-
 "use client";
 import { useState, useEffect } from "react";
 import styles from './speech.module.css';  
@@ -43,14 +41,14 @@ const TextToSpeechPlayer = ({ article }) => {
       const loadVoices = () => {
         const voicesList = synth.getVoices();
         setVoices(voicesList);
-        if (voicesList.length > 0) {
+        if (voicesList.length > 0 && !selectedVoice) {
           setSelectedVoice(voicesList[0]);  
         }
       };
       synth.onvoiceschanged = loadVoices;
       loadVoices();
     }
-  }, [synth]);
+  }, [synth, selectedVoice]);
 
    useEffect(() => {
     let interval;
@@ -89,11 +87,11 @@ const TextToSpeechPlayer = ({ article }) => {
     synth.speak(newUtterance);
   };
 
-   const playSpeech = () => {
-    if (!isSpeaking) {
-      startSpeech(currentPosition);
-    }
-  };
+  //  const playSpeech = () => {
+  //   if (!isSpeaking) {
+  //     startSpeech(currentPosition);
+  //   }
+  // };
 
    const stopSpeech = () => {
     if (synth.speaking) {

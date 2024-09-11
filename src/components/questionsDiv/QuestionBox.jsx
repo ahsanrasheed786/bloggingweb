@@ -11,9 +11,9 @@ import { ThemeContext } from "@/context/ThemeContext";
 
 const QuestionBox = ({ postSlug, questions }) => {
   const { status } = useSession();
-  const { questionBox, setQuestionBox ,theme} = useContext(ThemeContext);  
+  const { questionBox ,theme} = useContext(ThemeContext); 
+  const [desc, setDesc] = useState(""); 
    const data = questions;
-  const [desc, setDesc] = useState("");
   const handleSubmit = async () => {
     await fetch("/api/questions", {
       method: "POST",
@@ -22,7 +22,7 @@ const QuestionBox = ({ postSlug, questions }) => {
         "Content-Type": "application/json",
       },
     });
-    mutate();
+    // mutate();
     setDesc("");
   };
  
@@ -37,8 +37,9 @@ const QuestionBox = ({ postSlug, questions }) => {
                 placeholder="Ask a question..."
                 className={styles.input}
                 value={desc}
-                onChange={(e) => setDesc(e.target.value)} />
-              <button className={styles.button} onClick={handleSubmit}>
+                onChange={(e) => setDesc(e.target.value)} 
+                aria-label="Question Input"  />
+              <button className={styles.button} onClick={handleSubmit} aria-label="Submit Question">
                 Send
               </button>
             </div>
@@ -57,7 +58,8 @@ const QuestionBox = ({ postSlug, questions }) => {
                         alt="User Image"
                         width={50}
                         height={50}
-                        className={styles.image} />)}
+                        className={styles.image}
+                        aria-label={`${item?.user?.name}'s profile picture`} />)}
                     <div className={styles.userInfo}>
                       <span className={styles.username}>{item?.user?.name}</span>
                       <span className={styles.date}>
