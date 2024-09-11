@@ -4,16 +4,19 @@ import Comments from "@/components/commentsBtn/CommentsBtn";
 import QuestionAndAnswer from "@/components/questionBtn/QuestionBtn";
 import LikeButton from "@/components/likeButton/LikeButton";
 import RatingComponent from "@/components/ratingComponent/RatingComponent";
-import MenuPosts from "@/components/menuPosts/MenuPosts";
-import MenuCategories from "@/components/menuCategories/MenuCategories";
+// import MenuPosts from "@/components/menuPosts/MenuPosts";
+// import MenuCategories from "@/components/menuCategories/MenuCategories";
 import ShareButton from "@/components/shareButton/ShareButton.jsx";  
-import TextToSpeech from "@/components/speech/TextToSpeech";
-import CommentsBox from "@/components/commentDiv/commentsBox";
-import QuestionBox from "@/components/questionsDiv/QuestionBox";
-// import dynamic from 'next/dynamic';
-// const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
-// const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
-// const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
+// import TextToSpeech from "@/components/speech/TextToSpeech";
+// import CommentsBox from "@/components/commentDiv/commentsBox";
+// import QuestionBox from "@/components/questionsDiv/QuestionBox";
+import dynamic from 'next/dynamic';
+const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
+const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
+
+const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
+const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
+const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
 
 const getData = async (slug) => {
      const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
@@ -355,11 +358,11 @@ const page =async ({ params }) => {
 <section className={styles.rightSidebar}>
 <div className={styles.desktopSpeech}><TextToSpeech article={data?.desc} /></div>
 <div className={styles.container}>
-      <h2 className={styles.subtitle}>{"What's hot "}🔥</h2>
-      <h2 className={styles.title}>Most Popular</h2>
+      <h4 className={styles.subtitle}>{"What's hot "}🔥</h4>
+      <h4 className={styles.title}>Most Popular</h4>
       <MenuPosts withImage={false} post={popular} />
-      <h2 className={styles.subtitle}>Discover by topic</h2>
-      <h1 className={styles.title}>Categories</h1>
+      <h4 className={styles.subtitle}>Discover by topic</h4>
+      <h4 className={styles.title}>Categories</h4>
       <MenuCategories />
     </div>
  </section>
