@@ -5,7 +5,8 @@ export const POST = async (req) => {
     const body = await req.json();
     const { name, email, message } = body;
 
-     const newContact = await prisma.contact.create({
+    //  const newContact = 
+     await prisma.contact.create({
       data: {
         name,
         email,

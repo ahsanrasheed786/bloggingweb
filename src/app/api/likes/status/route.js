@@ -1,37 +1,4 @@
-// // app/api/likes/status/route.js
-// import prisma from "@/utils/connect";
-// import { getAuthSession } from "@/utils/auth";
-
-// export async function GET(req) {
-//   const { searchParams } = new URL(req.url);
-//   const postId = searchParams.get('postId');
-
-//   try {
-//     const session = await getAuthSession();
-//     const userId = session.user.email;
-
-//     const hasLiked = await prisma.like.findFirst({
-//       where: { userId, postId },
-//     });
-
-//     const totalLikes = await prisma.post.findUnique({
-//       where: { id: postId },
-//       select: { totalLikes: true },
-//     });
-
-//     return new Response(JSON.stringify({ hasLiked: !!hasLiked, likes: totalLikes.totalLikes }), {
-//       status: 200,
-//     });
-//   } catch (error) {
-//     console.error('Error fetching like status:', error);
-//     return new Response(JSON.stringify({ error: 'Error fetching like status' }), {
-//       status: 500,
-//     });
-//   }
-// }
-
-
-
+ 
 // app/api/likes/status/route.js
 import prisma from "@/utils/connect";
 import { getAuthSession } from "@/utils/auth";

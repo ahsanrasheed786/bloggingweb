@@ -77,26 +77,7 @@ for (let i = 1; i <= 12; i++) {
   // const totalViews = postsByMonth.reduce((sum, post) => sum + post.views, 0);
    const totalPosts = postsByMonth.length;
   montlyStats.push({ month:monthNames[i-1], totalPosts });
-}
-
-
-// let monthlyStats = [];
-// const monthNames = [
-//   "January", "February", "March", "April", "May", "June",
-//   "July", "August", "September", "October", "November", "December"
-// ];
-
-// for (let i = 0; i < 12; i++) {
-//   const postsByMonth = posts.filter(
-//     (post) => new Date(post.createdAt).getMonth() === i
-//   );
-//   // const totalViews = postsByMonth.reduce((sum, post) => sum + post.views, 0);
-//   const totalPosts = postsByMonth.length;
-//   monthlyStats.push({ month: monthNames[i], totalPosts }); // Store month name and total posts
-// }
-
-
-
+} 
     // Filter posts by date range
     let filteredPosts = posts;
 
