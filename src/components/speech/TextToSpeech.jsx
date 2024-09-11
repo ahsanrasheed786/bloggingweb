@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import styles from './speech.module.css';  
 
  const stripHtmlTags = (html) => {
@@ -87,11 +87,11 @@ const TextToSpeechPlayer = ({ article }) => {
     synth.speak(newUtterance);
   };
 
-  //  const playSpeech = () => {
-  //   if (!isSpeaking) {
-  //     startSpeech(currentPosition);
-  //   }
-  // };
+   const playSpeech = () => {
+    if (!isSpeaking) {
+      startSpeech(currentPosition);
+    }
+  };
 
    const stopSpeech = () => {
     if (synth.speaking) {

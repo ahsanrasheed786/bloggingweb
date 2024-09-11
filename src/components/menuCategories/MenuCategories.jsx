@@ -5,8 +5,8 @@ import styles from "./menuCategories.module.css";
 const getData = async () => {
   const res = await fetch(`${process.env.WEBSIT_URL}/api/categories`, {
     // cache: "no-store",
-    next: { revalidate: 60 },  
-    cache: "stale-while-revalidate",
+    // next: { revalidate: 60 },  
+    // cache: "stale-while-revalidate",
   });
   if (!res.ok) {
     throw new Error("Failed");

@@ -1,6 +1,6 @@
 "use client";
  import styles from "./comments.module.css";
-  import { useContext  } from "react";
+  import React,{ useContext  } from "react";
  import { ThemeContext } from "@/context/ThemeContext";  
 const Comments = ({  length  }) => {
   const {  commentsOpen, setCommentsOpen ,  setQuestionBox } = useContext(ThemeContext);  
@@ -32,7 +32,7 @@ const Comments = ({  length  }) => {
       </div> 
     </main>
   );
-};
+}; 
 export default React.memo(Comments);
 
 // export default Comments;
