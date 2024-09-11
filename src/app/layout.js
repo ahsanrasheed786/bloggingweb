@@ -17,7 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-<Script defer src="https://www.googletagmanager.com/gtag/js?id=G-2R4K5K0HNK"></Script>
+      <link rel="preload" href="/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+{/* <Script defer src="https://www.googletagmanager.com/gtag/js?id=G-2R4K5K0HNK"></Script>
 <Script async id="google-analytics">
   {`
   window.dataLayer = window.dataLayer || [];
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
 
   gtag('config', 'G-2R4K5K0HNK');
   `}
-</Script>
+</Script> */}
       </head>
       <body className={inter.className}>
         <AuthProvider>
