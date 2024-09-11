@@ -146,14 +146,14 @@ const page =async ({ params }) => {
     const popular=await fetchpopular();
 
 
-    const fetchVarifyDoctor = async (slug) => {
-      try {
-        const res = await fetch(`${process.env.WEBSIT_URL}/api/author/${slug}`);
-        if (!res.ok) throw new Error("Failed to fetch doctor data");
-        return await res.json();
-      } catch (error) {
-        console.error("Error fetching doctor data:", error);
-        return null;}};
+    // const fetchVarifyDoctor = async (slug) => {
+    //   try {
+    //     const res = await fetch(`${process.env.WEBSIT_URL}/api/author/${slug}`);
+    //     if (!res.ok) throw new Error("Failed to fetch doctor data");
+    //     return await res.json();
+    //   } catch (error) {
+    //     console.error("Error fetching doctor data:", error);
+    //     return null;}};
 
     const fetchQuestion = async () => {
           try {
@@ -173,7 +173,7 @@ const page =async ({ params }) => {
         return null;}};    
   
      const data = await getData(slug);
-     const doctor = await fetchVarifyDoctor(data?.doctor);
+    //  const doctor = await fetchVarifyDoctor(data?.doctor);
     //  const artical=data?.artical 
      const questions = await fetchQuestion();
      const comments = await fetchComments();
@@ -241,17 +241,15 @@ const page =async ({ params }) => {
     <div className={styles.container}>
 
      {/* <!-- -------------------------left-sidebar---------------------------------------- --> */}
-<section className={styles.leftSidebar}>
- {/* this is left side */}
-<div className={styles.container}>
+{/* <section className={styles.leftSidebar}>
+ <div className={styles.container}>
      {doctor && <div className={styles.doctor}>
       <img src= {doctor?.coverImage} loading="lazy"  width="100%" altalt={doctor?.name || "Doctor Cover Image"}/>
 
       <div class={styles.sidebarProfile}>
          <img src={doctor?.image} loading="lazy"  alt={doctor?.name || "Doctor Cover Image"}/>
 
-            {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png" alt="user"/> */}
-            <h3> {doctor?.name}</h3>
+             <h3> {doctor?.name}</h3>
             <h4> {doctor?.specialist}</h4>
             <p className={styles.degree}>{doctor?.degree}  </p>
             <p>Exprences :{doctor?.experience} yr</p>
@@ -266,9 +264,7 @@ const page =async ({ params }) => {
             </ul>
         </div>
 
-
-{/* ad will be display here */}
-
+ 
 
 </div>}
 <div className={styles.adCard}>
@@ -280,7 +276,7 @@ const page =async ({ params }) => {
   </div>
      </div>
      </div>
-</section>
+</section> */}
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
 <section className={styles.mainContent} role="main">  
 <div className={styles.container}>

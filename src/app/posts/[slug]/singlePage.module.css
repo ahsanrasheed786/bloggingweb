@@ -17,7 +17,7 @@ align-items: center;
 
 
 .leftSidebar{
-display: none;
+/* display: none; */
   flex-basis: 23%;
    align-self: flex-start;
   position: sticky;
