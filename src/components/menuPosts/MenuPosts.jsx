@@ -12,7 +12,7 @@ const MenuPosts = ({ withImage, post }) => {
     <div className={styles.items}>
       {post && (
         post?.map((item,index)=>(
-          <Link key={index} href={`/posts/${item.post?.slug}`} className={styles.item}>
+          <Link key={index} href={`/posts/${item.post?.slug}`} prefetch={true} className={styles.item}>
         {item.post?.img &&(
           <div className={styles.imageContainer}>
             <img src= {item.post?.img} alt="" fill className={styles.image} />

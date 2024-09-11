@@ -7,8 +7,9 @@ import RatingComponent from "@/components/ratingComponent/RatingComponent";
 import MenuPosts from "@/components/menuPosts/MenuPosts";
 import MenuCategories from "@/components/menuCategories/MenuCategories";
 import ShareButton from "@/components/shareButton/ShareButton.jsx";  
-import TextToSpeech from "@/components/speech/TextToSpeech";
+// import TextToSpeech from "@/components/speech/TextToSpeech";
 import dynamic from 'next/dynamic';
+const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
 
 // import CommentsBox from "@/components/commentDiv/commentsBox";
 // import QuestionBox from "@/components/questionsDiv/QuestionBox";
@@ -16,7 +17,9 @@ const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'),
 const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
 
 const getData = async (slug) => {
-     const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`);
+     const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
+      next: { revalidate: 60 },
+     });
     if (!res.ok) {
       throw new Error("Failed to fetch post data");}
     return res.json();};
@@ -242,10 +245,10 @@ const page =async ({ params }) => {
  {/* this is left side */}
 <div className={styles.container}>
      {doctor && <div className={styles.doctor}>
-      <img src= {doctor?.coverImage} width="100%" alt="cover"/>
+      <img src= {doctor?.coverImage} loading="lazy"  width="100%" altalt={doctor?.name || "Doctor Cover Image"}/>
 
       <div class={styles.sidebarProfile}>
-         <img src={doctor?.image} alt="user"/>
+         <img src={doctor?.image} loading="lazy"  alt={doctor?.name || "Doctor Cover Image"}/>
 
             {/* <img src="https://i.ibb.co/xfmkxb0/image-500x300.png" alt="user"/> */}
             <h3> {doctor?.name}</h3>
@@ -279,7 +282,7 @@ const page =async ({ params }) => {
      </div>
 </section>
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
-<section className={styles.mainContent}>  
+<section className={styles.mainContent} role="main">  
 <div className={styles.container}>
        {data?.artical && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />}
         { data?.fqa && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FQAStructre) }} />}
@@ -288,7 +291,7 @@ const page =async ({ params }) => {
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img} alt={data?.imgAlt} fill className={styles.image} />
+            <img src={data?.img} loading="lazy"  alt={data?.imgAlt} fill className={styles.image} />
            </div> )}         
        <div className={styles.content}>
         <div className={styles.post}>
@@ -300,7 +303,7 @@ const page =async ({ params }) => {
         <div className= {styles.fqaContainer}>
           <h2>FAQ</h2>
           {data?.fqa?.map((item, index) => (
-            <details key={index} className= {styles.fqaItem}>
+            <details aria-labelledby="faq-section" key={index} className= {styles.fqaItem}>
               <summary className= {styles.fqaQuestion}>
                  {item?.question}
               </summary>
@@ -326,17 +329,17 @@ const page =async ({ params }) => {
           {/* publish by ended */}
           <hr className= {styles.hr}/>
           <div className={styles.postLinks}>
-          <LikeButton postId={data?.id} likes={data?.totalLikes} />
+          <LikeButton aria-label="Like this post" postId={data?.id} likes={data?.totalLikes} />
           <div className="comments-svg" > 
-             <Comments   length={comments.length} />
+             <Comments aria-label="Comments of this Post"   length={comments.length} />
            </div>
-          <div className="review-svg">
+          <div aria-label="Rating this post" className="review-svg">
            <RatingComponent initialRating={data?.totalRating?.average ||4.5}   postId={data.id} />
             </div>
             <div className="Qna"> 
-             <QuestionAndAnswer length={questions.length}  />
+             <QuestionAndAnswer aria-label="Question of this post" length={questions.length}  />
             </div> 
-            <ShareButton title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
+            <ShareButton aria-label="Share this post" title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 
            <CommentsBox postSlug={slug} comments={comments} />
           <QuestionBox questions={questions} postSlug={slug}/>
