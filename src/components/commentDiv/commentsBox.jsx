@@ -46,12 +46,14 @@ const CommentsBox = ({ postSlug, comments }) => {
           className={styles.container}>
           {status === "authenticated" ? (
             <div className={styles.write}>
+              <label htmlFor="comment-input">Add your comment:</label>
+{/* <textarea id="comment-input" name="comment"></textarea> */}
               <textarea
+               id="comment-input"
                 placeholder="Write a comment..."
                 className={styles.input}
                 value={desc}
-                onChange={(e) => setDesc(e.target.value)}
-              />
+                onChange={(e) => setDesc(e.target.value)} />
               <button className={styles.button} onClick={handleSubmit}>
                 Send
               </button>

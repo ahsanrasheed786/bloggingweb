@@ -286,17 +286,19 @@ const page =async ({ params }) => {
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img} loading="lazy"  alt={data?.imgAlt} fill className={styles.image} />
+            <img src={data?.img} loading="lazy"  alt={data?.imgAlt|| "Article Cover Image"} fill className={styles.image} />
            </div> )}         
        <div className={styles.content}>
         <div className={styles.post}>
         <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
-       <div className={styles.description} dangerouslySetInnerHTML={{ __html: data?.desc }} />
+       <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}/>
+       {/* <div  /> */}
+       {/* </artical> */}
            
            {data?.fqa && (
         <div className= {styles.fqaContainer}>
-          <h2>FAQ</h2>
+          <h4>FAQ</h4>
           {data?.fqa?.map((item, index) => (
             <details aria-labelledby="faq-section" key={index} className= {styles.fqaItem}>
               <summary className= {styles.fqaQuestion}>
@@ -313,7 +315,7 @@ const page =async ({ params }) => {
       <div className={styles.user}>
             {data?.user?.image && (
               <div className={styles.userImageContainer}>
-                <Image src={data?.user?.image} alt="" fill className={styles.avatar} />
+                <Image src={data?.user?.image} loading="lazy"  alt={data?.user?.name} fill className={styles.avatar} />
               </div>
             )}
             <div className={styles.userTextContainer}>
@@ -324,19 +326,23 @@ const page =async ({ params }) => {
           {/* publish by ended */}
           <hr className= {styles.hr}/>
           <div className={styles.postLinks}>
-          <LikeButton aria-label="Like this post" postId={data?.id} likes={data?.totalLikes} />
-          <div className="comments-svg" > 
-             <Comments aria-label="Comments of this Post"   length={comments.length} />
+          <LikeButton tabindex="0"  aria-label="Like this post" postId={data?.id} likes={data?.totalLikes} />
+          <div className="comments-svg" role="button" aria-label="Open comments" tabindex="0" > 
+             <Comments aria-label="Comments section for this post"   length={comments.length} />
            </div>
           <div aria-label="Rating this post" className="review-svg">
            <RatingComponent initialRating={data?.totalRating?.average ||4.5}   postId={data.id} />
             </div>
             <div className="Qna"> 
-             <QuestionAndAnswer aria-label="Question of this post" length={questions.length}  />
+             <QuestionAndAnswer aria-label="Questions section for this post" length={questions.length}  />
             </div> 
             <ShareButton aria-label="Share this post" title={data?.title} url={`${process.env.WEBSIT_URL}/${slug}`} /> {/* Pass data for sharing */}
          </div> 
+           {/* <CommentsBox postSlug={slug} comments={comments} /> */}
+           <div aria-live="polite" aria-atomic="true">
            <CommentsBox postSlug={slug} comments={comments} />
+           </div>
+
           <QuestionBox questions={questions} postSlug={slug}/>
 
         </div>
