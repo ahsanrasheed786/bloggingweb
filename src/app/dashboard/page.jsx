@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar,Pie,Doughnut,Radar,PolarArea,Bubble,Scatter } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import styles from "./dashboard.module.css";
 // import Image from "next/image";
@@ -313,6 +313,7 @@ useEffect(() => {
         )}
       </div>
 
+<div className={styles.chartMain}>
       <div className={styles.chart}>
         <h4>Total Posts: {stats.totalPosts}</h4>
         <select id="posts" name="select" value={selector} onChange={handleChange}>
@@ -320,6 +321,7 @@ useEffect(() => {
           <option value="weekly">Week</option>
           <option value="monthly">Month</option>
         </select>
+        {/* Pie,Doughnut,Radar,PolarArea,Bubble,Scatter */}
         <Line
           data={totalPostsData}
           options={{ responsive: true, plugins: { legend: { display: false } } }}/>
@@ -376,6 +378,7 @@ useEffect(() => {
           )}
         </div>
       )}
+    </div>
     </div>
   );
 };

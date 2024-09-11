@@ -76,3 +76,211 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid()) @map("_id")
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid()) @map("_id")
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String     @id @default(cuid()) @map("_id")
+  name          String?
+  email         String     @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime?  @default(now()) // Make this optional
+  updatedAt     DateTime?  @updatedAt      // Make this optional
+  accounts      Account[]
+  sessions      Session[]
+  Post          Post[]
+  Comment       Comment[]
+  Question      Question[]
+  
+ likedPosts Like[] // Relation to the Like model
+  ratings    Rating[] // Relation to the Rating model
+}
+
+model EmailTemplate {
+  id           String   @id @default(cuid()) @map("_id")
+  templateType String   @unique
+  subject      String
+  textBody     String
+  htmlBody     String
+}
+
+
+
+model VerificationToken {
+  identifier String   @id @map("_id")
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Category {
+  id           String  @id @default(cuid()) @map("_id")
+  slug         String  @unique
+  title        String
+  color          String?
+  categoryDesc String? @default(" ")
+  posts        Post[]
+}
+
+model Like {
+  id      String   @id @default(cuid()) @map("_id")
+  postId  String
+  post    Post     @relation(fields: [postId], references: [id])
+  userId  String
+  user    User     @relation(fields: [userId], references: [id])
+  ratings Rating[] // Relation to the Rating model
+
+  // Unique constraint to prevent the same user from liking the same post multiple times
+  @@unique([postId, userId])
+}
+model Post {
+  id            String    @id @default(cuid()) @map("_id")
+  createdAt     DateTime  @default(now())
+  slug          String    @unique
+  title         String
+  desc          String
+  img           String?
+  imgAlt        String?
+  views         Int       @default(0)
+  catSlug       String?
+  cat           Category?  @relation(fields: [catSlug], references: [slug])
+  userEmail     String
+  user          User      @relation(fields: [userEmail], references: [email])
+  comments      Comment[]
+  questions     Question[]
+  updatedAt     DateTime  @updatedAt
+  metaTitle     String?   @default("ah")
+  metaDisc      String?   @default("as")
+  metaKeywords  String?   @default("as")
+  metaAuthor    String?   @default("ahs")
+  metaRobots    String?   @default("asj")
+  doctor        String?   @default("doctor")
+
+  totalRating   Json      @default("{}")  
+  totalLikes    Int       @default(0)     
+  ratings       Rating[]
+  likes         Like[]     
+  artical       Json      @default("{}")  
+  fqa           Json      @default("[]")
+}
+ 
+model Rating {
+  id     String  @id @default(cuid()) @map("_id")
+  rating Int
+  postId String
+  post   Post    @relation(fields: [postId], references: [id])
+  userId String
+  user   User    @relation(fields: [userId], references: [id])
+  Like   Like?   @relation(fields: [likeId], references: [id])
+  likeId String?
+
+  @@unique([postId, userId])  
+}
+
+model Question {
+  id        String    @id @default(cuid()) @map("_id")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  desc      String
+  userEmail String
+  user      User      @relation(fields: [userEmail], references: [email])
+  postSlug  String
+  post      Post      @relation(fields: [postSlug], references: [slug])
+  isRead    Boolean   @default(false)
+  answer    String?
+}
+
+model Comment {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  desc      String
+  userEmail String
+  user      User     @relation(fields: [userEmail], references: [email])
+  postSlug  String
+  post      Post     @relation(fields: [postSlug], references: [slug])
+}
+
+model Access {
+  id      String  @id @default(cuid()) @map("_id")
+  name    String
+  email   String
+  isAdmin Boolean @default(false)
+}
+
+model Contact {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}
+
+model Varifydoctor {
+  id         String   @id @default(cuid()) @map("_id")
+  image      String?
+  coverImage String?
+  photo      String?
+  name       String
+  degree     String
+  experience String?
+  message    String
+  createdAt  DateTime @default(now())
+  specialist String?
+}
+

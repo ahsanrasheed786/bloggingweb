@@ -52,13 +52,17 @@
   }
   
   .chart {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+    max-height:40vh;
   }
   
   .chart h4 {
     margin-bottom: 10px;
   }
-  
+  .chartMain{
+    display: flex;
+    flex-wrap:wrap;
+  }
   .postDetails {
     margin-top: 20px;
     padding: 10px;
@@ -79,7 +83,8 @@
   
 .menubtn{
   font-size: 30px;
-  position:absolute;
+  /* position:absolute; */
+  position:fixed;
   top:20px;
   left:10px
 }
@@ -88,17 +93,20 @@
   color:black;
   display:flex;
   gap:30px;
-  position:absolute;
+  /* position:absolute; */
+  position:fixed;
    min-width:20vw;
    max-width:30vw;
    min-height:85vh;
    background:rgb(162, 160, 160);
-  top:80px;
+   top:80px;
    transition:all 0.5s;
   left:30px;
   padding-left:20px;
   padding-top:20px;
   border-radius: 5px;
+  z-index: 999;
+  
 }
  
 .menuBar ul{

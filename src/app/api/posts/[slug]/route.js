@@ -1,3 +1,4 @@
+// !! git hub old code same as which was already avilable
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
  
@@ -10,14 +11,14 @@ export const GET = async (req, { params }) => {
       where: { slug },
       // select: {  catSlug: false},
       data: { views: { increment: 1 } },
-      include: { user: true },
+      // include: { user: true },
     });
 
     return new NextResponse(JSON.stringify(post, { status: 200 }));
   } catch (err) {
     console.log(err);
     return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+      JSON.stringify({ message: "Something went wrong! from the backend" }, { status: 500 })
     );
   }
 };
