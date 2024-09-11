@@ -2,7 +2,7 @@
 import styles from "./navbar.module.css";
  import Image from "next/image";
 import Link from "next/link";
-import AuthLinks from "../authLinks/AuthLinks";
+// import AuthLinks from "../authLinks/AuthLinks";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import { useContext,useEffect ,useState} from "react";
 import { ThemeContext } from "@/context/ThemeContext";
@@ -29,7 +29,7 @@ const Navbar = () => {
         <Link  href="/" className={styles.link}>Homepage</Link>
         <Link href="/contact" className={styles.link}>Contact</Link>
         <Link href="/about" className={styles.link}>About</Link>
-        <AuthLinks />
+        {/* <AuthLinks /> */}
       </div>
     </navbar>
    );

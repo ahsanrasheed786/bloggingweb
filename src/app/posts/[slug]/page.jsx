@@ -10,12 +10,12 @@ import MenuCategories from "@/components/menuCategories/MenuCategories";
 import TextToSpeech from "@/components/speech/TextToSpeech";
 import CommentsBox from "@/components/commentDiv/commentsBox";
 import QuestionBox from "@/components/questionsDiv/QuestionBox";
-// import dynamic from 'next/dynamic';
-// const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
-// const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
-// const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
-// const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
-// const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
+import dynamic from 'next/dynamic';
+const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
+const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
+const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
+const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
+const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
 
 const getData = async (slug) => {
      const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
