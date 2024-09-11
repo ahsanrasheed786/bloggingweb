@@ -7,14 +7,13 @@ import RatingComponent from "@/components/ratingComponent/RatingComponent";
 import MenuPosts from "@/components/menuPosts/MenuPosts";
 import MenuCategories from "@/components/menuCategories/MenuCategories";
 import ShareButton from "@/components/shareButton/ShareButton.jsx";  
-// import TextToSpeech from "@/components/speech/TextToSpeech";
-import dynamic from 'next/dynamic';
-const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
-
-// import CommentsBox from "@/components/commentDiv/commentsBox";
-// import QuestionBox from "@/components/questionsDiv/QuestionBox";
-const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
-const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
+import TextToSpeech from "@/components/speech/TextToSpeech";
+import CommentsBox from "@/components/commentDiv/commentsBox";
+import QuestionBox from "@/components/questionsDiv/QuestionBox";
+// import dynamic from 'next/dynamic';
+// const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
+// const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
+// const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
 
 const getData = async (slug) => {
      const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
