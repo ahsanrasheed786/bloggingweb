@@ -7,7 +7,7 @@ export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
 
   const postSlug   = searchParams.get("postSlug");
-
+// console.log(postSlug);
   try {
     const questions = await prisma.question.findMany({
       where: {

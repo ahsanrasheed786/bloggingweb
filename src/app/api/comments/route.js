@@ -7,7 +7,7 @@ export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
 
   const postSlug = searchParams.get("postSlug");
-
+// console.log(postSlug);
   try {
     const comments = await prisma.comment.findMany({
       where: {
@@ -20,7 +20,7 @@ export const GET = async (req) => {
   } catch (err) {
     // console.log(err);
     return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+      JSON.stringify({ message: "Something went wrong to fetch comments!" }, { status: 500 })
     );
   }
 };

@@ -280,7 +280,8 @@ const page =async ({ params }) => {
           <div className={styles.postLinks}>
           <LikeButton tabindex="0"  aria-label="Like this post" postId={data?.id} likes={data?.totalLikes} />
           <div className="comments-svg" role="button" aria-label="Open comments" tabindex="0" > 
-             <Comments aria-label="Comments section for this post"   length={comments.length} />
+             <Comments aria-label="Comments section for this post" length={comments.length} />
+             {/* {console.log(comments)} */}
            </div>
           <div aria-label="Rating this post" className="review-svg">
            <RatingComponent initialRating={data?.totalRating?.average ||4.5}   postId={data.id} />

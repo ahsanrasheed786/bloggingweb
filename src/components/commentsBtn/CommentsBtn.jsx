@@ -3,6 +3,7 @@
   import React,{ useContext  } from "react";
  import { ThemeContext } from "@/context/ThemeContext";  
 const Comments = ({  length  }) => {
+  console.log(length);
   const {  commentsOpen, setCommentsOpen ,  setQuestionBox } = useContext(ThemeContext);  
   const toggleComments = () => {
     setCommentsOpen(!commentsOpen);
