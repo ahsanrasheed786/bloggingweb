@@ -1,9 +1,10 @@
 :root {
   --bg: white;
-  --textColor: black;
+  /* --textColor: black; */
+  --textColor: #333;
   --softBg: #f0f0f0;
   --softTextColor: #626262;
-}
+ }
 
 * {
   padding: 0;

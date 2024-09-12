@@ -8,6 +8,7 @@ import style from './editPost.module.css';
 import { useSession } from "next-auth/react";
 import Loader from '@/components/loader/Loader';
 import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const AdminPosts = () => { 
   const [posts, setPosts] = useState([]);
@@ -27,7 +28,6 @@ const AdminPosts = () => {
   const [categories,setCategories]=useState([])
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   
   useEffect(() => {

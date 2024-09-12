@@ -164,6 +164,7 @@ const TextToSpeechPlayer = ({ article }) => {
         <p className={styles.timeDisplay}>{formatTime(elapsedTime)}</p>
         <input
           type="range"
+          aria-label="Speech progress"
           min="0"
           max="100"
           value={progress}

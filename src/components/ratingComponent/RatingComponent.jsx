@@ -60,6 +60,7 @@ const RatingComponent = ({ initialRating, postId, userId,  }) => {
         starSpacing="5px"
         changeRating={handleRatingChange}
         isSelectable={!hasRated} // Disable rating if the user has already rated
+        aria-label={`Rate this content ${rating} out of 5 stars`} 
       />}
         </div> 
     </div>
