@@ -257,146 +257,33 @@
 // export default TextToSpeechPlayer;
 
 // !!?! stoped button has been added
-// "use client"
-// import React, { useState } from 'react';
+"use client"
+import React, { useState } from 'react';
 
-// const TextToSpeech = ({ text }) => {
-//   const [isPlaying, setIsPlaying] = useState(false);
-//   const [audio] = useState(new SpeechSynthesisUtterance(text));
-
-//   const startAudio = () => {
-//     audio.lang = 'en-US'; // Set the language
-//     setIsPlaying(true);
-//     window.speechSynthesis.speak(audio);
-//     audio.onend = () => setIsPlaying(false); // Stop button disappears when audio ends
-//   };
-
-//   const stopAudio = () => {
-//     window.speechSynthesis.cancel();
-//     setIsPlaying(false);
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={startAudio} disabled={isPlaying}>Play</button>
-//       {isPlaying && <button onClick={stopAudio}>Stop</button>}
-//     </div>
-//   );
-// };
-
-// export default TextToSpeech;
-
-
-//!! trying other language 
- "use client";
-import React, { useState, useRef } from 'react';
-import translate from 'translate-google-api';
-
-const stripHtmlTags = (html) => {
-  if (typeof window !== "undefined") {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
-  }
-  return html;
-};
-
-const TextToSpeech = ({ article }) => {
+const TextToSpeech = ({ artical }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [translatedText, setTranslatedText] = useState('');
-  const [selectedLang, setSelectedLang] = useState('ur'); // Default to Urdu
-  const [error, setError] = useState(null); // Track error
-  const audioRef = useRef(null);
-  const utteranceRef = useRef(null);
-  const text = stripHtmlTags(article);
+  const [audio] = useState(new SpeechSynthesisUtterance(artical));
 
-  const languageOptions = {
-    ur: 'Urdu',
-    es: 'Spanish',
-    fr: 'French',
-    de: 'German',
-    ar: 'Arabic',
-    zh: 'Chinese',
-  };
-
-  // LibreTranslate API integration
-  const translateText = async (text, targetLang = 'ur') => {
-    try {
-      const res = await translate(text, { to: targetLang });
-      console.log(res);
-      return res; // Translated text
-    } catch (error) {
-      console.error('Translation error:', error);
-      return text; // Fallback to original text on error
-    }
-  };
-  
-
-  const startSpeech = async () => {
-    const translated = await translateText(selectedLang);
-    setTranslatedText(translated);
-
-    if (!translated) {
-      setError('Translation failed');
-      return;
-    }
-
-    const utterance = new SpeechSynthesisUtterance(translated);
-    utterance.lang = selectedLang;
-    utteranceRef.current = utterance;
-
+  const startAudio = () => {
+    audio.lang = 'en-US'; // Set the language
     setIsPlaying(true);
-    window.speechSynthesis.speak(utterance);
-
-    utterance.onend = () => {
-      setIsPlaying(false);
-      setProgress(0);
-    };
-
-    utterance.onboundary = (event) => {
-      const elapsedTime = event.elapsedTime / 1000;
-      const totalDuration = translated.length / 6;
-      setProgress((elapsedTime / totalDuration) * 100);
-    };
+    window.speechSynthesis.speak(audio);
+    audio.onend = () => setIsPlaying(false); // Stop button disappears when audio ends
   };
 
-  const stopSpeech = () => {
+  const stopAudio = () => {
     window.speechSynthesis.cancel();
     setIsPlaying(false);
-    setProgress(0);
   };
 
   return (
     <div>
-      <h2>Text to Speech with Translation</h2>
-      
-      {/* Language selector */}
-      <div>
-        <label>Select Language: </label>
-        <select
-          value={selectedLang}
-          onChange={(e) => setSelectedLang(e.target.value)}
-        >
-          {Object.entries(languageOptions).map(([code, label]) => (
-            <option key={code} value={code}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <button onClick={startSpeech}>Play Speech</button>
-      {isPlaying && <button onClick={stopSpeech}>Stop</button>}
-      
-      <div>
-        <p>Progress: {progress}%</p>
-        <progress value={progress} max="100"></progress>
-      </div>
-
-      {translatedText && <p>Translated Text: {translatedText}</p>}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      <button onClick={startAudio} disabled={isPlaying}>Play</button>
+      {isPlaying && <button onClick={stopAudio}>Stop</button>}
     </div>
   );
 };
 
 export default TextToSpeech;
+
+ 
