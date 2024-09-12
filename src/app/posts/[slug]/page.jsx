@@ -144,18 +144,7 @@ const getData = async (slug) => {
       return res.json();}
 const page =async ({ params }) => {
     const { slug } = params;
-    const popular=await fetchpopular();
-
-
-    // const fetchVarifyDoctor = async (slug) => {
-    //   try {
-    //     const res = await fetch(`${process.env.WEBSIT_URL}/api/author/${slug}`);
-    //     if (!res.ok) throw new Error("Failed to fetch doctor data");
-    //     return await res.json();
-    //   } catch (error) {
-    //     console.error("Error fetching doctor data:", error);
-    //     return null;}};
-
+    const popular=await fetchpopular(); 
     const fetchQuestion = async () => {
           try {
             const res = await fetch(`${process.env.WEBSIT_URL}/api/questions?postSlug=${slug}`);
@@ -174,8 +163,6 @@ const page =async ({ params }) => {
         return null;}};    
   
      const data = await getData(slug);
-    //  const doctor = await fetchVarifyDoctor(data?.doctor);
-    //  const artical=data?.artical 
      const questions = await fetchQuestion();
      const comments = await fetchComments();
  
@@ -240,44 +227,7 @@ const page =async ({ params }) => {
   return (
     
     <div className={styles.container}>
-
-     {/* <!-- -------------------------left-sidebar---------------------------------------- --> */}
-{/* <section className={styles.leftSidebar}>
- <div className={styles.container}>
-     {doctor && <div className={styles.doctor}>
-      <img src= {doctor?.coverImage} loading="lazy"  width="100%" altalt={doctor?.name || "Doctor Cover Image"}/>
-
-      <div class={styles.sidebarProfile}>
-         <img src={doctor?.image} loading="lazy"  alt={doctor?.name || "Doctor Cover Image"}/>
-
-             <h3> {doctor?.name}</h3>
-            <h4> {doctor?.specialist}</h4>
-            <p className={styles.degree}>{doctor?.degree}  </p>
-            <p>Exprences :{doctor?.experience} yr</p>
-            <hr/>
-            <p>{doctor?.message} </p>
-            <hr/>
-             <ul className={styles.lists}>
-                <li className={styles.listLi}> Views<span className={styles.listSpan}>{data?.views}</span></li>
-                <li className={styles.listLi}> Likes <span className={styles.listSpan}>{data?.totalLikes}</span></li>
-                <li className={styles.listLi}>Shares <span className={styles.listSpan}>+500</span></li>
-
-            </ul>
-        </div>
-
- 
-
-</div>}
-<div className={styles.adCard}>
-  <img  src="https://i.ibb.co/9hkzK5d/image-1000x1000.png" alt="Ad Image" className={styles.adImage} />
-  <div className={styles.adContent}>
-    <h2 className={styles.adTitle}>Amazing Product</h2>
-    <p className={styles.adDescription}>Get this product at a discounted price! Limited time offer.</p>
-    <a href="#" className={styles.adButton}>Shop Now</a>
-  </div>
-     </div>
-     </div>
-</section> */}
+  
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
 <section className={styles.mainContent} role="main">  
 <div className={styles.container}>
@@ -288,7 +238,7 @@ const page =async ({ params }) => {
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img} loading="lazy"  alt={data?.imgAlt|| "Article Cover Image"} fill className={styles.image} />
+            <img src={data?.img}   alt={data?.imgAlt|| "Article Cover Image"} fill className={styles.image} />
            </div> )}         
        <div className={styles.content}>
         <div className={styles.post}>
@@ -300,7 +250,7 @@ const page =async ({ params }) => {
            
            {data?.fqa && (
         <div className= {styles.fqaContainer}>
-          <h4>FAQ</h4>
+          <b>FAQ</b>
           {data?.fqa?.map((item, index) => (
             <details aria-labelledby="faq-section" key={index} className= {styles.fqaItem}>
               <summary className= {styles.fqaQuestion}>

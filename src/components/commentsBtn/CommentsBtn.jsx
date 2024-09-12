@@ -15,7 +15,7 @@ const Comments = ({  length  }) => {
         <button className={styles.toggleButton} onClick={toggleComments} 
          aria-label="Toggle comments section"
          aria-expanded={commentsOpen}>
-          <svg
+          <svg 
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
