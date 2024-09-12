@@ -238,15 +238,15 @@ const page =async ({ params }) => {
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img}   alt={data?.imgAlt|| "Article Cover Image"} fill className={styles.image} />
+            <img src={data?.img}   alt={data?.imgAlt|| "Article Cover Image"}  className={styles.image} />
            </div> )}         
        <div className={styles.content}>
         <div className={styles.post}>
         <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
-       <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}/>
+       <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>
        {/* <div  /> */}
-       {/* </artical> */}
+       </artical>
            
            {data?.fqa && (
         <div className= {styles.fqaContainer}>
@@ -267,7 +267,7 @@ const page =async ({ params }) => {
       <div className={styles.user}>
             {data?.user?.image && (
               <div className={styles.userImageContainer}>
-                <Image src={data?.user?.image} loading="lazy"  alt={data?.user?.name} fill className={styles.avatar} />
+                <Image src={data?.user?.image} loading="lazy"  alt={data?.user?.name}  className={styles.avatar} />
               </div>
             )}
             <div className={styles.userTextContainer}>
@@ -278,7 +278,7 @@ const page =async ({ params }) => {
           {/* publish by ended */}
           <hr className= {styles.hr}/>
           <div className={styles.postLinks}>
-          <LikeButton tabindex="0"  aria-label="Like this post" postId={data?.id} likes={data?.totalLikes} />
+          <LikeButton tabIndex="0"  aria-label="Like this post" postId={data?.id} likes={data?.totalLikes} />
           <div className="comments-svg" role="button" aria-label="Open comments" tabindex="0" > 
              <Comments aria-label="Comments section for this post" length={comments.length} />
              {/* {console.log(comments)} */}
