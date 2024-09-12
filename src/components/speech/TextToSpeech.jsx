@@ -180,78 +180,226 @@
 
 // ! now trying with the library
 
-"use client"
- import { useState } from 'react';
-import styles from './speech.module.css';
- const stripHtmlTags = (html) => {
+// "use client"
+//  import { useState } from 'react';
+// import styles from './speech.module.css';
+//  const stripHtmlTags = (html) => {
+//   if (typeof window !== "undefined") {
+//     const doc = new DOMParser().parseFromString(html, "text/html");
+//     return doc.body.textContent || "";
+//   }
+//   return html;
+// };
+//  const TextToSpeechPlayer = ({ article }) => {
+//   const [isSpeaking, setIsSpeaking] = useState(false);
+//   const [selectedVoice, setSelectedVoice] = useState('UK English Female');  
+//   // stripHtmlTags(article);
+//   const text = stripHtmlTags(article);
+//   const [languageOptions] = useState([
+//     'UK English Female',
+//     'UK English Male',
+//     'US English Female',
+//     'Spanish Female',
+//     'French Female',
+//     'German Female',
+//     // Add more voices as needed
+//   ]);
+
+//   const playSpeech = () => {
+//     if (window.responsiveVoice && !isSpeaking) {
+//       setIsSpeaking(true);
+//       window.responsiveVoice.speak(text, selectedVoice, {
+//         onend: () => {
+//           setIsSpeaking(false);
+//         },
+//       });
+//     }
+//   };
+
+//   const stopSpeech = () => {
+//     if (window.responsiveVoice && isSpeaking) {
+//       window.responsiveVoice.cancel();
+//       setIsSpeaking(false);
+//     }
+//   };
+
+//   return (
+//     <div className={styles.speechPlayer}>
+//       <h2>Responsive Voice Text-to-Speech</h2>
+
+//       <div className={styles.voiceSelector}>
+//         <label htmlFor="voice">Select Voice:</label>
+//         <select
+//           id="voice"
+//           value={selectedVoice}
+//           onChange={(e) => setSelectedVoice(e.target.value)}
+//         >
+//           {languageOptions.map((voice, index) => (
+//             <option key={index} value={voice}>
+//               {voice}
+//             </option>
+//           ))}
+//         </select>
+//       </div>
+
+//       <div className={styles.controls}>
+//         <button onClick={playSpeech} disabled={isSpeaking}>
+//           {isSpeaking ? 'Speaking...' : 'Play'}
+//         </button>
+//         <button onClick={stopSpeech} disabled={!isSpeaking}>
+//           Stop
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default TextToSpeechPlayer;
+
+// !!?! stoped button has been added
+// "use client"
+// import React, { useState } from 'react';
+
+// const TextToSpeech = ({ text }) => {
+//   const [isPlaying, setIsPlaying] = useState(false);
+//   const [audio] = useState(new SpeechSynthesisUtterance(text));
+
+//   const startAudio = () => {
+//     audio.lang = 'en-US'; // Set the language
+//     setIsPlaying(true);
+//     window.speechSynthesis.speak(audio);
+//     audio.onend = () => setIsPlaying(false); // Stop button disappears when audio ends
+//   };
+
+//   const stopAudio = () => {
+//     window.speechSynthesis.cancel();
+//     setIsPlaying(false);
+//   };
+
+//   return (
+//     <div>
+//       <button onClick={startAudio} disabled={isPlaying}>Play</button>
+//       {isPlaying && <button onClick={stopAudio}>Stop</button>}
+//     </div>
+//   );
+// };
+
+// export default TextToSpeech;
+
+
+//!! trying other language 
+ "use client";
+import React, { useState, useRef } from 'react';
+
+const stripHtmlTags = (html) => {
   if (typeof window !== "undefined") {
     const doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
   }
   return html;
 };
- const TextToSpeechPlayer = ({ article }) => {
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [selectedVoice, setSelectedVoice] = useState('UK English Female');  
-  // stripHtmlTags(article);
-  const text = stripHtmlTags(article);
-  const [languageOptions] = useState([
-    'UK English Female',
-    'UK English Male',
-    'US English Female',
-    'Spanish Female',
-    'French Female',
-    'German Female',
-    // Add more voices as needed
-  ]);
 
-  const playSpeech = () => {
-    if (window.responsiveVoice && !isSpeaking) {
-      setIsSpeaking(true);
-      window.responsiveVoice.speak(text, selectedVoice, {
-        onend: () => {
-          setIsSpeaking(false);
-        },
+const TextToSpeech = ({ article }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [translatedText, setTranslatedText] = useState('');
+  const [selectedLang, setSelectedLang] = useState('ur'); // Default to Urdu
+  const audioRef = useRef(null);
+  const utteranceRef = useRef(null);
+  const text = stripHtmlTags(article);
+
+  // Language options (You can add more)
+  const languageOptions = {
+    ur: 'Urdu',
+    es: 'Spanish',
+    fr: 'French',
+    de: 'German',
+    ar: 'Arabic',
+    zh: 'Chinese',
+  };
+
+  // Translation function
+  const translateText = async (targetLang = 'ur') => {
+    try {
+      const response = await fetch('https://api.libretranslate.com/translate', {
+        method: 'POST',
+        body: JSON.stringify({
+          q: text,
+          source: 'en',
+          target: targetLang,
+          format: 'text'
+        }),
+        headers: { 'Content-Type': 'application/json' }
       });
+      const data = await response.json();
+      return data.translatedText;
+    } catch (error) {
+      console.error('Translation error:', error);
     }
+    return text; // Return original text on error
+  };
+
+  const startSpeech = async () => {
+    const translated = await translateText(selectedLang);
+    setTranslatedText(translated);
+
+    const utterance = new SpeechSynthesisUtterance(translated);
+    utterance.lang = selectedLang;
+    utteranceRef.current = utterance;
+
+    setIsPlaying(true);
+    window.speechSynthesis.speak(utterance);
+
+    // Handle audio end
+    utterance.onend = () => {
+      setIsPlaying(false);
+      setProgress(0);
+    };
+
+    // Progress handler
+    utterance.onboundary = (event) => {
+      const elapsedTime = event.elapsedTime / 1000; // Convert ms to seconds
+      const totalDuration = translated.length / 6; // Estimate duration
+      setProgress((elapsedTime / totalDuration) * 100);
+    };
   };
 
   const stopSpeech = () => {
-    if (window.responsiveVoice && isSpeaking) {
-      window.responsiveVoice.cancel();
-      setIsSpeaking(false);
-    }
+    window.speechSynthesis.cancel();
+    setIsPlaying(false);
+    setProgress(0);
   };
 
   return (
-    <div className={styles.speechPlayer}>
-      <h2>Responsive Voice Text-to-Speech</h2>
-
-      <div className={styles.voiceSelector}>
-        <label htmlFor="voice">Select Voice:</label>
+    <div>
+      <h2>Text to Speech with Translation</h2>
+      
+      {/* Language selector */}
+      <div>
+        <label>Select Language: </label>
         <select
-          id="voice"
-          value={selectedVoice}
-          onChange={(e) => setSelectedVoice(e.target.value)}
+          value={selectedLang}
+          onChange={(e) => setSelectedLang(e.target.value)}
         >
-          {languageOptions.map((voice, index) => (
-            <option key={index} value={voice}>
-              {voice}
+          {Object.entries(languageOptions).map(([code, label]) => (
+            <option key={code} value={code}>
+              {label}
             </option>
           ))}
         </select>
       </div>
 
-      <div className={styles.controls}>
-        <button onClick={playSpeech} disabled={isSpeaking}>
-          {isSpeaking ? 'Speaking...' : 'Play'}
-        </button>
-        <button onClick={stopSpeech} disabled={!isSpeaking}>
-          Stop
-        </button>
+      <button onClick={startSpeech}>Play Speech</button>
+      {isPlaying && <button onClick={stopSpeech}>Stop</button>}
+      
+      <div>
+        <p>Progress: {progress}%</p>
+        <progress value={progress} max="100"></progress>
       </div>
+      
+      {translatedText && <p>Translated Text: {translatedText}</p>}
     </div>
   );
 };
 
-export default TextToSpeechPlayer;
+export default TextToSpeech;
