@@ -225,15 +225,14 @@
 
 //   return (
 //     <div className={styles.speechPlayer}>
-//       <h2>Responsive Voice Text-to-Speech</h2>
+//       <b>Voice Text-to-Speech</b>
 
 //       <div className={styles.voiceSelector}>
 //         <label htmlFor="voice">Select Voice:</label>
 //         <select
 //           id="voice"
 //           value={selectedVoice}
-//           onChange={(e) => setSelectedVoice(e.target.value)}
-//         >
+//           onChange={(e) => setSelectedVoice(e.target.value)}>
 //           {languageOptions.map((voice, index) => (
 //             <option key={index} value={voice}>
 //               {voice}
@@ -255,35 +254,105 @@
 // };
 
 // export default TextToSpeechPlayer;
+ 
+ 
+ "use client";
+import { useState, useRef, useEffect } from 'react';
+import styles from './speech.module.css';
 
-// !!?! stoped button has been added
-"use client"
-import React, { useState } from 'react';
+const stripHtmlTags = (html) => {
+  if (typeof window !== "undefined") {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  }
+  return html;
+};
 
-const TextToSpeech = ({ artical }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(new SpeechSynthesisUtterance(artical));
+const TextToSpeechPlayer = ({ article }) => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [selectedVoice, setSelectedVoice] = useState('UK English Female');
+  const [progress, setProgress] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [audio, setAudio] = useState(null);
+  const text = stripHtmlTags(article);
+  const voiceOptions = [
+    'UK English Female',
+    'UK English Male',
+    'US English Female',
+    'Spanish Female',
+    'French Female',
+    'German Female',
+    // Add more voices as needed
+  ];
 
-  const startAudio = () => {
-    audio.lang = 'en-US'; // Set the language
-    setIsPlaying(true);
-    window.speechSynthesis.speak(audio);
-    audio.onend = () => setIsPlaying(false); // Stop button disappears when audio ends
+  const playSpeech = () => {
+    if (window.responsiveVoice && !isSpeaking) {
+      setIsSpeaking(true);
+      const audio = window.responsiveVoice.speak(text, selectedVoice, {
+        onend: () => {
+          setIsSpeaking(false);
+          setProgress(0);
+          setCurrentTime(0);
+        },
+        onstart: () => {
+          // Initialize the audio object and set total time
+          setAudio(audio);
+          setTotalTime(audio.duration);
+        },
+        onboundary: (event) => {
+          setCurrentTime(event.elapsedTime);
+          setProgress((event.elapsedTime / totalTime) * 100);
+        }
+      });
+    }
   };
 
-  const stopAudio = () => {
-    window.speechSynthesis.cancel();
-    setIsPlaying(false);
+  const stopSpeech = () => {
+    if (window.responsiveVoice && isSpeaking) {
+      window.responsiveVoice.cancel();
+      setIsSpeaking(false);
+      setProgress(0);
+      setCurrentTime(0);
+    }
   };
 
   return (
-    <div>
-      <button onClick={startAudio} disabled={isPlaying}>Play</button>
-      {isPlaying && <button onClick={stopAudio}>Stop</button>}
+    <div className={styles.speechPlayer}>
+      <b>Voice Text-to-Speech</b>
+
+      <div className={styles.voiceSelector}>
+        <label htmlFor="voice">Select Voice:</label>
+        <select
+          id="voice"
+          value={selectedVoice}
+          onChange={(e) => setSelectedVoice(e.target.value)}
+          aria-label="Select Voice">
+          {voiceOptions.map((voice, index) => (
+            <option key={index} value={voice}>
+              {voice}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className={styles.controls}>
+        <button  className={styles.button}
+          onClick={isSpeaking ? stopSpeech : playSpeech} 
+          aria-label={isSpeaking ? 'Stop Speech' : 'Play Speech'}>
+          {isSpeaking ? 'Stop' : 'Play'}
+        </button>
+      </div>
+
+      {totalTime > 0 && (
+        <div className={styles.progressContainer}>
+          <p>Progress: {Math.round(progress)}%</p>
+          <progress className={styles.progress} value={progress} max="100"></progress>
+          <p>Time: {Math.round(currentTime)}s / {Math.round(totalTime)}s</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default TextToSpeech;
-
- 
+export default TextToSpeechPlayer;
