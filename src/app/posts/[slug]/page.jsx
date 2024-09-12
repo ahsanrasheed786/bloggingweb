@@ -5,21 +5,21 @@ import QuestionAndAnswer from "@/components/questionBtn/QuestionBtn";
 import LikeButton from "@/components/likeButton/LikeButton";
 import RatingComponent from "@/components/ratingComponent/RatingComponent";
 import ShareButton from "@/components/shareButton/ShareButton.jsx"; 
-// import MenuPosts from "@/components/menuPosts/MenuPosts";
-// import MenuCategories from "@/components/menuCategories/MenuCategories"; 
-// import TextToSpeech from "@/components/speech/TextToSpeech";
-// import CommentsBox from "@/components/commentDiv/commentsBox";
-// import QuestionBox from "@/components/questionsDiv/QuestionBox";
-import dynamic from 'next/dynamic';
-const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
-const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
-const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
-const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
-const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
+import MenuPosts from "@/components/menuPosts/MenuPosts";
+import MenuCategories from "@/components/menuCategories/MenuCategories"; 
+import TextToSpeech from "@/components/speech/TextToSpeech";
+import CommentsBox from "@/components/commentDiv/commentsBox";
+import QuestionBox from "@/components/questionsDiv/QuestionBox";
+// import dynamic from 'next/dynamic';
+// const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
+// const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
+// const TextToSpeech = dynamic(() => import('@/components/speech/TextToSpeech'), { ssr: false });
+// const CommentsBox = dynamic(() => import('@/components/commentDiv/commentsBox'), { ssr: false });
+// const QuestionBox = dynamic(() => import('@/components/questionsDiv/QuestionBox'), { ssr: false });
 
 const getData = async (slug) => {
      const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
-      next: { revalidate: 60 },
+      // next: { revalidate: 60 },
      });
     if (!res.ok) {
       throw new Error("Failed to fetch post data");}
@@ -136,7 +136,7 @@ const getData = async (slug) => {
   
     const fetchpopular = async () => {
       const res = await fetch(`${process.env.WEBSIT_URL}/api/mostpopular`, {
-        cache: "no-store",
+        // cache: "no-store",
       });
       if (!res.ok) {
         throw new Error("Failed");
@@ -309,7 +309,7 @@ const page =async ({ params }) => {
 <div className={styles.container}>
       <h4 className={styles.subtitle}>{"What's hot "}🔥</h4>
       <h4 className={styles.title}>Most Popular</h4>
-      <MenuPosts withImage={false} post={popular} />
+      <MenuPosts   post={popular} />
       <h4 className={styles.subtitle}>Discover by topic</h4>
       <h4 className={styles.title}>Categories</h4>
       <MenuCategories />

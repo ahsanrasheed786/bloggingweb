@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menuPosts.module.css"
  
-const MenuPosts = ({ withImage, post }) => {
+const MenuPosts = ({ post }) => {
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     return date.toISOString().split('T')[0];
@@ -25,9 +25,7 @@ const MenuPosts = ({ withImage, post }) => {
           </h3>
           <div className={styles.detail}>
             <span className={styles.username}>{item.post?.author}</span><br/>
-            {/* <span className={styles.date}> {item.post.createdAt}</span> */}
-            <span className={styles.date}>{formatDate(item.post?.createdAt)}</span>
-
+             <span className={styles.date}>{formatDate(item.post?.createdAt)}</span>
           </div>
         </div>
       </Link>
