@@ -10,6 +10,7 @@ import MenuCategories from "@/components/menuCategories/MenuCategories";
 import TextToSpeech from "@/components/speech/TextToSpeech";
 import CommentsBox from "@/components/commentDiv/commentsBox";
 import QuestionBox from "@/components/questionsDiv/QuestionBox";
+import AskQuestion from "@/components/askQuestion/AskQuestion";
 // import dynamic from 'next/dynamic';
 // const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
 // const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
@@ -297,7 +298,7 @@ const page =async ({ params }) => {
            </div>
 
           <QuestionBox questions={questions} postSlug={slug}/>
-
+          <AskQuestion/>
         </div>
        </div>
     </div>   
