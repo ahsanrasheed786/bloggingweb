@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <link rel="preload" href="/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+      {/* <link rel="preload" href="/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin="anonymous"/> */}
 {/* <Script defer src="https://www.googletagmanager.com/gtag/js?id=G-2R4K5K0HNK"></Script>
 <Script async id="google-analytics">
   {`
