@@ -304,11 +304,11 @@ const TextToSpeech = ({ article }) => {
   const [progress, setProgress] = useState(0);
   const [translatedText, setTranslatedText] = useState('');
   const [selectedLang, setSelectedLang] = useState('ur'); // Default to Urdu
+  const [error, setError] = useState(null); // Track error
   const audioRef = useRef(null);
   const utteranceRef = useRef(null);
   const text = stripHtmlTags(article);
 
-  // Language options (You can add more)
   const languageOptions = {
     ur: 'Urdu',
     es: 'Spanish',
@@ -318,10 +318,9 @@ const TextToSpeech = ({ article }) => {
     zh: 'Chinese',
   };
 
-  // Translation function
   const translateText = async (targetLang = 'ur') => {
     try {
-      const response = await fetch('https://api.libretranslate.com/translate', {
+      const response = await fetch('https://libretranslate.de/translate', {
         method: 'POST',
         body: JSON.stringify({
           q: text,
@@ -331,17 +330,28 @@ const TextToSpeech = ({ article }) => {
         }),
         headers: { 'Content-Type': 'application/json' }
       });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
       const data = await response.json();
       return data.translatedText;
     } catch (error) {
+      setError(error.message);
       console.error('Translation error:', error);
+      return text; // Return original text if translation fails
     }
-    return text; // Return original text on error
   };
 
   const startSpeech = async () => {
     const translated = await translateText(selectedLang);
     setTranslatedText(translated);
+
+    if (!translated) {
+      setError('Translation failed');
+      return;
+    }
 
     const utterance = new SpeechSynthesisUtterance(translated);
     utterance.lang = selectedLang;
@@ -350,16 +360,14 @@ const TextToSpeech = ({ article }) => {
     setIsPlaying(true);
     window.speechSynthesis.speak(utterance);
 
-    // Handle audio end
     utterance.onend = () => {
       setIsPlaying(false);
       setProgress(0);
     };
 
-    // Progress handler
     utterance.onboundary = (event) => {
-      const elapsedTime = event.elapsedTime / 1000; // Convert ms to seconds
-      const totalDuration = translated.length / 6; // Estimate duration
+      const elapsedTime = event.elapsedTime / 1000;
+      const totalDuration = translated.length / 6;
       setProgress((elapsedTime / totalDuration) * 100);
     };
   };
@@ -396,8 +404,9 @@ const TextToSpeech = ({ article }) => {
         <p>Progress: {progress}%</p>
         <progress value={progress} max="100"></progress>
       </div>
-      
+
       {translatedText && <p>Translated Text: {translatedText}</p>}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
     </div>
   );
 };
