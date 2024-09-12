@@ -290,6 +290,7 @@
 //!! trying other language 
  "use client";
 import React, { useState, useRef } from 'react';
+import translate from 'translate-google-api';
 
 const stripHtmlTags = (html) => {
   if (typeof window !== "undefined") {
@@ -318,31 +319,18 @@ const TextToSpeech = ({ article }) => {
     zh: 'Chinese',
   };
 
-  const translateText = async (targetLang = 'ur') => {
+  // LibreTranslate API integration
+  const translateText = async (text, targetLang = 'ur') => {
     try {
-      const response = await fetch('https://libretranslate.de/translate', {
-        method: 'POST',
-        body: JSON.stringify({
-          q: text,
-          source: 'en',
-          target: targetLang,
-          format: 'text'
-        }),
-        headers: { 'Content-Type': 'application/json' }
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data.translatedText;
+      const res = await translate(text, { to: targetLang });
+      console.log(res);
+      return res; // Translated text
     } catch (error) {
-      setError(error.message);
       console.error('Translation error:', error);
-      return text; // Return original text if translation fails
+      return text; // Fallback to original text on error
     }
   };
+  
 
   const startSpeech = async () => {
     const translated = await translateText(selectedLang);
