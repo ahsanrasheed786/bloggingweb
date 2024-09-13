@@ -217,13 +217,6 @@ const TextToSpeechPlayer = ({ article }) => {
   const [isTranslationReady, setIsTranslationReady] = useState(false);
 
   // Language and voice options
-  // const languageOptions = [
-  //   { label: 'English', value: 'en', voices: [{ label: 'UK English Female', value: 'UK English Female' }, { label: 'UK English Male', value: 'UK English Male' }, { label: 'US English Female', value: 'US English Female' }, { label: 'US English Male', value: 'US English Male' }] },
-  //   { label: 'Spanish', value: 'es', voices: [{ label: 'Spanish Female', value: 'Spanish Female' }, { label: 'Spanish Male', value: 'Spanish Male' }] },
-  //   { label: 'French', value: 'fr', voices: [{ label: 'French Female', value: 'French Female' }, { label: 'French Male', value: 'French Male' }] },
-  //   // Other languages...
-  // ];
-
   const languageOptions = [
         { label: 'English', value: 'en',voices: [{ label: 'UK English Female', value: 'UK English Female' }, { label: 'UK English Male', value: 'UK English Male' },{ label: 'US English Female', value: 'US English Female' }, { label: 'US English Male', value: 'US English Male' }] },
         { label: 'Spanish', value: 'es' ,voices: [{ label: 'Spanish Female', value: 'Spanish Female' }, { label: 'Spanish Male', value: 'Spanish Male' }] },
@@ -253,7 +246,14 @@ const TextToSpeechPlayer = ({ article }) => {
         { label: 'Vietnamese', value: 'vi' , voices: [{ label: 'Vietnamese Female', value: 'Vietnamese Female' }, { label: 'Vietnamese Male', value: 'Vietnamese Male' }] },
         { label: 'Greek', value: 'el' , voices: [{ label: 'Greek Female', value: 'Greek Female' }, { label: 'Greek Male', value: 'Greek Male' }] },
       ];
-
+      const cleanResponse = (text) => {
+        // Replace occurrences of #, ##, ###, * and * * with an empty string
+        return text
+          .replace(/(^|\s)[#]+/g, "")  
+          .replace(/\*{1,2}/g, "")    
+          .trim();
+      };
+      
   const getVoicesForLanguage = (languageValue) => {
     const language = languageOptions.find((lang) => lang.value === languageValue);
     return language ? language.voices : [];
@@ -288,7 +288,8 @@ const TextToSpeechPlayer = ({ article }) => {
       if (data.candidates && data.candidates.length > 0) {
         const candidate = data.candidates[0];
         if (candidate && candidate.content && candidate.content.parts.length > 0) {
-          return candidate.content.parts[0].text || '';
+          const responseText=candidate.content.parts[0].text || '';
+          return cleanResponse(responseText);
         }
       }
       return '';
@@ -302,6 +303,7 @@ const TextToSpeechPlayer = ({ article }) => {
     const fetchTranslation = async () => {
       setIsTranslationReady(false);
       const translated = await translateText(text, selectedLanguage);
+      console.log(translated);
       setTranslatedText(translated);
       setIsTranslationReady(!!translated);
     };
