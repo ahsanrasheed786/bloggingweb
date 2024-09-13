@@ -297,6 +297,7 @@ const AdminPosts = () => {
             className={style.editinputs}
             onChange={(e) => setEditData({ ...editData, title: e.target.value })}
             placeholder="Title"/>
+            
           <div className={style.editorContainer}>
             <ReactQuill
               className={style.reactQuill}
@@ -355,7 +356,6 @@ const AdminPosts = () => {
             onChange={(e) => setEditData({ ...editData, imgAlt: e.target.value })}
             placeholder="metaAuthor"
             className={style.editinputs}/> 
-            
           <hr />
           {/* <h4>Likes</h4>
           <input
@@ -377,7 +377,7 @@ const AdminPosts = () => {
           Total & Average
           <input
             type="text"
-            value={editData.totalRating?.count}
+            value={editData?.totalRating?.count}
             // onChange={(e) => setEditData({ ...editData, count: e.target.value })}
             // onChange={(e) => setEditData({ ...editData {...editData.totalRating ,count: e.target.value }})}
             onChange={(e) => setEditData({
@@ -389,13 +389,13 @@ const AdminPosts = () => {
             })}
             
             placeholder="Total"
-            className={style.catSlug}/>
+            className={style.editinputs}/>
           <input
             type="text"
             value={editData.totalRating?.average}
             onChange={(e) => setEditData({ ...editData, average: e.target.value })}
             placeholder="Avarage"
-            className={style.catSlug}/> */}
+            className={style.editinputs}/> */}
           <hr />
           <h3>Blog Varified By</h3>
           <select
@@ -499,6 +499,13 @@ const AdminPosts = () => {
           <button type="button" onClick={addFqa} className={style.addFqaButton}>
             Add FQA
           </button>
+          <h3>Allow For Ai</h3>
+         <input
+        type="text"
+        value={editData.aiQuestion}
+        placeholder="write allow keywords seperated by comma"
+        className={style.editinputs}
+        onChange={(e) => setEditData({...editData,aiQuestion:e.target.value})}/>
           <input
             type="file"
             onChange={handleImageChange}

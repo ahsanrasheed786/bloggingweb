@@ -49,6 +49,7 @@ const [ articalBody, setArticalBody] = useState("");
   const [doctorVal, setDoctorVal] = useState('');
   const [imageUpload,setImageUpload]=useState('')
   const [imgAlt,setImgAlt]= useState('');
+  const [aiQuestion, setAiQuestion] = useState('');
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
@@ -169,6 +170,7 @@ const [ articalBody, setArticalBody] = useState("");
           metaRobots,
           metaDisc,
            fqa ,
+           aiQuestion,
            artical:{
            heading: heading || "heading" ,
            featureImage: featureImage || "featureImage" , 
@@ -356,7 +358,12 @@ const [ articalBody, setArticalBody] = useState("");
     <button type="button" onClick={addFqa}>Add FQA</button>
       
 {/* ===========FQA schema ends=============== */}
- 
+  <h3>Allow For Ai</h3>
+        <input
+        type="text"
+        placeholder="write allow keywords seperated by comma"
+        className={styles.input}
+        onChange={(e) => setAiQuestion(e.target.value)}/>
       
  {media && (
         <div className={styles.previewContainer}>

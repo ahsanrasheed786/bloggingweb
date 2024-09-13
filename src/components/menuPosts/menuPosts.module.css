@@ -7,16 +7,16 @@
 }
 
 .item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* gap: 20px; */
 }
 
-.imageContainer {
+/* .imageContainer {
   flex: 1;
   aspect-ratio: 1/1;
   position: relative;
-}
+} */
 
 .image {
   border: 3px solid lightgray;
@@ -53,4 +53,4 @@
 
 /* .date {
   color: gray;
-} */
+} */ 

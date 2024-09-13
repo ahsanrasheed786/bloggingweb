@@ -44,7 +44,7 @@ font-size: 12px;
 }
 .imageContainer {
   flex: 1;
-  height: 350px;
+  max-height: 350px;
   position: relative;
 }
 .textContainer {
@@ -260,7 +260,15 @@ display:none;
   flex-basis: 100%;
 } }
 
-
+.image{
+  width: 100%;
+  /* height: 100%; */
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
 
 @media screen and (max-width: 1536px) {
@@ -274,8 +282,11 @@ display:none;
   }
 }
 @media screen and (max-width: 1024px) {
-  .imageContainer {
-    display: none;
+  .mobileSpeech{
+    display:block;
+  }
+  .desktopSpeech{
+    display:none;
   }
   .title {
     font-size: 30px;

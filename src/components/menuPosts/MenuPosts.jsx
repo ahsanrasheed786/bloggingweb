@@ -8,16 +8,11 @@ const MenuPosts = ({ post }) => {
     const date = new Date(isoDate);
     return date.toISOString().split('T')[0];
   };
-   return (
+   return ( 
     <div className={styles.items}>
       {post && (
         post?.map((item,index)=>(
           <Link key={index} href={`/posts/${item.post?.slug}`} prefetch={true} className={styles.item} aria-label={`Read more about ${item.post?.title}`}>
-        {item.post?.img &&(
-          <div className={styles.imageContainer}>
-            <img src= {item.post?.img} loading="lazy"  alt={item.post?.title || "Post image"} fill className={styles.image} />
-          </div>
-        )}
         <div className={styles.textContainer}>
           <span style={{backgroundColor:item.color}} className={`${styles.category}`}>{item.category}</span>
           <h3 className={styles.postTitle}>
@@ -28,6 +23,11 @@ const MenuPosts = ({ post }) => {
              <span className={styles.date}>{formatDate(item.post?.createdAt)}</span>
           </div>
         </div>
+        {item.post?.img &&(
+          <div className={styles.imageContainer}>
+            <img src= {item.post?.img} loading="lazy"  alt={item.post?.title || "Post image"} fill className={styles.image} />
+          </div>
+        )}
       </Link>
         ))
       )}

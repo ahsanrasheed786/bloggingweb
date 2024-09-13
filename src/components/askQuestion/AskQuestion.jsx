@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import styles from './question.module.css';
 
-const allowedTopics = "Vitamin C, Water, Human Body";
 
-const AskQuestion = () => {
+const AskQuestion = ({Allow}) => {
+  const allowedTopics =Allow || "Vitamin C, Water, Human Body";
+
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);

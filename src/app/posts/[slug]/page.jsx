@@ -276,7 +276,7 @@ const page =async ({ params }) => {
               <span className={styles.date}>{formatDate(data?.createdAt)} </span>
             </div>
           </div>
-          <AskQuestion/>
+      <AskQuestion Allow={data?.aiQuestion}/>
           {/* publish by ended */}
           <hr className= {styles.hr}/>
           <div className={styles.postLinks}>

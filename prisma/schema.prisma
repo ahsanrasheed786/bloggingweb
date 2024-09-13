@@ -115,13 +115,13 @@ model Post {
   metaAuthor    String?   @default("ahs")
   metaRobots    String?   @default("asj")
   doctor        String?   @default("doctor")
-
   totalRating   Json      @default("{}") // This will store an object with count and average
   totalLikes    Int       @default(0)    // Total number of likes
   ratings       Rating[]
   likes         Like[]    // Relation to the Like model
   artical       Json      @default("{}")  
   fqa           Json      @default("[]")
+  aiQuestion     String?  @default("")
 }
  
 model Rating {
