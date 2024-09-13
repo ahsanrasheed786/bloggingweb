@@ -19,6 +19,8 @@ const MenuCategories = async () => {
    
   return (
     <div>
+      <h4 className={styles.subtitle}>Discover by topic</h4>
+      <h4 className={styles.title}>Categories</h4>
       <div className={styles.categoryList}>
         {data?.map((item, index) => (
           <Link

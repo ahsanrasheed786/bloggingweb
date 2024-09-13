@@ -308,11 +308,11 @@ const page =async ({ params }) => {
 <section className={styles.rightSidebar}>
 <div className={styles.desktopSpeech}><TextToSpeech article={data?.desc} /></div>
 <div className={styles.container}>
-      <h4 className={styles.subtitle}>{"What's hot "}🔥</h4>
-      <h4 className={styles.title}>Most Popular</h4>
+      {/* <h4 className={styles.subtitle}>{"What's hot "}🔥</h4>
+      <h4 className={styles.title}>Most Popular</h4> */}
       <MenuPosts   post={popular} />
-      <h4 className={styles.subtitle}>Discover by topic</h4>
-      <h4 className={styles.title}>Categories</h4>
+      {/* <h4 className={styles.subtitle}>Discover by topic</h4>
+      <h4 className={styles.title}>Categories</h4> */}
       <MenuCategories />
     </div>
  </section>

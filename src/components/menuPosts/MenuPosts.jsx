@@ -10,6 +10,7 @@ const MenuPosts = ({ post }) => {
   };
    return ( 
     <div className={styles.items}>
+          <h4 className={styles.subtitle}>{"What's hot "}🔥<h4 className={styles.title}>Most Popular</h4></h4>
       {post && (
         post?.map((item,index)=>(
           <Link key={index} href={`/posts/${item.post?.slug}`} prefetch={true} className={styles.item} aria-label={`Read more about ${item.post?.title}`}>
