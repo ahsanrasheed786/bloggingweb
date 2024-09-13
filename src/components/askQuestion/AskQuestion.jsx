@@ -71,7 +71,7 @@ const AskQuestion = () => {
 
   return (
     <div className={styles.askQuestion}>
-      <h2>Ask a Question</h2>
+      <p className={styles.questionHead}>Ask a Question And Get Instent Response</p>
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label htmlFor="question">Your Question:</label>
@@ -80,11 +80,11 @@ const AskQuestion = () => {
             id="question"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            aria-label="Enter your question"
-          />
+            aria-label="Enter your question" />
         </div>
 
-        <button type="submit" disabled={loading}>
+
+        <button className={styles.button} type="submit" disabled={loading}>
           {loading ? 'Asking...' : 'Ask'}
         </button>
       </form>

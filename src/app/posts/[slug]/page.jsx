@@ -276,6 +276,7 @@ const page =async ({ params }) => {
               <span className={styles.date}>{formatDate(data?.createdAt)} </span>
             </div>
           </div>
+          <AskQuestion/>
           {/* publish by ended */}
           <hr className= {styles.hr}/>
           <div className={styles.postLinks}>
@@ -296,9 +297,7 @@ const page =async ({ params }) => {
            <div aria-live="polite" aria-atomic="true">
            <CommentsBox postSlug={slug} comments={comments} />
            </div>
-
           <QuestionBox questions={questions} postSlug={slug}/>
-          <AskQuestion/>
         </div>
        </div>
     </div>   

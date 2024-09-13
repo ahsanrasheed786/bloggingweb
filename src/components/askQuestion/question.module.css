@@ -4,13 +4,18 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    .questionHead{
+        font-weight: 600;
+        font-size: 28px;
+        margin: 10px 0;
+    }
     .askQuestion h2 {
     text-align: center;
-    color: #333;
+    /* color: #333; */
     }
     .formGroup {
     margin-bottom: 20px;
@@ -18,7 +23,7 @@
     .formGroup label {
     display: block;
     margin-bottom: 5px;
-    color: #555;
+    /* color: #555; */
     }
     .formGroup input,
     .formGroup select {
@@ -45,7 +50,7 @@
     .response {
     margin-top: 20px;
     padding: 15px;
-    background-color: #eef;
+    /* background-color: #eef; */
     border-radius: 4px;
     }
     .response h3 {
