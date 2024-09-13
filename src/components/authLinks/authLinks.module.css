@@ -39,6 +39,9 @@
   }
 
   .link{
+    /* display: none; */
+  }
+  .desktoplink{
     display: none;
   }
 }

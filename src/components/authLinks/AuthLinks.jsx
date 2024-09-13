@@ -37,17 +37,17 @@ const AuthLinks = () => {
   return (
     <>
       {status === "unauthenticated" ? (
-        <Link href="/login" className={styles.link}>
+        <Link href="/login" className={styles.desktoplink}>
           Login
         </Link>
       ) : (
         <>
           { unauthorized && (
-            <Link href="/dashboard" className={styles.link}>
+            <Link href="/dashboard" className={styles.desktoplink}>
               Dashboard
-            </Link>
+            </Link> 
           )}
-          <span className={styles.link} onClick={signOut}>
+          <span className={styles.desktoplink} onClick={signOut}>
             Logout
           </span>
         </>
@@ -70,6 +70,11 @@ const AuthLinks = () => {
                 Logout
               </span>
             </>
+          )}
+          { unauthorized && (
+            <Link href="/dashboard" className={styles.link}>
+              Dashboard 
+            </Link> 
           )}
         </div>
       )}

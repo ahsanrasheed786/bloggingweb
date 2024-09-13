@@ -14,25 +14,13 @@ justify-content: center;
 align-items: center;
 
 }
-
-
-.leftSidebar{
-/* display: none; */
-  flex-basis: 23%;
-   align-self: flex-start;
-  position: sticky;
-  top: 73px;
-}
 .rightSidebar{
 flex-basis: 25%;
 /* flex-basis: 18%; */
 align-self: flex-start;
 position: sticky;
 top: 73px;
-}
-.degree{
-font-size: 12px;
-}
+} 
 .mainContent{
    /* flex-basis: 47%; */
    flex-basis:70%;
@@ -40,13 +28,15 @@ font-size: 12px;
 .imageContainer{
   display:flex;
   justify-content: center;
-   /* align-items:center; */
+    flex: 1;
+   max-height: 350px;
+   position: relative;
 }
-.imageContainer {
+/* .imageContainer {
   flex: 1;
   max-height: 350px;
   position: relative;
-}
+} */
 .textContainer {
   flex: 1;
 }
