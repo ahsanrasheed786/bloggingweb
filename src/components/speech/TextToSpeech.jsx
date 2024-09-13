@@ -445,6 +445,7 @@ const TextToSpeechPlayer = ({ article }) => {
     { label: 'German Male', value: 'German Male' },
     { label: 'Hindi Female', value: 'Hindi Female' },
     { label: 'Urdu Male', value: 'Urdu Male' },
+    { label: 'Urdu Female', value: 'Urdu Female' },
     { label: 'Arabic Female', value: 'Arabic Female' },
     { label: 'Arabic Male', value: 'Arabic Male' },
     { label: 'Russian Female', value: 'Russian Female' },
