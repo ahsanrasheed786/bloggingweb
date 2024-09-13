@@ -494,9 +494,49 @@ const TextToSpeechPlayer = ({ article }) => {
   let text = stripHtmlTags(article);
 
   // Translate text using Gemini API
+  // const translateText = async (text, targetLang = 'en') => {
+  //   const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
+  //   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         contents: [
+  //           {
+  //             parts: [{ text: `Translate the following text to ${targetLang}: ${text}` }]
+  //           }
+  //         ]
+  //       }),
+  //     });
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       console.error('Translation error:', errorData);
+  //       return '';
+  //     }
+  //     const data = await response.json();
+  //     if (data.candidates && data.candidates.length > 0) {
+  //       const candidate = data.candidates[0];
+  //       if (candidate && candidate.content && candidate.content.parts.length > 0) {
+  //         return candidate.content.parts[0].text || '';
+  //       }
+  //     }
+  //     return '';
+  //   } catch (error) {
+  //     console.error('Translation error:', error);
+  //     return '';
+  //   }
+  // };
+
   const translateText = async (text, targetLang = 'en') => {
+    // If the target language is English, return the original text
+    if (targetLang === 'en') {
+      return text;
+    }
+  
     const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+  
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -509,11 +549,13 @@ const TextToSpeechPlayer = ({ article }) => {
           ]
         }),
       });
+  
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Translation error:', errorData);
         return '';
       }
+  
       const data = await response.json();
       if (data.candidates && data.candidates.length > 0) {
         const candidate = data.candidates[0];
@@ -527,11 +569,14 @@ const TextToSpeechPlayer = ({ article }) => {
       return '';
     }
   };
+  
 
   useEffect(() => {
     const fetchTranslation = async () => {
       setIsTranslationReady(false);
-      const translated = !selectedLanguage=='en'?await translateText(text, selectedLanguage):text;
+      const translated = await translateText(text, selectedLanguage);
+      // const translated = !selectedLanguage=='en'?await translateText(text, selectedLanguage):text;
+      // console.log(translated);
       setTranslatedText(translated);
       setIsTranslationReady(!!translated);
     };
