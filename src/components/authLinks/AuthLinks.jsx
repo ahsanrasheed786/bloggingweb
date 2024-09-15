@@ -84,7 +84,7 @@
 
 // export default AuthLinks;
 
-
+// ! the uper one is orignal 
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -186,7 +186,7 @@ const AuthLinks = () => {
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
           {status === "unauthenticated" ? (
-            <span onClick={openLoginWindow}>Login</span>
+            <span className={styles.pointer} onClick={openLoginWindow}>Login</span>
           ) : (
             <>
               <span className={styles.link} onClick={signOut}>

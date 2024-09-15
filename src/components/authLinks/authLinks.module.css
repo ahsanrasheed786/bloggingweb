@@ -16,7 +16,12 @@
   height: 2px;
   background-color: var(--textColor);
 }
-
+.desktoplink{
+  cursor: pointer;
+}
+.pointer{
+  cursor: pointer;
+}
 .responsiveMenu{
   position: absolute;
   top: 100px;
