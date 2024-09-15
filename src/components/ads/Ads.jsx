@@ -7,7 +7,7 @@ const Ads = async({adsId}) => {
     //   // next: { revalidate: 60 },
     });
     const data = await response.json();
-    // console.log(data)
+    console.log(data)
     // console.log(adsId)
   return (
     <div className={styles.adsContainer}>

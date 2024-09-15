@@ -246,7 +246,8 @@ const page =async ({ params }) => {
        <div className={styles.content}>
         <div className={styles.post}>
         <Ads className={styles.destop} adsId={data?.ad}/>
-         {/* {console.log(data?.ad)} */}
+
+         {/* {console.log(data?.ad)} */} 
         <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
        <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>

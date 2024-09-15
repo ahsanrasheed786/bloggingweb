@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
   gtag('config', 'G-2R4K5K0HNK');
   `}
 </Script> */}
-{/* <Script src="https://code.responsivevoice.org/responsivevoice.js?key=xhb4DWWR"></Script> */}
+<Script src="https://code.responsivevoice.org/responsivevoice.js?key=xhb4DWWR"></Script>
       </head>
       <body className={inter.className}>
         <AuthProvider>
