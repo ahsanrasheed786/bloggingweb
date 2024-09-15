@@ -39,8 +39,8 @@ const TextToSpeechPlayer = ({ article }) => {
         { label: 'Hindi', value: 'hi' ,voices: [
           { label: 'Hindi Female', value: 'Hindi Female' },
             { label: 'Hindi Male', value: 'Hindi Male' }] },
-        { label: 'Urdu', value: 'hinglish',voices: [
-          { label: 'Urdu Male', value: 'Urdu Male' },
+        { label: 'Urdu', value: 'ur',voices: [
+          { label: 'Urdu Male', value: 'Arabic Male' },
            { label: 'Urdu Female', value: 'Urdu Female' }] },
         { label: 'Arabic', value: 'ar',voices: [
           { label: 'Arabic Female', value: 'Arabic Female' }, 
