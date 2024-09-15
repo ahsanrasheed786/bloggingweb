@@ -8,7 +8,7 @@ const Ads = async({adsId}) => {
     });
     const data = await response.json();
     console.log(data)
-    // console.log(adsId)
+    console.log(adsId)
   return (
     <div className={styles.adsContainer}>
   <a
