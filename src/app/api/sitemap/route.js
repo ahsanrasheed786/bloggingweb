@@ -17,11 +17,11 @@ export async function GET(req, res) {
 
   const staticUrls = [
     { url: '/', lastModified: new Date().toISOString(), priority: 0.9, changefreq: 'daily' },
-    { url: '/about', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
-    { url: '/contact', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
-    { url: '/privacy-policy', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
-    { url: '/terms-of-service', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
-    { url: '/disclaimer', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: 'about', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: 'contact', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: 'privacy-policy', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: 'terms-of-service', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
+    { url: 'disclaimer', lastModified: new Date().toISOString(), priority: 0.4, changefreq: 'yearly' },
 
   ];
 

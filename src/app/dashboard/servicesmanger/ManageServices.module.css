@@ -1,0 +1,121 @@
+/* ManageServices.module.css */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.input {
+  height: 40px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submitButton:hover {
+  background-color: #005bb5;
+}
+
+.servicesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.serviceItem {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: calc(33.333% - 20px);
+}
+
+.serviceImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.serviceDetails {
+  margin-top: 10px;
+}
+
+.serviceTitle {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.serviceDescription {
+  font-size: 14px;
+  color: #666;
+}
+
+.actionButton {
+  background-color: #0070f3;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.actionButton:hover {
+  background-color: #005bb5;
+}
+
+@media (max-width: 768px) {
+  .serviceItem {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceItem {
+    width: 100%;
+  }
+
+  .actionButton {
+    width: 100%;
+  }
+}

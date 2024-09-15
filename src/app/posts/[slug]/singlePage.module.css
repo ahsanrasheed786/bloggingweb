@@ -37,6 +37,9 @@ top: 73px;
   max-height: 350px;
   position: relative;
 } */
+ .mobile {
+    display:none
+ }
 .textContainer {
   flex: 1;
 }
@@ -164,6 +167,12 @@ display:none;
 }
 .adCard{
   display: none;
+}
+.mobile {
+  display:block
+}
+.destop {
+  display:none
 }
 .mainContent{
   flex-basis: 100%;

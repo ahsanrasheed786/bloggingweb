@@ -11,6 +11,7 @@ import TextToSpeech from "@/components/speech/TextToSpeech";
 import CommentsBox from "@/components/commentDiv/commentsBox";
 import QuestionBox from "@/components/questionsDiv/QuestionBox";
 import AskQuestion from "@/components/askQuestion/AskQuestion";
+import Ads from "@/components/ads/Ads";
 // import dynamic from 'next/dynamic';
 // const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
 // const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
@@ -241,14 +242,19 @@ const page =async ({ params }) => {
           <div className={styles.imageContainer}>
             <img src={data?.img}   alt={data?.imgAlt|| "Article Cover Image"}  className={styles.image} />
            </div> )}         
+           
        <div className={styles.content}>
         <div className={styles.post}>
+        <Ads className={stles.destop} adsId={data?.ad}/>
+         {/* {console.log(data?.ad)} */}
+
         <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
        <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>
        {/* <div  /> */}
        </artical>
-           
+       <Ads className={stles.mobile} adsId={data?.ad} />
+
            {data?.fqa && (
         <div className= {styles.fqaContainer}>
           <b>FAQ</b>

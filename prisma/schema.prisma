@@ -121,9 +121,35 @@ model Post {
   likes         Like[]    // Relation to the Like model
   artical       Json      @default("{}")  
   fqa           Json      @default("[]")
+  ad           String     @default("")
   aiQuestion     String?  @default("")
 }
  
+model Service{
+  id            String    @id @default(cuid()) @map("_id")
+  createdAt     DateTime  @default(now())
+  slug          String    @unique
+  img           String?
+  imgAlt        String?
+  coverImage    String?
+  name          String?
+  services      String?
+  moreservices  Json      @default("[]")
+  location      String?
+  linkdin       String?
+  about         String?
+  experience    String?
+  education     String?
+  skills        String?
+  language      String?
+  totalClient   String?
+  title         String
+  desc          String
+  views         Int       @default(0)
+  userEmail     String?
+}
+
+
 model Rating {
   id     String  @id @default(cuid()) @map("_id")
   rating Int
@@ -165,6 +191,15 @@ model Access {
   name    String
   email   String
   isAdmin Boolean @default(false)
+}
+ model Ads {
+  id          String   @id @default(cuid()) @map("_id")
+  img         String?
+  slug        String?
+  discount    String?
+  description String?
+  name        String?
+  contact     String?
 }
 
 model Contact {

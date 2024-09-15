@@ -26,10 +26,29 @@ const AdminPosts = () => {
   const [htmlpreview, setHtmlpreview] = useState(false);
   const [preview, setPreview] = useState(false);
   const [categories,setCategories]=useState([])
+  const [ads, setAds] = useState([]);
+  const [selectedAd, setSelectedAd] = useState(''); 
+
+
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
   const [varifyDoctor, setVarifyDoctor] = useState([]);
   
+
+  useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        const response = await fetch('/api/ads');  
+        const data = await response.json();
+        setAds(data);
+      } catch (error) {
+        console.error('Error fetching ads:', error);
+      }
+    };
+
+    fetchAds();
+  }, []);
+
   useEffect(() => {
     fetchVarifyDoctor();
   }, []);
@@ -44,6 +63,7 @@ const AdminPosts = () => {
       console.error('Error fetching varify authors:', error);
     }
   };
+
   const fetchCategories = async () => {
     try {
       const res = await fetch("/api/categories");
@@ -506,6 +526,19 @@ const AdminPosts = () => {
         placeholder="write allow keywords seperated by comma"
         className={style.editinputs}
         onChange={(e) => setEditData({...editData,aiQuestion:e.target.value})}/>
+        
+        <hr />
+          <h4> Select Ads</h4>
+      <label htmlFor="ads">Select an Ad:</label>
+       <select id="ads" className={style.select} value={editData.ad} onChange={(e)=>({...editData,ad:e.target.value})}>
+        <option value="">-- Select an Ad --</option> 
+        {ads.map((ad) => (
+          <option key={ad.id} value={ad.id}>
+            {ad.name}
+          </option>
+        ))}
+      </select>
+            
           <input
             type="file"
             onChange={handleImageChange}

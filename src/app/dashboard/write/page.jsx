@@ -50,6 +50,8 @@ const [ articalBody, setArticalBody] = useState("");
   const [imageUpload,setImageUpload]=useState('')
   const [imgAlt,setImgAlt]= useState('');
   const [aiQuestion, setAiQuestion] = useState('');
+  const [ads, setAds] = useState([]);
+  const [selectedAd, setSelectedAd] = useState('');
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
 
@@ -76,6 +78,21 @@ const [ articalBody, setArticalBody] = useState("");
 
   useEffect(() => {
     fetchVarifyDoctor();
+  }, []);
+
+// fatching ads
+  useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        const response = await fetch('/api/ads'); // Assuming your API route returns all ads
+        const data = await response.json();
+        setAds(data);
+      } catch (error) {
+        console.error('Error fetching ads:', error);
+      }
+    };
+
+    fetchAds();
   }, []);
 
   const fetchVarifyDoctor = async () => {
@@ -171,6 +188,7 @@ const [ articalBody, setArticalBody] = useState("");
           metaDisc,
            fqa ,
            aiQuestion,
+           ad : selectedAd || "ads",
            artical:{
            heading: heading || "heading" ,
            featureImage: featureImage || "featureImage" , 
@@ -219,33 +237,25 @@ const [ articalBody, setArticalBody] = useState("");
       </div>
     );
   }
+ 
 
-  const modules = {
+   const modules = {
     toolbar: {
       container: [
-        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ 'color': [] }, { 'background': [] }],
-        [{ 'align': [] }],
-        ['link', 'image', 'video'],
-        [{ 'script': 'sub' }, { 'script': 'super' }],
-        ['blockquote', 'code-block'],
-        [{ 'indent': '-1' }, { 'indent': '+1' }],
-        ['clean'],
+         [{ 'header': [1, 2, 3, 4, 5, 6, false] }, { 'font': [] }],
+         [{ 'size': ['small', false, 'large', 'huge',1] }],
+         [{ 'list': 'ordered' },{ 'list': 'bullet' },{ 'list': 'check' }, ],
+         ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+         [{ 'script': 'sub' }, { 'script': 'super' }],
+         [{ 'color': [] }, { 'background': [] }],
+         [{ 'align': [] }],
+         ['link', 'image', 'video'],
+         [{ 'indent': '-1' }, { 'indent': '+1' }],
+           ['clean'],
       ],
-      handlers: {
-        // video: () => {
-        //   const url = prompt('Enter video URL');
-        //   if (url) {
-        //     const range = this.quill.getSelection();
-        //     this.quill.insertEmbed(range.index, 'video', url);
-        //   }
-        // }
-      }
-    }
+    }, 
   };
-
+  
   return (
     <div className={styles.container}>
            <input
@@ -365,6 +375,30 @@ const [ articalBody, setArticalBody] = useState("");
         className={styles.input}
         onChange={(e) => setAiQuestion(e.target.value)}/>
       
+<hr/>
+<div>
+      <label htmlFor="ads">Select an Ad:</label>
+      <select id="ads" value={selectedAd} onChange={(e) => setSelectedAd(e.target.value)}>
+        <option value="">-- Select an Ad --</option> 
+        {ads.map((ad) => (
+          <option key={ad.id} value={ad.id}>
+            {ad.name}
+          </option>
+        ))}
+      </select>
+
+      {/* Display the selected ad information (optional) */}
+      {selectedAd && (
+        <div>
+          <h2>Selected Ad</h2>
+          <p>Ad ID: {selectedAd}</p>
+        </div>
+      )}
+    </div>
+
+
+
+
  {media && (
         <div className={styles.previewContainer}>
           <img 

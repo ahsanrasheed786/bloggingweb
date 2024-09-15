@@ -1,0 +1,76 @@
+/* components/ads.module.css */
+
+.adsContainer {
+    margin: 20px auto;
+    max-width: 600px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .adsContainer:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .adLink {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .ad {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #d4d3d3;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .adImage {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .adContent {
+    padding-top: 10px;
+  }
+  
+  .adTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .adDescription {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  @media (min-width: 768px) {
+    .ad {
+      flex-direction: row;
+      text-align: left;
+    }
+  
+    .adImage {
+      width: 40%;
+      height: auto;
+      margin-right: 20px;
+    }
+  
+    .adContent {
+      padding-top: 0;
+    }
+  
+    .adTitle {
+      font-size: 1.75rem;
+    }
+  
+    .adDescription {
+      font-size: 1.1rem;
+    }
+  }
+  

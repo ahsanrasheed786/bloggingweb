@@ -252,6 +252,8 @@ useEffect(() => {
   <li><Link href={"dashboard/author"}>Doctor List</Link></li>
   <li><Link href={"dashboard/emailtemplate"}>Email-Template</Link></li>
   <li><Link href={"dashboard/users"}>All Users</Link></li>
+  <li><Link href={"dashboard/servicesmanger"}>Service Manger</Link></li>
+  <li><Link href={"dashboard/ads"}>Ads Manger</Link></li>
 
 
 
