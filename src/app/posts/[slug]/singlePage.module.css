@@ -39,7 +39,7 @@ top: 73px;
 } */
  .mobile {
     display:none
- }
+ } 
 .textContainer {
   flex: 1;
 }
@@ -159,6 +159,12 @@ display:none;
   top: unset;
   
 }
+.mobile {
+  display:block
+}
+.destop {
+  display:none
+}
 .mobileSpeech{
   display:block;
 }
@@ -168,12 +174,7 @@ display:none;
 .adCard{
   display: none;
 }
-.mobile {
-  display:block
-}
-.destop {
-  display:none
-}
+
 .mainContent{
   flex-basis: 100%;
 } }

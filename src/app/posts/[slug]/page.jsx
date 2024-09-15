@@ -246,14 +246,20 @@ const page =async ({ params }) => {
            
        <div className={styles.content}>
         <div className={styles.post}>
-        <Ads className={styles.destop} adsId={data?.ad}/>
+
+          <div className={styles.destop}>
+          <Ads  adsId={data?.ad}/>
+          </div>
 
          <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
        <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>
        {/* <div  /> */}
        </artical>
-       <Ads className={styles.mobile} adsId={data?.ad} />
+       
+       <div className={styles.mobile}>
+       <Ads  adsId={data?.ad} />
+       </div>
 
            {data?.fqa && (
         <div className= {styles.fqaContainer}>

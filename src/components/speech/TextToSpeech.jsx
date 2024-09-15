@@ -38,9 +38,8 @@ const TextToSpeechPlayer = ({ article }) => {
           { label: 'German Male', value: 'German Male' }] },
         { label: 'Hindi', value: 'hi' ,voices: [
           { label: 'Hindi Female', value: 'Hindi Female' },
-           { label: 'Urdu Male', value: 'Urdu Male' }, 
-           { label: 'Urdu Female', value: 'Urdu Female' }] },
-        { label: 'Urdu', value: 'ur',voices: [
+            { label: 'Hindi Male', value: 'Hindi Male' }] },
+        { label: 'Urdu', value: 'hinglish',voices: [
           { label: 'Urdu Male', value: 'Urdu Male' },
            { label: 'Urdu Female', value: 'Urdu Female' }] },
         { label: 'Arabic', value: 'ar',voices: [
@@ -112,7 +111,11 @@ const TextToSpeechPlayer = ({ article }) => {
         return text
           .replace(/(^|\s)[#]+/g, "")  
           .replace(/\*{1,2}/g, "") 
-          .replace(/\./g, "")       
+          .replace(/\./g, "")    
+          // for urdu   
+          .replace(/،/g, '،\n')   
+          .replace(/\./g, '۔')     
+          .replace(/[\s]{2,}/g, ' ') 
           .trim();
       };
       

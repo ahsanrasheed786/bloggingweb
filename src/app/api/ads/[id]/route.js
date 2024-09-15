@@ -22,8 +22,7 @@ import { NextResponse } from "next/server";
 // }
 export async function GET(request, { params }) {
   const { id } = params;
-  console.log(id);
-  try {
+   try {
     const ad = await prisma.ads.findUnique({
       where: { id },  
     })
@@ -31,8 +30,7 @@ export async function GET(request, { params }) {
     if (!ad) {
       return NextResponse.json({ message: 'Ad not founds' }, { status: 404 });
     }
-    console.log(ad);
-    return NextResponse.json(ad);
+     return NextResponse.json(ad);
   } catch (error) {
     return NextResponse.json({ message: 'Error fetching ad', error }, { status: 500 });
   }
