@@ -17,6 +17,7 @@ const ServicePage = ({ service }) => {
   const fetchServiceData = async () => {
     const id = window.location.pathname.split('/').pop(); // Get ID from URL
     try {
+                                              //  id=slug
       const response = await fetch(`/api/services/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch service');

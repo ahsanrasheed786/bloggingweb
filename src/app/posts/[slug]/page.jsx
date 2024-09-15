@@ -22,6 +22,7 @@ import Ads from "@/components/ads/Ads";
 const getData = async (slug) => {
      const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
       // next: { revalidate: 60 },
+      // cache: "no-store",
      });
     if (!res.ok) {
       throw new Error("Failed to fetch post data");}
@@ -247,8 +248,7 @@ const page =async ({ params }) => {
         <div className={styles.post}>
         <Ads className={styles.destop} adsId={data?.ad}/>
 
-         {/* {console.log(data?.ad)} */} 
-        <h1 className={styles.title}>{data?.title}</h1>
+         <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
        <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>
        {/* <div  /> */}

@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   const { id } = params;
-
+  const slug = id;
+// console.log(id);
   try {
     const service = await prisma.service.findUnique({
       where: { slug },
