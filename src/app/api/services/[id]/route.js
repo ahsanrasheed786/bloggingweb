@@ -20,6 +20,10 @@ export async function GET(request, { params }) {
   }
 } 
 export async function PUT(request, { params }) {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
     const { id } = params;
     const body = await request.json();
   
@@ -43,6 +47,10 @@ export async function PUT(request, { params }) {
   
   
 export async function DELETE(request, { params }) {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { id } = params;
 
   try {

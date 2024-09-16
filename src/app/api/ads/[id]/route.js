@@ -1,6 +1,7 @@
 
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import  checkAccess  from "@/utils/authontication";
 
 // export async function GET(request) {
 //   try {
@@ -36,6 +37,10 @@ export async function GET(request, { params }) {
   }
 }
 export async function PUT(request) {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
     try {
       const body = await request.json();
       const updatedAd = await prisma.ads.update({
@@ -56,6 +61,10 @@ export async function PUT(request) {
   }
   
    export async function DELETE(request) {
+    const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
     try {
       const body = await request.json();
       await prisma.ads.delete({

@@ -2,9 +2,14 @@
 import { NextResponse } from 'next/server';
 // import prisma from '@/lib/prisma';
 import prisma from '@/utils/connect';
+import  checkAccess  from "@/utils/authontication";
 
 // GET: Fetch all email templates
 export async function GET() {
+  const canAccess = await checkAccess();
+   if (!canAccess.status===200) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
   try {
     const templates = await prisma.emailTemplate.findMany();
     return NextResponse.json(templates);
@@ -16,6 +21,10 @@ export async function GET() {
 
 // POST: Create a new email template, ensuring only one template exists
 export async function POST(req) {
+  const canAccess = await checkAccess();
+   if (!canAccess.status===200) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
   const { subject, textBody, htmlBody, templateType } = await req.json();
 
   try {

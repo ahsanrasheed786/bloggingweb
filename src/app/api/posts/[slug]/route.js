@@ -1,7 +1,8 @@
 // !! git hub old code same as which was already avilable
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
- 
+import  checkAccess  from "@/utils/authontication";
+
 // GET SINGLE POST
 export const GET = async (req, { params }) => {
   const { slug } = params;
@@ -24,6 +25,11 @@ export const GET = async (req, { params }) => {
 };
 // UPDATE A POST
 export const PATCH = async (req, { params }) => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
+
   const { slug } = params;
 
   try {
@@ -48,6 +54,11 @@ export const PATCH = async (req, { params }) => {
 
 // DELETE A POST
 export const DELETE = async (req, { params }) => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
+
   const { slug } = params;
 
   try {

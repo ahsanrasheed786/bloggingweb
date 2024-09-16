@@ -1,7 +1,12 @@
 import prisma from "@/utils/connect.js";
+import { onlyAdmin } from "@/utils/authontication";
 
 // Handle PATCH request to update the isAdmin status
 export async function PATCH(req, { params }) {
+  const canAccess = await onlyAdmin();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { id } = params; // Access the dynamic id from the URL
 
   console.log("Received ID for update:", id); // Log the id to confirm it's received
@@ -38,7 +43,12 @@ export async function PATCH(req, { params }) {
 
 // Handle DELETE request to delete a user
 export async function DELETE(req, { params }) {
+  const canAccess = await onlyAdmin();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { id } = params; // Access the dynamic id from the URL
+
 
   console.log("Received ID for delete:", id); // Log the id to confirm it's received
 

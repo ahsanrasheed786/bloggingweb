@@ -1,4 +1,5 @@
 import prisma from "@/utils/connect";
+import  checkAccess  from "@/utils/authontication";
 
 export async function GET(request,{ params }) {
   try {
@@ -19,6 +20,10 @@ export async function GET(request,{ params }) {
 }
 
 export async function PUT(request, { params }) {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   try {
     const data = await request.json();
     const updatedEntry = await prisma.varifydoctor.update({
@@ -39,6 +44,10 @@ export async function PUT(request, { params }) {
  
 
 export async function DELETE(request, { params }) {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   try {
     // Extract the ID from params
     const { id } = params;

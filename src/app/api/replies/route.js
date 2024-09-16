@@ -1,5 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import  checkAccess  from "@/utils/authontication";
 
 // GET ALL Questions
 export const GET = async () => {

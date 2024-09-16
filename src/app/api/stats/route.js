@@ -1,6 +1,7 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
-
+import { getAuthSession } from "@/utils/auth";
+import  checkAccess  from "@/utils/authontication";
 // Helper function to format numbers with "k" and "M"
 const formatNumber = (num) => {
   if (num >= 1000000) {
@@ -19,7 +20,11 @@ export const GET = async (req) => {
   const day = searchParams.get("day");
   const fromDate = searchParams.get("from"); 
   const toDate = searchParams.get("to");     // Format: YYYY-MM-DD
+  const canAccess = await checkAccess();
 
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   try {
     // Get all posts
     const posts = await prisma.post.findMany({

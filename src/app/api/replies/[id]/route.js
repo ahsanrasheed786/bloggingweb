@@ -1,8 +1,13 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import  checkAccess  from "@/utils/authontication";
 
 // DELETE a question
 export const DELETE = async (req, { params }) => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { id } = params;
   console.log("Deleted request ID:", id);
 
@@ -44,6 +49,10 @@ export const DELETE = async (req, { params }) => {
 
 // PATCH A question (for adding a reply)
 export const PATCH = async (req, { params }) => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { id } = params;
   const body = await req.json();
 
@@ -74,6 +83,10 @@ export const PATCH = async (req, { params }) => {
 
 // POST reply to a question
 export const POST = async (req, { params }) => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { id } = params; // question ID
   console.log("Posted request ID:", id);
   const body = await req.json();

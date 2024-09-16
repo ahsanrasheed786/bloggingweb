@@ -1,6 +1,7 @@
 
 import prisma from "@/utils/connect";
 import nodemailer from 'nodemailer';
+import  checkAccess  from "@/utils/authontication";
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,
@@ -12,6 +13,10 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function POST(request) {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { userIds, message } = await request.json();
 
   try {

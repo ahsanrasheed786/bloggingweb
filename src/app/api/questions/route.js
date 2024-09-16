@@ -1,6 +1,7 @@
 import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import  checkAccess  from "@/utils/authontication";
 
 // GET ALL Questions OF A POST
 export const GET = async (req) => {
@@ -61,6 +62,10 @@ export const POST = async (req) => {
 
 // PUT (update) a question
 export const PUT = async (req) => {
+  const canAccess = await checkAccess();
+   if (!canAccess.status===200) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
   const { id, desc, answer, isRead } = await req.json();
 
   try {
@@ -80,6 +85,10 @@ export const PUT = async (req) => {
 
 // DELETE a question
 export const DELETE = async (req) => {
+  const canAccess = await checkAccess();
+   if (!canAccess.status===200) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
   const { id } = await req.json();
 
   try {

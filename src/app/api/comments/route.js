@@ -1,9 +1,14 @@
 import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import  checkAccess  from "@/utils/authontication";
 
 // GET ALL COMMENTS OF A POST
 export const GET = async (req) => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
   const { searchParams } = new URL(req.url);
 
   const postSlug = searchParams.get("postSlug");

@@ -1,5 +1,7 @@
 // import { prisma } from '@/lib/prisma';  // Assuming you have prisma setup
 import prisma from "@/utils/connect";
+import  checkAccess  from "@/utils/authontication";
+
 export const POST = async (req) => {
   try {
     const body = await req.json();
@@ -25,6 +27,10 @@ export const POST = async (req) => {
 };
 
 export const GET = async () => {
+  const canAccess = await checkAccess();
+  if (!canAccess.status===200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
     try {
       const contacts = await prisma.contact.findMany();
       return new Response(JSON.stringify(contacts), {
