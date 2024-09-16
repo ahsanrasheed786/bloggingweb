@@ -7,7 +7,7 @@ import  checkAccess  from "@/utils/authontication";
 // Add a Category
 export const POST = async (request) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   try {
@@ -43,7 +43,7 @@ export const POST = async (request) => {
 export const PUT = async (request) => {
 
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   try {
@@ -79,7 +79,7 @@ export const PUT = async (request) => {
 // Delete a Category
 export const DELETE = async (request) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   try {

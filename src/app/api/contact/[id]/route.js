@@ -4,7 +4,7 @@ import  checkAccess  from "@/utils/authontication";
 // PATCH: Mark as Read
 export const PATCH = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   const { id } = params;
@@ -25,7 +25,7 @@ export const PATCH = async (req, { params }) => {
 // DELETE: Delete Contact
 export const DELETE = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   const { id } = params;

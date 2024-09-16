@@ -6,7 +6,7 @@ import  checkAccess  from "@/utils/authontication";
 // PUT: Update the email template
 export async function PUT(req, { params }) {
   const canAccess = await checkAccess();
-   if (!canAccess.status===200) {
+   if (canAccess.status!=200) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
   const { id } = params;
@@ -33,7 +33,7 @@ export async function PUT(req, { params }) {
 // DELETE: Delete a template by ID
 export async function DELETE(req, { params }) {
   const canAccess = await checkAccess();
-   if (!canAccess.status===200) {
+   if (canAccess.status!=200) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
   const { id } = params;

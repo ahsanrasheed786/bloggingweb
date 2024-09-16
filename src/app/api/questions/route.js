@@ -63,7 +63,7 @@ export const POST = async (req) => {
 // PUT (update) a question
 export const PUT = async (req) => {
   const canAccess = await checkAccess();
-   if (!canAccess.status===200) {
+   if (canAccess.status=200) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
   const { id, desc, answer, isRead } = await req.json();
@@ -86,7 +86,7 @@ export const PUT = async (req) => {
 // DELETE a question
 export const DELETE = async (req) => {
   const canAccess = await checkAccess();
-   if (!canAccess.status===200) {
+   if (canAccess.status!=200) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
   const { id } = await req.json();

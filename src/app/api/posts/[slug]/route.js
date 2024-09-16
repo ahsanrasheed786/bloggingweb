@@ -26,7 +26,7 @@ export const GET = async (req, { params }) => {
 // UPDATE A POST
 export const PATCH = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
 
@@ -55,7 +55,7 @@ export const PATCH = async (req, { params }) => {
 // DELETE A POST
 export const DELETE = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
 

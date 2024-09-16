@@ -52,37 +52,73 @@ const Dashboard = () => {
 
 
   // ================varifying isAdmin==================
-useEffect(() => {
-  async function fetchAccessData() {
-    try {
-      const response = await fetch('/api/access/');
-      if (response.ok) {
-        const data = await response.json();
-        setAccessData(data);
-        setAdminArray(data.filter((item) => item.isAdmin === true));
-      } else {
-        setError('Failed to fetch access data.');
-      }
-    } catch (err) {
-      setError('An error occurred while fetching access data.');
-    } finally {
-      setFetching(false);
-    }
-  }
+// useEffect(() => {
+//   async function fetchAccessData() {
+//     try {
+//       const response = await fetch('/api/access/');
+//       if (response.ok) {
+//         const data = await response.json();
+//         setAccessData(data);
+//         setAdminArray(data.filter((item) => item.isAdmin === true));
+//       } else {
+//         setError('Failed to fetch access data.');
+//       }
+//     } catch (err) {
+//       setError('An error occurred while fetching access data.');
+//     } finally {
+//       setFetching(false);
+//     }
+//   }
 
-  fetchAccessData();
+//   fetchAccessData();
+// }, []);
+
+// useEffect(() => {
+//   if (!fetching) {
+//     if (!adminArray.some((item) => item.email === userEmail)) {
+//       setUnauthorized(true);
+//       setFetchingLoader(false);
+//     } else {
+//       setFetchingLoader(false);
+//     }
+//   }
+// }, [fetching, adminArray, userEmail]);
+
+useEffect(() => {
+  // async function fetchAccessData() {
+  //   try {
+  //     const response = await fetch('/api/access/');
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setAccessData(data);
+  //       setAdminArray(data.filter((item) => item.isAdmin === true));
+  //     } else {
+  //       setError('Failed to fetch access data.');
+  //     }
+  //   } catch (err) {
+  //     setError('An error occurred while fetching access data.');
+  //   } finally {
+  //     setFetching(false);
+  //   }
+  // }
+
+  // fetchAccessData();
 }, []);
 
 useEffect(() => {
-  if (!fetching) {
-    if (!adminArray.some((item) => item.email === userEmail)) {
-      setUnauthorized(true);
+  // if (!fetching) {
+    // if (!adminArray.some((item) => item.email === userEmail)) {
+      setUnauthorized(false);
       setFetchingLoader(false);
-    } else {
-      setFetchingLoader(false);
-    }
-  }
+    // } else {
+      // setFetchingLoader(false);
+    // }
+  // }
 }, [fetching, adminArray, userEmail]);
+
+
+
+
 
 // ==================varifiying isAdmin ended=============
 

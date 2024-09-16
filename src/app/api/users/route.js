@@ -1,7 +1,15 @@
 
 import prisma from "@/utils/connect";
+import  checkAccess  from "@/utils/authontication";
 
 export async function GET(request) {
+
+  const canAccess = await checkAccess();
+
+  if (canAccess.status!=200) {
+   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ }
+
   const { searchParams } = new URL(request.url);
   const filter = searchParams.get("filter"); // e.g., lastMonth, thisMonth, etc.
   const startDate = searchParams.get("startDate");

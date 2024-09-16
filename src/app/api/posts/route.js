@@ -5,10 +5,10 @@ import  checkAccess  from "@/utils/authontication";
 
 // Single GET function to handle different cases
 export const GET = async (req) => {
-  const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
-   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
- }
+//   const canAccess = await checkAccess();
+//   if (canAccess.status!=200) {
+//    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+//  }
 
   const { searchParams } = new URL(req.url);
   const page = searchParams.get("page");
@@ -64,7 +64,7 @@ export const GET = async (req) => {
 // CREATE A POST
 export const POST = async (req) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
 

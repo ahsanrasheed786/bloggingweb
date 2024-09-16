@@ -4,7 +4,7 @@ import  checkAccess  from "@/utils/authontication";
 
 export async function GET() {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   try {
@@ -17,7 +17,7 @@ export async function GET() {
 
 export async function POST(request) {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   try {

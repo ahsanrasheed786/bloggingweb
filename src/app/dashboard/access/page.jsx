@@ -23,7 +23,10 @@ export default function AccessPage() {
   useEffect(() => {
     async function fetchAccessData() {
       try {
-        const response = await fetch('/api/access/');
+        const response = await fetch('/api/access/',{
+          cache: "no-store",
+        });
+        console.log(response)
         if (response.ok) {
           const data = await response.json();
           setAccessData(data);

@@ -24,9 +24,10 @@ import prisma from "@/utils/connect";
   export async function onlyAdmin() {
     const session = await getAuthSession();
     if (!session) {
-        return new Response(JSON.stringify({ error: 'Unauthorized ' }), { status: 401 });
+        return new Response(JSON.stringify({ error: 'Unauthorized utils/authontication/onlyAdmin' }), { status: 401 });
       }
     const userEmail=session.user.email
+    // console.log("utils/authontication/onlyAdmin",userEmail);
     // Get all access data
     try {
       const accessData = await prisma.access.findMany();

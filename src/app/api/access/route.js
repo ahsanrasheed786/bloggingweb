@@ -58,8 +58,9 @@ import prisma from "@/utils/connect";
 export async function GET(req) {
   // const session = await getAuthSession();
   const canAccess = await onlyAdmin();
-   if (!canAccess.status===200) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+ 
+   if (canAccess.status!=200) {
+    return new Response(JSON.stringify({ error: 'Unauthorized Only Admin Have Allowed You' }), { status: 401 });
   }
    // Get all access data
   try {
@@ -73,7 +74,7 @@ export async function GET(req) {
 
 export async function POST(req) {
   const canAccess = await onlyAdmin();
-  if (!canAccess.status===200) {
+  if (!canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   try {

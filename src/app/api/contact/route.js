@@ -28,7 +28,7 @@ export const POST = async (req) => {
 
 export const GET = async () => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
     try {

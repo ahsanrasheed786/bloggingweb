@@ -5,7 +5,7 @@ import  checkAccess  from "@/utils/authontication";
 // DELETE a question
 export const DELETE = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   const { id } = params;
@@ -50,7 +50,7 @@ export const DELETE = async (req, { params }) => {
 // PATCH A question (for adding a reply)
 export const PATCH = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   const { id } = params;
@@ -75,16 +75,10 @@ export const PATCH = async (req, { params }) => {
   }
 };
 
-
-
-
-
-
-
 // POST reply to a question
 export const POST = async (req, { params }) => {
   const canAccess = await checkAccess();
-  if (!canAccess.status===200) {
+  if (canAccess.status!=200) {
    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
  }
   const { id } = params; // question ID
