@@ -15,11 +15,11 @@ const Featured = () => {
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
-          Welcome to the website platform, where You'll find experiences, knowledge and ideas.
+          Welcome to the website platform, where You&apos;ll find experiences, knowledge and ideas.
           </h1>
           <p className={styles.postDesc}>
           On this platform, you will find a variety of content. Where 
-          you're learning something new, find inspiration and knowledge.
+          you&apos;re learning something new, find inspiration and knowledge.
           I hope you will join us and gain knowledge and our experience of
             quality content.
           </p>
