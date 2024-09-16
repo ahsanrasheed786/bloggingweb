@@ -26,8 +26,7 @@ export default function AccessPage() {
         const response = await fetch('/api/access/',{
           cache: "no-store",
         });
-        console.log(response)
-        if (response.ok) {
+         if (response.ok) {
           const data = await response.json();
           setAccessData(data);
           setAdminArray(data.filter((item) => item.isAdmin === true));

@@ -14,7 +14,7 @@ const Footer = () => {
             <h1 className={styles.logoText}>CoolZoneMaster</h1>
           </div>
           <p className={styles.desc}>
-            At CoolZoneMaster, we are dedicated to bringing you insightful articles and stories across a wide range of topics. From tech trends to lifestyle tips, we aim to inspire, educate, and entertain our global audience. Join us on this journey to explore the world’s most exciting ideas and innovations.
+            At CoolZoneMaster, we are here to solve the problem and give high-quality content to our users. In this journey, you will explore the world and gain knowledge about the different aspects of life.
           </p>
           <div className={styles.icons}>
             <Image src="/facebook.png" alt="Facebook" width={18} height={18} />

@@ -274,44 +274,12 @@ const VarifyauthorPage = () => {
   const [currentAuthor, setCurrentAuthor] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [varifyAuthors, setVarifyAuthors] = useState([]);
-  const [adminArray, setAdminArray] = useState([]);
+  // const [adminArray, setAdminArray] = useState([]);
   const [fetchingLoader, setFetchingLoader] = useState(true);
   const [unauthorized, setUnauthorized] = useState(false);
-  const [fetching, setFetching] = useState(true);
-  const { data: session, status } = useSession();
-  const userEmail = session?.user?.email;
-
-  useEffect(() => {
-    async function fetchAccessData() {
-      try {
-        const response = await fetch("/api/access/");
-        if (response.ok) {
-          const data = await response.json();
-          setAdminArray(data.filter((item) => item.isAdmin === true));
-        } else {
-          console.error("Failed to fetch access data.");
-        }
-      } catch (err) {
-        console.error("An error occurred while fetching access data.");
-      } finally {
-        setFetching(false);
-      }
-    }
-
-    fetchAccessData();
-  }, []);
-
-  useEffect(() => {
-    if (!fetching) {
-      if (!adminArray.some((item) => item.email === userEmail)) {
-        setUnauthorized(true);
-        setFetchingLoader(false);
-      } else {
-        setFetchingLoader(false);
-      }
-    }
-  }, [fetching, adminArray, userEmail]);
-
+  // const [fetching, setFetching] = useState(true);
+  // const { data: session, status } = useSession();
+ 
   useEffect(() => {
     if (!unauthorized) {
       fetchVarifyAuthors();
@@ -321,11 +289,16 @@ const VarifyauthorPage = () => {
   const fetchVarifyAuthors = async () => {
     try {
       const res = await fetch(API_URL);
-      if (!res.ok) throw new Error("Failed to fetch data");
+      if (!res.ok) {
+        setUnauthorized(true);
+         throw new Error("Failed to fetch data")
+      };
       const data = await res.json();
       setVarifyAuthors(data);
     } catch (error) {
       console.error("Error fetching varify authors:", error);
+    } finally {
+      setFetchingLoader(false);
     }
   };
 

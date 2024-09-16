@@ -162,9 +162,9 @@ const ManageAds = () => {
   const [ads, setAds] = useState([]);
   const [form, setForm] = useState({ img: '', slug: '', discount: '', description: '', name: '', contact: '' });
   const [editingId, setEditingId] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(false); // Error state
-  const { data: session, status } = useSession(); // Session data for checking auth
+  const [loading, setLoading] = useState(true);  
+  const [error, setError] = useState(false);  
+  const { data: session, status } = useSession(); 
 
   useEffect(() => {
     if (status === "authenticated") {

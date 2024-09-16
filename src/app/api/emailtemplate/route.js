@@ -7,6 +7,7 @@ import  checkAccess  from "@/utils/authontication";
 // GET: Fetch all email templates
 export async function GET() {
   const canAccess = await checkAccess();
+  console.log('api/emailtemplate',canAccess.status);
    if (canAccess.status!=200) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }

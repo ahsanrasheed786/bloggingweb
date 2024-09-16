@@ -56,9 +56,7 @@ import { onlyAdmin } from "@/utils/authontication";
 import prisma from "@/utils/connect";
 
 export async function GET(req) {
-  // const session = await getAuthSession();
-  const canAccess = await onlyAdmin();
- 
+   const canAccess = await onlyAdmin();
    if (canAccess.status!=200) {
     return new Response(JSON.stringify({ error: 'Unauthorized Only Admin Have Allowed You' }), { status: 401 });
   }

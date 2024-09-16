@@ -81,51 +81,54 @@ const AdminPosts = () => {
   }, []);
  
   
-  useEffect(() => {
-    async function fetchAccessData() {
-      try {
-        const response = await fetch('/api/access/');
-        if (response.ok) {
-          const data = await response.json();
-          setAdminArray(data.filter((item) => item.isAdmin === true));
-        } else {
-          console.error('Failed to fetch access data.');
-        }
-      } catch (err) {
-        console.error('An error occurred while fetching access data.');
-      } finally {
-        setFetching(false);
-      }
-    }
-    fetchAccessData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchAccessData() {
+  //     try {
+  //       const response = await fetch('/api/access/');
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setAdminArray(data.filter((item) => item.isAdmin === true));
+  //       } else {
+  //         console.error('Failed to fetch access data.');
+  //       }
+  //     } catch (err) {
+  //       console.error('An error occurred while fetching access data.');
+  //     } finally {
+  //       setFetching(false);
+  //     }
+  //   }
+  //   fetchAccessData();
+  // }, []);
 
-  useEffect(() => {
-    if (!fetching) {
-      if (!adminArray.some((item) => item.email === userEmail)) {
-        setUnauthorized(true);
-        setFetchingLoader(false);
-      } else {
-        setFetchingLoader(false);
-      }
-    }
-  }, [fetching, adminArray, userEmail]);
+  // useEffect(() => {
+  //   if (!fetching) {
+  //     if (!adminArray.some((item) => item.email === userEmail)) {
+  //       setUnauthorized(true);
+  //       setFetchingLoader(false);
+  //     } else {
+  //       setFetchingLoader(false);
+  //     }
+  //   }
+  // }, [fetching, adminArray, userEmail]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('/api/posts');
-      const data = await res.json();
-      setPosts(data.posts);
-    };
+      try {
+        const res = await fetch('/api/posts');
+        const data = await res.json();
+        setPosts(data.posts);
+        if (!res.ok) { 
+          setUnauthorized(true); 
+        }
+      } catch (err) {
+        console.error('An error occurred while fetching access data:', err);
+      } finally {
+        setFetching(false);
+                setFetchingLoader(false); }  };
+  
     fetchPosts();
   }, []);
-
-     const SinglePost = async () => {
-      const res = await fetch(`/api/posts/${slug}`);
-      const data = await res.json();
-      // setSinglePost(data.posts);
-      // console.log(data)
-    };
+  
   
   const formatDate = (dateString) => {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };

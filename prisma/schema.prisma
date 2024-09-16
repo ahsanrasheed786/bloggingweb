@@ -189,7 +189,7 @@ model Comment {
 model Access {
   id      String  @id @default(cuid()) @map("_id")
   name    String
-  email   String
+  email   String   @unique
   isAdmin Boolean @default(false)
 }
  model Ads {

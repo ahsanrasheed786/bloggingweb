@@ -153,6 +153,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./userPage.module.css"; // Adjust path if needed
+import Loader from "@/components/loader/Loader";
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
@@ -166,7 +167,8 @@ const UserPage = () => {
   const [editingUser, setEditingUser] = useState(null); // For handling user edit
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
-
+  const [fetchingLoader, setFetchingLoader] = useState(true);
+  const [unauthorized, setUnauthorized] = useState(false);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -177,8 +179,12 @@ const UserPage = () => {
         const response = await fetch(query);
         const data = await response.json();
         setUsers(data);
+        if(!response.ok){
+          setUnauthorized(true); }
       } catch (error) {
         console.error("Error fetching users:", error);
+      }finally {
+        setFetchingLoader(false);
       }
     };
 
@@ -266,6 +272,21 @@ const UserPage = () => {
       console.error("Error removing user:", error);
     }
   };
+
+  if (fetchingLoader) {
+    return <Loader />;
+  }
+
+  if (unauthorized) {
+    return (
+      <div className={styles.unauthorizedContainer}>
+        <p className={styles.unauthorizedMessage}>Unauthorized access</p>
+        <button onClick={() => window.history.back()} className={styles.backButton}>
+          Go Back
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>

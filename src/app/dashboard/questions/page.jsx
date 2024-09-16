@@ -207,6 +207,8 @@ const AdminQuestions = () => {
   const [answer, setAnswer] = useState("");
   const [isRead, setIsRead] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
+
 
   useEffect(() => {
     if (selectedQuestion) {
@@ -230,7 +232,10 @@ const AdminQuestions = () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      if (!response.ok) throw new Error("Failed to update question");
+      if (!response.ok) {
+        setUnauthorized(true)
+        throw new Error("Failed to update question")
+      };
 
       await mutate("/api/questions");
       setSelectedQuestion(null);
@@ -274,6 +279,23 @@ const AdminQuestions = () => {
   const totalQuestions = sortedQuestions.length;
   const totalRead = readQuestions.length;
   const totalUnread = unreadQuestions.length;
+
+
+
+  // if (fetchingLoader) {
+  //   return <Loader />;
+  // }
+
+  if (unauthorized) {
+    return (
+      <div className={styles.unauthorizedContainer}>
+        <p className={styles.unauthorizedMessage}>Unauthorized access</p>
+        <button onClick={() => window.history.back()} className={styles.backButton}>
+          Go Back
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>

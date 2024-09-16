@@ -17,11 +17,11 @@ const Menu = async() => {
 const popular=await fetchpopular();
   return (
     <div className={styles.container}>
-      <h2 className={styles.subtitle}>{"What's hot "}🔥</h2>
-      <h2 className={styles.title}>Most Popular</h2>
+      {/* <h2 className={styles.subtitle}>{"What's hot "}🔥</h2> */}
+      {/* <h2 className={styles.title}>Most Popular</h2> */}
       <MenuPosts withImage={false} post={popular} />
-      <h2 className={styles.subtitle}>Discover by topic</h2>
-      <h1 className={styles.title}>Categories</h1>
+      {/* <h2 className={styles.subtitle}>Discover by topic</h2> */}
+      {/* <h1 className={styles.title}>Categories</h1> */}
       <MenuCategories />
     </div>
   );
