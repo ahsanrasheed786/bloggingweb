@@ -7,7 +7,7 @@ const MenuPosts = ({ post }) => {
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     return date.toISOString().split('T')[0];
-  };
+  }; 
    return (  
     <div className={styles.items}>
           <h4 className={styles.subtitle}>{"What's hot "}🔥<h4 className={styles.title}>Most Popular</h4></h4>

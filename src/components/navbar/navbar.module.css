@@ -1,17 +1,13 @@
-.container {
+/* .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
   min-height: 100px;
   position: sticky;
-  /* position: static; */
-  /* position: fixed; */
-  position: sticky;
-  min-width: 100%;
-  /* color:white; */
-  /* background-color: #0f172a; */
-  top: 0;
-  z-index: 100;
+   min-width: 100%;
+   top: 0;
+   z-index: 100;
 }
  
 
@@ -23,19 +19,20 @@
 
 .logo {
   flex: 1;
-  text-align: center;
-  font-size: 36px;
+   font-size: 36px;
   font-weight: bold;
 }
 
 .links {
   display: flex;
   align-items: center;
+ 
   gap: 20px;
   flex: 1;
   font-size: 20px;
 }
-/* #link::after{ 
+ 
+#link::after{ 
   content: '';
   width: 0%;
   height: 2px;
@@ -47,7 +44,7 @@
   #link::hover::after{
     content: '';
     width: 100%;
-  } */
+  }
 @media screen and (max-width: 1280px) {
   .logo {
     font-size: 32px;
@@ -72,6 +69,92 @@
 }
 @media screen and (max-width: 640px) {
   .links{
+    justify-content: flex-end;
+  }
+  .link {
+    display: none;
+  }
+} */
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100px;
+  position: sticky;
+  min-width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.logo {
+  flex: 1;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* flex: 1; */
+  font-size: 20px;
+}
+
+.link {
+  position: relative;
+  text-decoration: none; /* Remove underline for normal state */
+  color: inherit; /* Ensure link color inherits from parent */
+}
+
+.link::after {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #045be6;
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  transition: width 0.4s;
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+@media screen and (max-width: 1280px) {
+  .logo {
+    font-size: 32px;
+  }
+  .links {
+    font-size: 18px;
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .social {
+    display: none;
+  }
+  .logo {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .links {
     justify-content: flex-end;
   }
   .link {

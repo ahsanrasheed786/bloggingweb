@@ -19,8 +19,29 @@
 .desktoplink{
   cursor: pointer;
 }
+
 .pointer{
   cursor: pointer;
+}
+.link {
+  position: relative;
+  text-decoration: none; 
+  color: inherit;  
+}
+
+.link::after {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #045be6;
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  transition: width 0.4s;
+}
+
+.link:hover::after {
+  width: 100%;
 }
 .responsiveMenu{
   position: absolute;
