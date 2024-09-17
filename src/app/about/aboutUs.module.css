@@ -2,16 +2,24 @@
 
 .aboutSection {
    padding: 40px 0;
-}
+ }
 
 .container {
   width: 80%;
   margin: 0 auto;
+  line-height: 1.5;
+
 }
 
 .aboutHeader {
   text-align: center;
-  margin-bottom: 40px;
+ }
+.marginBottom{
+    margin-bottom: 40px;
+}
+.marginTop{
+  margin-top: 20px;
+
 }
 .coolzonemaster{
   color: #e67e22;
@@ -52,7 +60,7 @@
 .teamMember {
   flex: 1;
   min-width: 200px;
-  background: #fff;
+  /* background: #fff; */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;

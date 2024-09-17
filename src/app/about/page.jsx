@@ -4,55 +4,61 @@ const AboutUs = () => {
   return (
     <section className={styles.aboutSection}>
       <div className={styles.container}>
+       
+        <div className={styles.aboutContent}>
         <div className={styles.aboutHeader}>
-          <h1>About Us</h1>
+          <h1 className={styles.marginBottom}>About Us</h1>
           <p>
-            Welcome to <span className={styles.coolzonemaster}>CoolZoneMaster</span>, the go-to platform for exploring a diverse range of topics across the globe. From tech innovations to creative storytelling, we aim to inspire and educate our readers on the latest trends and insights.
+            Welcome to <span className={styles.coolzonemaster}>CoolZoneMaster</span>, Our aim is to make this platform for exploring a diverse range of topics across the globe to inspire and educate readers on the latest trends and awareness. Our blog is a place where ideas come to life and experiences are shared.
           </p>
         </div>
         
-        <div className={styles.aboutContent}>
           <div className={styles.aboutStory}>
-            <h2>Our Story</h2>
+            <h2 className={styles.marginTop}>Who We Are</h2>
+            <p>We are a passionate team of writers, creators, and thinkers who believe in the art of writing and creating quality content. Each member of our team brings a unique position and a wide experience. Every member of our team is as important to us as this plate form.</p>
+            
+            <h2 className={styles.marginTop}>Connecte With Us</h2>
             <p>
-              <span className={styles.coolzonemaster}>CoolZoneMaster</span> was born out of a passion for sharing knowledge and creativity. What started as a small blog in 2024 quickly grew into a global platform covering a variety of topics from technology, lifestyle, and entertainment to business and culture. Our mission is to create a space where readers can stay informed, inspired, and connected with the world’s ever-evolving landscape. 
+            Please don&apos;t forget to follow us on social media links to stay updated with our current blogs and quality content. Thank you for being part of our community.
             </p>
-            <p>
-              Over the years, we have reached milestones such as growing a community of loyal readers and collaborating with experts in various fields. Every post, whether a quick insight or an in-depth analysis, is crafted with care to provide value to our audience.
-            </p>
+            
+            <p> Over the years, we have reached milestones such as growing a community of loyal readers and collaborating with experts in various fields. Every post, whether a quick insight or an in-depth analysis, is crafted with care to provide value to our audience.</p>
           </div>
-          
+            
           <div className={styles.aboutTeam}>
             <h2>Meet the Team</h2>
             <div className={styles.teamMembers}>
               <div className={styles.teamMember}>
+
                 <img
-                  src="/images/member1.jpg"
-                  alt="Ahsan Rasheed"
+                  src={process.env.CEO_IMAGE}
+                  alt={process.env.CEO_NAME}
                   width={300}
                   height={300}
                   className={styles.teamImage}/>
-                <h3>Ahsan Rasheed</h3>
+                <h3>{process.env.CEO_NAME}</h3>
                 <p>CEO & Founder</p>
               </div> 
               <div className={styles.teamMember}>
                 <img
-                  src="/images/member2.jpg"
-                  alt="Ali Abbas"
+                // Content Writter
+                
+                  src={process.env.CONTENT_WRITTER_IMAGE}
+                  alt={process.env.CONTENT_WRITTER_NAME}
                   width={300}
                   height={300}
                   className={styles.teamImage}/>
-                <h3>Ali Abbas</h3>
+                <h3>{process.env.CONTENT_WRITTER_NAME}</h3>
                 <p>Content Writter</p>
               </div>
               <div className={styles.teamMember}>
                 <img
-                  src="/images/member3.jpg"
-                  alt="Mohsin Rasheed"
+                 src={process.env.MARKETING_HEAD_IMAGE}
+                 alt={process.env.MARKETING_HEAD_NAME}
                   width={300}
                   height={300}
                   className={styles.teamImage}/>
-                <h3>Mohsin Rasheed</h3>
+                <h3>{process.env.MARKETING_HEAD_NAME}</h3>
                 <p>Head of Marketing</p>
               </div>
             </div>

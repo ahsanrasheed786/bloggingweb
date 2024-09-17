@@ -12,9 +12,9 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
    const [showEmailInputs, setShowEmailInputs] = useState(false);
   const {theme } = useContext(ThemeContext);  
-   if (status === "loading") {
-    return <div className={styles.loading}>Loading...</div>;
-  }
+  //  if (status === "loading") {
+  //   return <div className={styles.loading}>Loading...</div>;
+  // }
 
   if (status === "authenticated") {
     router.push("/");  

@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
 
       <h2 className={styles.subtitle}>Contact Us</h2>
       <p className={styles.paragraph}>
-        If  you have any questions or worries about this privacy policy, please contact us at <a href={`mailto:${process.env.EMAIL}`} className={styles.link}>{process.env.EMAIL}</a>
+        If  you have any questions   about these privacy policies, please contact us at <a href={`mailto:${process.env.EMAIL}`} className={styles.link}>{process.env.EMAIL}</a>
       </p>
     </div>
   );

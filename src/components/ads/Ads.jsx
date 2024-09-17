@@ -3,17 +3,20 @@
 import styles from './ads.module.css';
 
 const Ads = async({adsId}) => {
-    // const response = await fetch(`${process.env.WEBSIT_URL}/api/ads/cm13fy6lr0001wnyhbt903h76`,{
-      const response = await fetch(`${process.env.WEBSIT_URL}/api/ads/${adsId}`,{
+  const url=process.env.WEBSIT_URL ||'https://coolzonemaster.com'
+  // 'http://localhost:3000/'
+  //'https://coolzonemaster.com'
+     // const response = await fetch(`${process.env.WEBSIT_URL}/api/ads/cm13fy6lr0001wnyhbt903h76`,{
+      const response = await fetch(`${url}/api/ads/${adsId}`,{
     //   // next: { revalidate: 60 },
     // cache: "no-store",
-  });
+  }); 
     const data = await response.json(); 
     const slug= 'this-is-service-card-for-filer'
   return (
     <div className={styles.adsContainer}>
   <a
-    href={`${process.env.WEBSIT_URL}/service/${slug}`}
+    href={`${url}/service/${slug}`}
     target="_blank"
     rel="noopener noreferrer"
     className={styles.adLink}>

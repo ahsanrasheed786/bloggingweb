@@ -13,7 +13,7 @@ import Loader from '@/components/loader/Loader';
 import ReactScroller from 'react-scrollbars-custom'; // Import ReactScroller
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
+const Ads = dynamic(() => import ('@/components/ads/Ads'), { ssr: false });
 const WritePage = () => {
   const { status } = useSession();
   const router = useRouter();
@@ -78,17 +78,17 @@ const [ articalBody, setArticalBody] = useState("");
     fetchAccessData();
   }, []);
 
-  useEffect(() => {
-    const fetchrelated = async () => {
-      const res = await fetch(`${process.env.WEBSIT_URL}/api/related`, {
-        // cache: "no-store",
-      });
-      if (!res.ok) {
-        throw new Error("Failed");
-      }
-      return res.json();}
-      fetchrelated()
-  },[related])
+  // useEffect(() => {
+  //   const fetchrelated = async () => {
+  //     const res = await fetch(`${process.env.WEBSIT_URL}/api/related`, {
+  //       // cache: "no-store",
+  //     });
+  //     if (!res.ok) {
+  //       throw new Error("Failed");
+  //     }
+  //     return res.json();}
+  //     fetchrelated()
+  // },[related])
 
   useEffect(() => {
     fetchVarifyDoctor();
@@ -201,7 +201,7 @@ const [ articalBody, setArticalBody] = useState("");
           metaRobots,
           metaDisc,
            fqa ,
-           related ,
+           related  ,
            aiQuestion,
            ad : selectedAd || "ads",
            artical:{
@@ -265,6 +265,8 @@ const [ articalBody, setArticalBody] = useState("");
   
   const handleRelatedChange = (index, field, value) => {
     const updatedRelated = [...related];
+    console.log(updatedRelated);
+    console.log(related);
     updatedRelated[index][field] = value;
     setRelated(updatedRelated);
   };
@@ -445,53 +447,12 @@ const [ articalBody, setArticalBody] = useState("");
          <button type="button" onClick={() => removeFqa(index)} className={styles.removeFqaButton}>Remove FQA</button>
       </div>
     ))}
-    <button type="button" onClick={addFqa}>Add FQA</button>
+    <button type="button" className={styles.addFqaButton} onClick={addFqa}>Add FQA</button>
       
 {/* ===========FQA schema ends=============== */}
 {/* ===========Related=============== */}
 <hr/>
-{/* <h3>Related </h3>
-        {related.map((item, index) => (
-      <div key={index}>
-        <input
-          type="text"
-          placeholder={`slug${index + 1}`}
-          className={styles.input}
-          value={item.slug}
-          // onChange={(e) => handleRelatedChange(index, "slug", e.target.value)}
-          onChange={(e) => {
-            handleRelatedChange(index, "slug", e.target.value);
-            handleFetchRelated(e.target.value);}}
-          />
-        <input
-          type="text"
-          placeholder={`title ${index + 1}`}
-          className={styles.input}
-          value={item.title}
-          onChange={(e) => handleRelatedChange(index, "title", e.target.value)}/>
-          <input
-          type="text"
-          placeholder={`img Url ${index + 1}`}
-          className={styles.input}
-          value={item.img}
-          onChange={(e) => handleRelatedChange(index, "img", e.target.value)}/>
-          <input
-          type="text"
-          placeholder={`createdAt: ${index + 1}`}
-          className={styles.input}
-          value={item.createdAt}
-          onChange={(e) => handleRelatedChange(index, "createdAt", e.target.value)}/>
-          <input
-          type="text"
-          placeholder={`author: ${index + 1}`}
-          className={styles.input}
-          value={item.author}
-          onChange={(e) => handleRelatedChange(index, "author", e.target.value)}/>
-          {item.img&&<img src={item.img} alt="image not found" />}
-         <button type="button" onClick={() => removeRelated(index)} className={styles.removeFqaButton}>Remove Related Blog</button>
-      </div>
-    ))}
-    <button type="button" onClick={addRelated}>Add Related Blog</button> */}
+          
 
 {related.map((item, index) => (
   <div key={index}>
@@ -502,42 +463,54 @@ const [ articalBody, setArticalBody] = useState("");
       value={item.slug}
       onChange={(e) => {
         handleRelatedChange(index, "slug", e.target.value);
-        handleFetchRelated(e.target.value, index); // Pass the index
-      }}
-    />
+        handleFetchRelated(e.target.value, index);  
+      }}/>
     <input
       type="text"
       placeholder={`title ${index + 1}`}
       className={styles.input}
       value={item.title}
-      onChange={(e) => handleRelatedChange(index, "title", e.target.value)}
-    />
+      onChange={(e) => handleRelatedChange(index, "title", e.target.value)}/>
     <input
       type="text"
       placeholder={`img Url ${index + 1}`}
       className={styles.input}
       value={item.img}
-      onChange={(e) => handleRelatedChange(index, "img", e.target.value)}
-    />
+      onChange={(e) => handleRelatedChange(index, "img", e.target.value)}/>
     <input
       type="text"
       placeholder={`createdAt: ${index + 1}`}
       className={styles.input}
       value={item.createdAt}
-      onChange={(e) => handleRelatedChange(index, "createdAt", e.target.value)}
-    />
+      onChange={(e) => handleRelatedChange(index, "createdAt", e.target.value)}/>   
     <input
       type="text"
       placeholder={`author: ${index + 1}`}
       className={styles.input}
       value={item.author}
-      onChange={(e) => handleRelatedChange(index, "author", e.target.value)}
-    />
-    {item.img && <img src={item.img} alt="image not found" />}
+      onChange={(e) => handleRelatedChange(index, "author", e.target.value)}/>
+    <input
+      type="text"
+      placeholder={`catSlug: ${index + 1}`}
+      className={styles.input}
+      value={item.catSlug}
+      onChange={(e) => handleRelatedChange(index, "catSlug", e.target.value)}/>
+    <input
+    type="text"
+    placeholder={`catTitle: ${index + 1}`}
+    className={styles.input}
+    value={item.catTitle}
+    onChange={(e) => handleRelatedChange(index, "catTitle", e.target.value)} />
+  <input
+  type="color"
+  placeholder={`catColor: ${index + 1}`}
+   value={item.catColor}
+  onChange={(e) => handleRelatedChange(index, "catColor", e.target.value)}/><br/>
+    {item.img && <img src={item.img} width={150} alt="image not found" />}<br/>
     <button type="button" onClick={() => removeRelated(index)} className={styles.removeFqaButton}>Remove Related Blog</button>
   </div>
 ))}
-    <button type="button" onClick={addRelated}>Add Related Blog</button>  
+    <button type="button" className={styles.addFqaButton} onClick={addRelated}>Add Related Blog</button>  
 
       
 {/* ===========Related ends=============== */}
@@ -551,7 +524,7 @@ const [ articalBody, setArticalBody] = useState("");
         onChange={(e) => setAiQuestion(e.target.value)}/>
       
 <hr/>
-<div>
+     <div>
       <label htmlFor="ads">Select an Ad:</label>
       <select id="ads" value={selectedAd} onChange={(e) => setSelectedAd(e.target.value)}>
         <option value="">-- Select an Ad --</option> 
@@ -566,8 +539,11 @@ const [ articalBody, setArticalBody] = useState("");
       {selectedAd && (
         <div>
           <h2>Selected Ad</h2>
-          <p>Ad ID: {selectedAd}</p>
+          {/* <p>Ad ID: {selectedAd}</p> */}
+          <Ads adsId={selectedAd} />
+
         </div>
+        // <Ads id={selectedAd} />
       )}
     </div>
 

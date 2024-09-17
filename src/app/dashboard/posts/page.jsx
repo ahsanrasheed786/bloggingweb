@@ -8,15 +8,14 @@ import style from './editPost.module.css';
 import { useSession } from "next-auth/react";
 import Loader from '@/components/loader/Loader';
 import dynamic from "next/dynamic";
+const Ads = dynamic(() => import ('@/components/ads/Ads'), { ssr: false });
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const AdminPosts = () => { 
   const [posts, setPosts] = useState([]);
   const [singlePost,setSinglePost]=useState([]);
   const [editPost, setEditPost] = useState(null);
-  const [editData, setEditData] = useState({
-    relatedBlogs: []
-  });
+  const [editData, setEditData] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const [value, setValue] = useState(""); // For ReactQuill editor
   const [htmlContent, setHtmlContent] = useState(""); // For HTML preview
@@ -82,6 +81,17 @@ const AdminPosts = () => {
     fetchCategories();
   }, []);
  
+  useEffect(() => {
+    const fetchrelated = async () => {
+      const res = await fetch(`${process.env.WEBSIT_URL}/api/related`, {
+        // cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed");
+      }
+      return res.json();}
+      fetchrelated()
+  },[ editData?.related])
   
   // useEffect(() => {
   //   async function fetchAccessData() {
@@ -161,31 +171,6 @@ const AdminPosts = () => {
 
 
 // Function to handle changes to related blogs
-const handleRelatedBlogChange = (index, field, value) => {
-  const updatedBlogs = [...editData.relatedBlogs];
-  updatedBlogs[index][field] = value;
-  setEditData({
-    ...editData,
-    relatedBlogs: updatedBlogs,
-  });
-};
-
-// Function to add a new related blog
-const addRelatedBlog = () => {
-  setEditData({
-    ...editData,
-    relatedBlogs: [...editData?.relatedBlogs, { title: "", slug: "" }],
-  });
-};
-
-// Function to remove a related blog
-const removeRelatedBlog = (index) => {
-  const updatedBlogs = editData.relatedBlogs.filter((_, i) => i !== index);
-  setEditData({
-    ...editData,
-    relatedBlogs: updatedBlogs,
-  });
-};
 
   const handleDelete = async (slug) => {
     const confirmed = window.confirm('Are you sure you want to delete this post?');
@@ -260,6 +245,60 @@ const removeRelatedBlog = (index) => {
       fqa: [...editData.fqa, { question: "", answer: "" }],
     });
   };
+ 
+  const handleFetchRelated = async (slug, index) => {
+    try {
+      const res = await fetch(`/api/related/${slug}`);
+      const data = await res.json();
+  
+      if (res.ok && data) {
+        const updatedRelated = [...editData.related];
+        updatedRelated[index] = {
+          slug: slug, // Ensure slug is always set
+          title: data?.post?.title || '',
+          img: data?.post?.img || '',
+          createdAt: data?.post?.createdAt || '',
+          author: data?.post?.metaAuthor || '',
+          catSlug: data?.category?.slug || '',
+          catTitle: data?.category?.title || '',
+          catColor: data?.category?.color || '',
+        };
+        setEditData({
+          ...editData,
+          related: updatedRelated,
+        });
+      } else {
+        console.error('No data found for the provided slug');
+      }
+    } catch (error) {
+      console.error("Failed to fetch related blog data:", error);
+    }
+  };
+  
+  const handleRelatedChange = (index, field, value) => {
+    const updatedRelated = [...editData.related]; 
+    updatedRelated[index][field] = value;  
+     setEditData({
+      ...editData,
+      related: updatedRelated,
+    });
+  };
+   const addRelated = () => {
+    setEditData({
+      ...editData,
+      related: [...editData.related, { slug:'' ,title:'',img:'',createdAt:'',author:'',catSlug:'',catTitle:'',catColor:'' }],
+    });
+  };
+   const removeFqa = (index) => {
+     const updatedFqa = editData.fqa.filter((_, i) => i !== index);
+    setEditData({ ...editData, fqa: updatedFqa });
+  };
+  const removeRelatedBlog = (index) => { 
+    const updatedRelated = editData.related.filter((_, i) => i !== index);
+    setEditData({ ...editData, related: updatedRelated });
+  };
+    
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
@@ -549,37 +588,76 @@ const removeRelatedBlog = (index) => {
                 className={style.editinputs}
                 value={item.answer}
                 onChange={(e) => handleFqaChange(index, "answer", e.target.value)}/>
-            </div>
+              <button type="button" onClick={() => removeFqa(index)} className={style.deleteButton}>
+                Remove FQA </button>            
+               </div>
+            
           ))}
           <button type="button" onClick={addFqa} className={style.addFqaButton}>
             Add FQA
           </button>
 {/* ===========related blogs======= */}
-{editData?.relatedBlogs?.map((blog, index) => (
-  <div key={index} className={style.relatedBlogItem}>
-    <input
-      type="text"
-      placeholder={`Related Blog Title ${index + 1}`}
-      className={style.editinputs}
-      value={blog.title}
-      onChange={(e) => handleRelatedBlogChange(index, 'title', e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder={`Related Blog Slug ${index + 1}`}
-      className={style.editinputs}
-      value={blog.slug}
-      onChange={(e) => handleRelatedBlogChange(index, 'slug', e.target.value)}
-    />
-    <button onClick={() => removeRelatedBlog(index)} className={style.deleteButton}>
-      Remove
-    </button>
-  </div>
-))}
-
-<button onClick={addRelatedBlog} className={style.addFqaButton}>
-  Add Related Blog
-</button>
+ 
+         {editData.related.map((item, index) => (
+            <div key={index} className={style.fqaItem}>
+              <input
+                type="text"
+                placeholder={`Slug ${index + 1}`}
+                className={style.editinputs}
+                value={item.slug}
+                 onChange={(e) => {
+                  handleRelatedChange(index, "slug", e.target.value);
+                  handleFetchRelated(e.target.value, index);  
+                }}
+                />
+              <input
+                type="text"
+                placeholder={`title ${index + 1}`}
+                className={style.editinputs}
+                value={item.title }
+                onChange={(e) => handleRelatedChange(index, "title", e.target.value)}/>
+                <input
+                type="text"
+                placeholder={`image ${index + 1}`}
+                className={style.editinputs}
+                value={item.img }
+                onChange={(e) => handleRelatedChange(index, "img", e.target.value)}/>
+                <input
+                type="text"
+                placeholder={`createdAt ${index + 1}`}
+                className={style.editinputs}
+                value={item.createdAt}
+                onChange={(e) => handleRelatedChange(index, "createdAt", e.target.value)}/><input
+                type="text"
+                placeholder={`author ${index + 1}`}
+                className={style.editinputs}
+                value={item.author}
+                onChange={(e) => handleRelatedChange(index, "author", e.target.value)}/><input
+                type="text"
+                placeholder={`catSlug ${index + 1}`}
+                className={style.editinputs}
+                value={item.catSlug}
+                onChange={(e) => handleRelatedChange(index, "catSlug", e.target.value)}/>
+                <input
+                type="text"
+                placeholder={`catTitle ${index + 1}`}
+                className={style.editinputs}
+                value={item.catTitle}
+                onChange={(e) => handleRelatedChange(index, "catTitle", e.target.value)}/>
+                <input
+                type="color"
+                placeholder={`catColor ${index + 1}`}
+                 value={item.catColor}
+                onChange={(e) => handleRelatedChange(index, "catColor", e.target.value)}/><br/>
+                {item?.img &&  <img src={item.img} width={150}/> }<br/>
+                <button type="button" onClick={() => removeRelatedBlog(index)} className={style.deleteButton}>
+                  Remove Related Blog
+                 </button>            
+                </div>
+          ))}
+          <button type="button" onClick={addRelated} className={style.addFqaButton}>
+            Add Related Blog
+          </button> 
 
           <h3>Allow For Ai</h3>
          <input
@@ -592,15 +670,27 @@ const removeRelatedBlog = (index) => {
         <hr />
           <h4> Select Ads</h4>
       <label htmlFor="ads">Select an Ad:</label>
-       <select id="ads" className={style.select} value={editData.ad} onChange={(e)=>({...editData,ad:e.target.value})}>
+       {/* <select id="ads" className={style.select} value={editData.ad} onChange={(e)=>({...editData,ad:e.target.value})}>
         <option value="">-- Select an Ad --</option> 
         {ads.map((ad) => (
           <option key={ad.id} value={ad.id}>
             {ad.name}
           </option>
         ))}
-      </select>
-            
+      </select> */}
+            <select id="ads" className={style.select} value={editData.ad} onChange={(e) => setEditData({...editData, ad: e.target.value})}>
+             <option value="">-- Select an Ad --</option> 
+              {ads.map((ad) => (
+             <option key={ad.id} value={ad.id}>
+              {ad.name}
+              </option>
+           ))}
+           </select>
+                    { editData?.ad &&
+                     <div><h2>Selected Ad</h2>
+                         <Ads adId={editData.ad} />
+                      </div>
+                      } 
           <input
             type="file"
             onChange={handleImageChange}

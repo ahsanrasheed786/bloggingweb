@@ -12,6 +12,24 @@
   /* background: transparent; */
   border: 1px solid #ddd;
 }
+.removeFqaButton {
+  border: none;
+  margin:10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  background-color: #dc3545;
+}
+.addFqaButton{
+  border: none;
+  margin:10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  background-color: #28a745;
+}
 
 .editor {
   display: flex;

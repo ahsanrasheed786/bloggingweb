@@ -12,6 +12,7 @@ import CommentsBox from "@/components/commentDiv/commentsBox";
 import QuestionBox from "@/components/questionsDiv/QuestionBox";
 import AskQuestion from "@/components/askQuestion/AskQuestion";
 import Ads from "@/components/ads/Ads";
+import RelatedPosts from "@/components/related/RelatedPosts";
 // import dynamic from 'next/dynamic';
 // const MenuPosts = dynamic(() => import('@/components/menuPosts/MenuPosts'), { ssr: false });
 // const MenuCategories = dynamic(() => import('@/components/menuCategories/MenuCategories'), { ssr: false });
@@ -22,7 +23,7 @@ import Ads from "@/components/ads/Ads";
 const getData = async (slug) => {
      const res = await fetch(`${process.env.WEBSIT_URL}/api/posts/${slug}`,{
       // next: { revalidate: 60 },
-      // cache: "no-store",
+      cache: "no-store",
      });
     if (!res.ok) {
       throw new Error("Failed to fetch post data");}
@@ -137,17 +138,17 @@ const getData = async (slug) => {
     const date = new Date(isoDate);
     return date.toISOString().split('T')[0];};
   
-    const fetchpopular = async () => {
-      const res = await fetch(`${process.env.WEBSIT_URL}/api/mostpopular`, {
-        // cache: "no-store",
-      });
-      if (!res.ok) {
-        throw new Error("Failed");
-      }
-      return res.json();}
+    // const fetchpopular = async () => {
+    //   const res = await fetch(`${process.env.WEBSIT_URL}/api/mostpopular`, {
+    //     // cache: "no-store",
+    //   });
+    //   if (!res.ok) {
+    //     throw new Error("Failed");
+    //   }
+    //   return res.json();}
 const page =async ({ params }) => {
     const { slug } = params;
-    const popular=await fetchpopular(); 
+    // const popular=await fetchpopular(); 
     const fetchQuestion = async () => {
           try {
             const res = await fetch(`${process.env.WEBSIT_URL}/api/questions?postSlug=${slug}`);
@@ -228,7 +229,7 @@ const page =async ({ params }) => {
     }; 
     
   return (
-    
+     
     <div className={styles.container}>
   
     {/* <!-- -------------------------main-content---------------------------------------- --> */}
@@ -320,14 +321,12 @@ const page =async ({ params }) => {
 <section className={styles.rightSidebar}>
 <div className={styles.desktopSpeech}><TextToSpeech article={data?.desc} /></div>
 <div className={styles.container}>
-      {/* <h4 className={styles.subtitle}>{"What's hot "}🔥</h4>
-      <h4 className={styles.title}>Most Popular</h4> */}
-      <MenuPosts   post={popular} />
-      {/* <h4 className={styles.subtitle}>Discover by topic</h4>
-      <h4 className={styles.title}>Categories</h4> */}
+      {/* <MenuPosts   post={popular} /> */}
+       {/* {console.log(data)} */}
+       {data?.related && <RelatedPosts post={data?.related} />  }
       <MenuCategories />
     </div>
- </section>
+ </section> 
 </div>
    )
 }
