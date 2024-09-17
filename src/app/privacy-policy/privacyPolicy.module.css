@@ -10,19 +10,19 @@
 }
 .title {
   font-size: 36px;
-  color: #333;
+  /* color: #333; */
   margin-bottom: 20px;
 }
 
 .subtitle {
   font-size: 28px;
-  color: #555;
+  /* color: #555; */
   margin-top: 30px;
 }
 
 .paragraph {
   font-size: 18px;
-  color: #666;
+  /* color: #666; */
   margin-bottom: 20px;
 }
 .link{

@@ -14,7 +14,9 @@ const AdminPosts = () => {
   const [posts, setPosts] = useState([]);
   const [singlePost,setSinglePost]=useState([]);
   const [editPost, setEditPost] = useState(null);
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState({
+    relatedBlogs: []
+  });
   const [selectedImage, setSelectedImage] = useState(null);
   const [value, setValue] = useState(""); // For ReactQuill editor
   const [htmlContent, setHtmlContent] = useState(""); // For HTML preview
@@ -28,7 +30,7 @@ const AdminPosts = () => {
   const [categories,setCategories]=useState([])
   const [ads, setAds] = useState([]);
   const [selectedAd, setSelectedAd] = useState(''); 
-
+   
 
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
@@ -154,6 +156,36 @@ const AdminPosts = () => {
   //   setSelectedImage(data.img);
   // };
 
+
+
+
+
+// Function to handle changes to related blogs
+const handleRelatedBlogChange = (index, field, value) => {
+  const updatedBlogs = [...editData.relatedBlogs];
+  updatedBlogs[index][field] = value;
+  setEditData({
+    ...editData,
+    relatedBlogs: updatedBlogs,
+  });
+};
+
+// Function to add a new related blog
+const addRelatedBlog = () => {
+  setEditData({
+    ...editData,
+    relatedBlogs: [...editData?.relatedBlogs, { title: "", slug: "" }],
+  });
+};
+
+// Function to remove a related blog
+const removeRelatedBlog = (index) => {
+  const updatedBlogs = editData.relatedBlogs.filter((_, i) => i !== index);
+  setEditData({
+    ...editData,
+    relatedBlogs: updatedBlogs,
+  });
+};
 
   const handleDelete = async (slug) => {
     const confirmed = window.confirm('Are you sure you want to delete this post?');
@@ -522,6 +554,33 @@ const AdminPosts = () => {
           <button type="button" onClick={addFqa} className={style.addFqaButton}>
             Add FQA
           </button>
+{/* ===========related blogs======= */}
+{editData?.relatedBlogs?.map((blog, index) => (
+  <div key={index} className={style.relatedBlogItem}>
+    <input
+      type="text"
+      placeholder={`Related Blog Title ${index + 1}`}
+      className={style.editinputs}
+      value={blog.title}
+      onChange={(e) => handleRelatedBlogChange(index, 'title', e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder={`Related Blog Slug ${index + 1}`}
+      className={style.editinputs}
+      value={blog.slug}
+      onChange={(e) => handleRelatedBlogChange(index, 'slug', e.target.value)}
+    />
+    <button onClick={() => removeRelatedBlog(index)} className={style.deleteButton}>
+      Remove
+    </button>
+  </div>
+))}
+
+<button onClick={addRelatedBlog} className={style.addFqaButton}>
+  Add Related Blog
+</button>
+
           <h3>Allow For Ai</h3>
          <input
         type="text"

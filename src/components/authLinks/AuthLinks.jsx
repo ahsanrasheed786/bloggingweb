@@ -270,7 +270,7 @@ const AuthLinks = () => {
     <>
       {status === "unauthenticated" ? (
         <span onClick={openLoginWindow} className={`${styles.desktoplink} ${styles.link}`}>
-          Login
+          <p>Login</p> 
         </span>
       ) : (
         <>
@@ -299,7 +299,7 @@ const AuthLinks = () => {
           ) : (
             <>
               <span className={`${styles.link}`} onClick={signOut}>
-                Logout
+               <p>Logout</p> 
               </span>
             </>
           )}

@@ -121,6 +121,7 @@ model Post {
   likes         Like[]    // Relation to the Like model
   artical       Json      @default("{}")  
   fqa           Json      @default("[]")
+  related       Json      @default("[]")
   ad           String     @default("")
   aiQuestion     String?  @default("")
 }

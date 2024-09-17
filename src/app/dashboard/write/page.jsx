@@ -31,7 +31,10 @@ const WritePage = () => {
   const [metaDisc, setMetaDisc] = useState("");
   // =======FQA ======
   const [fqa, setFqa] = useState([{ question: "", answer: "" }]);
- // ==========artical=========
+  // =========related posts =======
+  const [related, setRelated] = useState([{ slug: "", title: "" ,img:"",createdAt:'',author:'',  catSlug:'' ,catTitle:'', catColor:'' }]);
+
+  // ==========artical=========
 const [heading, setHeading] = useState("");
 const [featureImage, setFeatureImage] = useState("");
 const [discription, setDiscription] = useState("");
@@ -75,6 +78,17 @@ const [ articalBody, setArticalBody] = useState("");
     fetchAccessData();
   }, []);
 
+  useEffect(() => {
+    const fetchrelated = async () => {
+      const res = await fetch(`${process.env.WEBSIT_URL}/api/related`, {
+        // cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed");
+      }
+      return res.json();}
+      fetchrelated()
+  },[related])
 
   useEffect(() => {
     fetchVarifyDoctor();
@@ -187,6 +201,7 @@ const [ articalBody, setArticalBody] = useState("");
           metaRobots,
           metaDisc,
            fqa ,
+           related ,
            aiQuestion,
            ad : selectedAd || "ads",
            artical:{
@@ -221,10 +236,75 @@ const [ articalBody, setArticalBody] = useState("");
     setFqa(updatedFqa);
   };
   const addFqa = () => setFqa([...fqa, { question: "", answer: "" }]);
-
+  // const handleRelatedChange = (index, field, value) => {
+  //   const updatedRelated = [...related];
+  //   updatedRelated[index][field] = value;
+  //   setRelated(updatedRelated);
+  // };
+  const handleFetchRelated = async (slug, index) => {
+    // console.log(slug, index=1);
+    try {
+      const res = await fetch(`/api/related/${slug}`);
+      const data = await res.json();
+      const updatedRelated = [...related];
+      updatedRelated[index] = {
+        ...updatedRelated[index],
+        title: data?.post?.title,
+        img: data?.post?.img,
+        createdAt: data?.post?.createdAt,
+        author: data?.post?.metaAuthor,
+        catSlug: data?.category?.slug,
+        catTitle: data?.category?.title,
+        catColor: data?.category?.color,
+      };
+      setRelated(updatedRelated);
+    } catch (error) {
+      console.error("Failed to fetch related blog data:", error);
+    }
+  };
+  
+  const handleRelatedChange = (index, field, value) => {
+    const updatedRelated = [...related];
+    updatedRelated[index][field] = value;
+    setRelated(updatedRelated);
+  };
+  const removeRelated = (index) => {
+    const updatedRelated = [...related];   
+    updatedRelated.splice(index, 1);  
+    setRelated(updatedRelated);   
+  };
+  
+  
+  // const removeRelated = (index) => {
+  //   const updatedRelated = related.filter((_, i) => i !== index);
+  //   setFqa(updatedRelated);
+  // };
+  const addRelated = () => setRelated([...related, { slug: "", title: "" ,img:"",createdAt:'',author:'' ,  catSlug:'' ,catTitle:'', catColor:'' }]);
   const toggleFullscreen = () => setFullscreen(!fullscreen);
   const togglePreview = () => setShowPreview(!showPreview);
 
+  // const handleFetchRelated=async(slug)=>{
+  //   // console.log("console log slug in handle fetch"+slug);
+  //   // api/related/vitimans
+  //  try {
+  //   const res = await fetch(`/api/related/${slug}`);
+  //   const data = await res.json();
+  //   console.log(data)
+  //   setRelated([...related, {  
+  //      title:data?.post?.title ,
+  //      img:data?.post?.img,
+  //      catSlug:data?.category?.slug,
+  //      catTitle:data?.category?.title,
+  //      catColor:data?.category?.color,
+  //      createdAt:data?.post?.createdAt,
+  //      author:data?.post?.metaAuthor}])
+  //   // if (Array.isArray(data)) {
+  //   //   setRelated(data);
+  //   // }
+  // } catch (error) {
+  //   console.error("Failed to fetch categories:", error);
+  // }
+  //  }
   if (fetchingLoader) return <Loader />;
 
   if (unauthorized) {
@@ -368,6 +448,101 @@ const [ articalBody, setArticalBody] = useState("");
     <button type="button" onClick={addFqa}>Add FQA</button>
       
 {/* ===========FQA schema ends=============== */}
+{/* ===========Related=============== */}
+<hr/>
+{/* <h3>Related </h3>
+        {related.map((item, index) => (
+      <div key={index}>
+        <input
+          type="text"
+          placeholder={`slug${index + 1}`}
+          className={styles.input}
+          value={item.slug}
+          // onChange={(e) => handleRelatedChange(index, "slug", e.target.value)}
+          onChange={(e) => {
+            handleRelatedChange(index, "slug", e.target.value);
+            handleFetchRelated(e.target.value);}}
+          />
+        <input
+          type="text"
+          placeholder={`title ${index + 1}`}
+          className={styles.input}
+          value={item.title}
+          onChange={(e) => handleRelatedChange(index, "title", e.target.value)}/>
+          <input
+          type="text"
+          placeholder={`img Url ${index + 1}`}
+          className={styles.input}
+          value={item.img}
+          onChange={(e) => handleRelatedChange(index, "img", e.target.value)}/>
+          <input
+          type="text"
+          placeholder={`createdAt: ${index + 1}`}
+          className={styles.input}
+          value={item.createdAt}
+          onChange={(e) => handleRelatedChange(index, "createdAt", e.target.value)}/>
+          <input
+          type="text"
+          placeholder={`author: ${index + 1}`}
+          className={styles.input}
+          value={item.author}
+          onChange={(e) => handleRelatedChange(index, "author", e.target.value)}/>
+          {item.img&&<img src={item.img} alt="image not found" />}
+         <button type="button" onClick={() => removeRelated(index)} className={styles.removeFqaButton}>Remove Related Blog</button>
+      </div>
+    ))}
+    <button type="button" onClick={addRelated}>Add Related Blog</button> */}
+
+{related.map((item, index) => (
+  <div key={index}>
+    <input
+      type="text"
+      placeholder={`slug${index + 1}`}
+      className={styles.input}
+      value={item.slug}
+      onChange={(e) => {
+        handleRelatedChange(index, "slug", e.target.value);
+        handleFetchRelated(e.target.value, index); // Pass the index
+      }}
+    />
+    <input
+      type="text"
+      placeholder={`title ${index + 1}`}
+      className={styles.input}
+      value={item.title}
+      onChange={(e) => handleRelatedChange(index, "title", e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder={`img Url ${index + 1}`}
+      className={styles.input}
+      value={item.img}
+      onChange={(e) => handleRelatedChange(index, "img", e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder={`createdAt: ${index + 1}`}
+      className={styles.input}
+      value={item.createdAt}
+      onChange={(e) => handleRelatedChange(index, "createdAt", e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder={`author: ${index + 1}`}
+      className={styles.input}
+      value={item.author}
+      onChange={(e) => handleRelatedChange(index, "author", e.target.value)}
+    />
+    {item.img && <img src={item.img} alt="image not found" />}
+    <button type="button" onClick={() => removeRelated(index)} className={styles.removeFqaButton}>Remove Related Blog</button>
+  </div>
+))}
+    <button type="button" onClick={addRelated}>Add Related Blog</button>  
+
+      
+{/* ===========Related ends=============== */}
+
+
   <h3>Allow For Ai</h3>
         <input
         type="text"
