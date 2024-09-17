@@ -97,6 +97,7 @@
   flex: 1;
   font-size: 36px;
   font-weight: bold;
+  color: #e67e22;
 }
 
 .links {
@@ -117,7 +118,8 @@
   content: '';
   width: 0%;
   height: 2px;
-  background: #045be6;
+  /* color: #e67e22; */
+  background: #e67e22;
   position: absolute;
   bottom: -13px;
   left: 0;

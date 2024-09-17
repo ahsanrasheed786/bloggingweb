@@ -7,7 +7,7 @@ const AboutUs = () => {
         <div className={styles.aboutHeader}>
           <h1>About Us</h1>
           <p>
-            Welcome to CoolZoneMaster, the go-to platform for exploring a diverse range of topics across the globe. From tech innovations to creative storytelling, we aim to inspire and educate our readers on the latest trends and insights.
+            Welcome to <span className={styles.coolzonemaster}>CoolZoneMaster</span>, the go-to platform for exploring a diverse range of topics across the globe. From tech innovations to creative storytelling, we aim to inspire and educate our readers on the latest trends and insights.
           </p>
         </div>
         
@@ -15,7 +15,7 @@ const AboutUs = () => {
           <div className={styles.aboutStory}>
             <h2>Our Story</h2>
             <p>
-              CoolZoneMaster was born out of a passion for sharing knowledge and creativity. What started as a small blog in 2024 quickly grew into a global platform covering a variety of topics from technology, lifestyle, and entertainment to business and culture. Our mission is to create a space where readers can stay informed, inspired, and connected with the world’s ever-evolving landscape. 
+              <span className={styles.coolzonemaster}>CoolZoneMaster</span> was born out of a passion for sharing knowledge and creativity. What started as a small blog in 2024 quickly grew into a global platform covering a variety of topics from technology, lifestyle, and entertainment to business and culture. Our mission is to create a space where readers can stay informed, inspired, and connected with the world’s ever-evolving landscape. 
             </p>
             <p>
               Over the years, we have reached milestones such as growing a community of loyal readers and collaborating with experts in various fields. Every post, whether a quick insight or an in-depth analysis, is crafted with care to provide value to our audience.
@@ -64,11 +64,11 @@ const AboutUs = () => {
               We’re always excited to hear from our readers! Whether you have a question, feedback, or a story to share, feel free to contact us.
             </p>
             <ul>
-              <li>Email: {process.env.EMAIL}</li>
-              <li>Phone: {process.env.PHONE}</li>
+              <li className={styles.coolzonemaster}>Email: {process.env.EMAIL}</li>
+              <li className={styles.coolzonemaster}>Phone: {process.env.PHONE}</li>
               <li>Follow us on 
-                <a target='_blank' href={process.env.TWITTER}>Twitter</a>, 
-                <a target='_blank' href={process.env.LINKEDIN}>LinkedIn</a>
+                <a className={styles.coolzonemaster} target='_blank' href={process.env.TWITTER}>Twitter</a>, 
+                <a className={styles.coolzonemaster} target='_blank' href={process.env.LINKEDIN}>LinkedIn</a>
                </li>
             </ul>
           </div>

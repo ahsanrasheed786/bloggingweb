@@ -2,24 +2,7 @@ import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
 
-const svgs={
-  eye:`<svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="eye-icon"
-  >
-    <path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z"></path>
-    <circle cx="12" cy="12" r="3"></circle>
-  </svg>
-);`
-}
+ 
 const Card = ({ key, item }) => {
 
   return (
@@ -38,7 +21,7 @@ const Card = ({ key, item }) => {
         <Link href={`/posts/${item.slug}`}>
           <p className={styles.title}>{item.title}</p>
         </Link>
-         <div className={styles.desc} dangerouslySetInnerHTML={{ __html: item?.desc.substring(0,200)+"....." }}/>   
+         <div className={styles.desc} dangerouslySetInnerHTML={{ __html: item?.desc.substring(0,195)+"..." }}/>   
         {/* <Link href={`/posts/${item.slug}`} className={styles.link}>
           Read More
         </Link> */}

@@ -11,19 +11,15 @@ const Footer = () => {
         <div className={styles.info}>
           <div className={styles.logo}>
             <Image src="/logo.png" alt="CoolZoneMaster logo" width={50} height={50} />
-            <h1 className={styles.logoText}>CoolZoneMaster</h1>
+            <h1 className={`${styles.logoText}${styles.coolzonemaster}`}>CoolZoneMaster</h1>
           </div>
-          <p className={styles.desc}>
-            At CoolZoneMaster, we are here to solve the problem and give high-quality content to our users. In this journey, you will explore the world and gain knowledge about the different aspects of life.
+          <p className={`${styles.desc}`}>
+            At <span className={styles.coolzonemaster}>CoolZoneMaster</span>, we are here to solve the problem and give high-quality content to our users. In this journey, you will explore the world and gain knowledge about the different aspects of life.
           </p>
           <div className={styles.icons}>
             <Image src="/facebook.png" alt="Facebook" width={18} height={18} />
             <Image
-              src="/instagram.png"
-              alt="Instagram"
-              width={18}
-              height={18}
-            />
+              src="/instagram.png" alt="Instagram" width={18}height={18}/>
             <Image src="/tiktok.png" alt="Tiktok" width={18} height={18} />
             <Image src="/youtube.png" alt="Youtube" width={18} height={18} />
           </div>
@@ -56,7 +52,7 @@ const Footer = () => {
       {/* New Section for Copyright, Privacy Policy, Terms of Service, and Disclaimer */}
       <div className={styles.footerBottom}>
         <p className={styles.copyright}>
-          &copy; 2023 CoolZoneMaster. All rights reserved.
+          &copy;<span className={styles.coolzonemaster}>CoolZoneMaster</span>2023. All rights reserved.
         </p>
         <div className={styles.policies}>
           <Link href="/privacy-policy">Privacy Policy</Link>

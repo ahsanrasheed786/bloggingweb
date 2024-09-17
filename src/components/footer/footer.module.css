@@ -9,6 +9,10 @@
   align-items: flex-start;
   flex-wrap: wrap;
 }
+.coolzonemaster{
+  color: #e67e22;
+}
+/* className={styles.coolzonemaster} */
 
 .info {
   flex: 1;

@@ -5,7 +5,9 @@
   font-family: Arial, sans-serif;
   line-height: 1.8;
 }
-
+.coolzonemaster{
+  color: #e67e22;
+}
 .title {
   font-size: 36px;
   color: #333;
@@ -23,7 +25,9 @@
   color: #666;
   margin-bottom: 20px;
 }
-
+.link{
+  color: #e67e22;
+}
 @media (max-width: 768px) {
   .title {
     font-size: 28px;
