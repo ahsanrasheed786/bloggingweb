@@ -1,5 +1,4 @@
-/* components/ads.module.css */
-
+/*  
 .adsContainer {
     margin: 20px auto;
     max-width: 600px;
@@ -12,7 +11,11 @@
   .adsContainer:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
+  .save{
+    color:green;
+    text-decoration: underline;
+    font-weight: 500;
+  }
   .adLink {
     text-decoration: none;
     color: inherit;
@@ -72,5 +75,137 @@
     .adDescription {
       font-size: 1.1rem;
     }
+
+  .adButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
   
+  .adButton:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  }
+    */
+    .adsContainer {
+      margin: 20px auto;
+      max-width: 600px;
+      border: 2px solid #ddd;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+    
+    .adsContainer:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transform: scale(1.02);
+    }
+    
+    .adLink {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .ad {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #f9f9f9;
+      padding: 20px;
+      text-align: center;
+      border-radius: 15px;
+    }
+    
+    .adImage {
+      width: 100%;
+      height: auto;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .adContent {
+      padding-top: 10px;
+    }
+    
+    .adTitle {
+      font-size: 1.75rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .adDescription {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .offer {
+      font-size: 1rem;
+      color: #007bff;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .save {
+      color: green;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    
+    .contact {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    
+    .adButton {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .adButton:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+    
+    @media (min-width: 768px) {
+      .ad {
+        flex-direction: row;
+        text-align: left;
+      }
+    
+      .adImage {
+        width: 40%;
+        height: auto;
+        margin-right: 20px;
+      }
+    
+      .adContent {
+        padding-top: 0;
+      }
+    
+      .adTitle {
+        font-size: 2rem;
+      }
+    
+      .adDescription {
+        font-size: 1.2rem;
+      }
+    
+      .offer {
+        font-size: 1.1rem;
+      }
+    }
+    

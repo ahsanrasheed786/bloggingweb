@@ -138,6 +138,10 @@ model Service{
   moreservices  Json      @default("[]")
   location      String?
   linkdin       String?
+  facebook      String?
+  instragram    String?
+  userWebsite   String?
+  whatsapp      String?
   about         String?
   experience    String?
   education     String?
@@ -148,6 +152,9 @@ model Service{
   desc          String
   views         Int       @default(0)
   userEmail     String?
+  keywords      String?
+  metaDescription String?
+  metaTitle     String?
 }
 
 
@@ -197,10 +204,13 @@ model Access {
   id          String   @id @default(cuid()) @map("_id")
   img         String?
   slug        String?
+  title       String?
   discount    String?
   description String?
   name        String?
   contact     String?
+  offer       String?
+  btntext     String?
 }
 
 model Contact {

@@ -17,7 +17,7 @@ const AboutUs = () => {
             <h2 className={styles.marginTop}>Who We Are</h2>
             <p>We are a passionate team of writers, creators, and thinkers who believe in the art of writing and creating quality content. Each member of our team brings a unique position and a wide experience. Every member of our team is as important to us as this plate form.</p>
             
-            <h2 className={styles.marginTop}>Connecte With Us</h2>
+            <h2 className={styles.marginTop}>Connect With Us</h2>
             <p>
             Please don&apos;t forget to follow us on social media links to stay updated with our current blogs and quality content. Thank you for being part of our community.
             </p>

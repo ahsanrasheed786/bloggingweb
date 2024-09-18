@@ -1,281 +1,265 @@
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+  }
+  
+  .header {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+   }
+  
+  @keyframes slideDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+  }
+  
+  .coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .profileSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -100px;
+     padding: 20px;
+  }
+  
+  @keyframes fadeInUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  
+  .profileImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    z-index: 80;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profileInfo {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .name {
+    font-size: 2rem;
+    margin: 0;
+    color: #333;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    color: #666;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .svgIcon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  .descriptionSection,
+  .aboutSection,
+  .experienceSection,
+  .educationSection,
+  .languageSection,
+  .skillsSection,
+  .totalClientSection,
+  .contactSection {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .sectionTitle {
+    margin-bottom: 10px;
+    font-weight: bold;
   }
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
 
-.loading {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #555;
-}
 
-.header {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  /* animation: slideDown 1s ease-out; */
-}
 
-@keyframes slideDown {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(0); }
-}
-
-.coverImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.profileSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -100px;
-  /* background: #fff; */
-  padding: 20px;
-  /* border-radius: 10px; */
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-  /* animation: fadeInUp 0.8s ease-in-out; */
-}
-
-@keyframes fadeInUp {
-  0% { transform: translateY(20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-.profileImage {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  z-index: 100;
-  object-fit: cover;
-  border: 5px solid #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.profileInfo {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.name {
-  font-size: 2rem;
-  margin: 0;
-  color: #333;
-}
-
-.title {
-  font-size: 1.5rem;
-  color: #666;
-}
-
-.sectionTitle {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-}
-
-.svgIcon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-.descriptionSection,
-.aboutSection,
-.experienceSection,
-.educationSection,
-.languageSection,
-.skillsSection,
-.totalClientSection,
-.contactSection {
-  margin-top: 40px;
-  padding: 20px;
-  border-radius: 10px;
-  /* background: #f9f9f9; */
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
-}
-
-.sectionTitle {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skillBubble {
-  padding: 8px 12px;
-  background: #0077b5;
-  color: #fff;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  transition: background 0.3s ease;
-}
-
-.skillBubble:hover {
-  background: #005a9e;
-}
-
-/* .moreServiceCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.moreServiceCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.moreServiceImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.moreServiceContent {
-  padding: 20px;
-  text-align: center;
-}
-
-.moreServiceButton {
-  background-color: #0077b5;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.moreServiceButton:hover {
-  background-color: #005a9e;
-  transform: scale(1.05);
-}
-.section {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 10px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.icon {
-  margin-right: 15px;
-}
-
-.section-content h3 {
-  font-size: 1.25rem;
-  margin: 0;
-}
-
-.section-content p {
-  font-size: 1rem;
-  color: #555;
-} */
-
-.svg{
-  margin-right: 10px;
-}
-/* Styles for the service cards container */
-.serviceCardsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-/* Styles for each service card */
-/* Service card container */
-.serviceCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px;
-  transition: transform 0.3s ease-in-out;
-  width: 100%;
-  max-width: 300px;
-}
-
-.serviceCard:hover {
-  transform: scale(1.05);
-}
-
-/* Service card image */
-.serviceCardImage {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-/* Service card details */
-.serviceCardDetails {
-  text-align: center;
-  margin-top: 15px;
-}
-
-/* Service card title */
-.serviceCardTitle {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* Service card description */
-.serviceCardDesc {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-/* Service card button */
-.serviceCardButton {
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.serviceCardButton:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
+  .languages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .languageBubble {
+    padding: 8px 12px;
+    background: #0077b5;
+    color: #fff;
+    /* border-radius: 50px; */
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  .languageBubble:hover {
+    background: #005a9e;
+  }
+  
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .skillBubble {
+    padding: 8px 12px;
+       border: 1px solid #0077b5;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  
+  .skillBubble:hover {
+        color: #fff;
+    background: #005a9e;
+  }
+  .svg{
+    margin-right: 10px;
+  }
+  .contacts{
+     /* margin-bottom: 20px; */
+    /* gap: 10px; */
+    font-size: 1.2rem;
+    color: #0077b5;
+    text-decoration: underline;
+  }
+  .contacts:hover{
+    color: #005a9e;
+  }
+  .ancher{
+    color: #0077b5;
+    text-decoration: underline;
+  }
+ 
+  .serviceCardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
   .serviceCard {
-    max-width: 100%;
+    flex-direction: column;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+    max-width: 350px;
+    min-width: 350px;
+    max-height: 450px;
+    min-height: 450px;
   }
-}
+  
+  .serviceCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .serviceCardImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .serviceCardDetails {
+    padding: 15px;
+    text-align: center;
+  }
+  .discountDiv{
+     display: flex;
+     justify-content: space-evenly;
+    }
+  .serviceCardTitle {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .serviceCardDesc,
+  .date,
+  .direction,
+  .discount,
+  .needs,
+  .price {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .discount{
+    color: green;
+  }
+  .date{
+    color: #0077b5;
+    font-size: 0.8rem;
+    text-align: left;
+  }
+
+  
+  .serviceCardDesc {
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #0077b5;
+  }
+  
+  .serviceCardButton {
+    background-color: #0077b5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .serviceCardButton:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .serviceCardsContainer {
+      grid-template-columns: 1fr;
+    }
+  
+    .serviceCard {
+      max-width: 100%;
+    }
+  }
+  

@@ -214,7 +214,7 @@ const ManageAds = () => {
         throw new Error('Failed to submit ad');
       }
 
-      setForm({ img: '', slug: '', discount: '', description: '', name: '', contact: '' });
+      setForm({ img: '', slug: '',title:'',btntext:'', discount: '',offer:'', description: '', name: '', contact: '' });
       setEditingId(null);
       fetchAds(); // Refresh the list of ads
     } catch (error) {
@@ -271,56 +271,73 @@ const ManageAds = () => {
           value={form.img}
           onChange={handleChange}
           placeholder="Image URL"
-          required
-        />
+          required/>
         <input
           type="text"
           name="slug"
           value={form.slug}
           onChange={handleChange}
           placeholder="Slug"
-          required
-        />
+          required/>
+          <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          placeholder="Ads title"
+          required/>
+          <input
+          type="text"
+          name="offer"
+          value={form.offer}
+          onChange={handleChange}
+          placeholder="Offer Name"
+          required/>
         <input
           type="text"
           name="discount"
           value={form.discount}
           onChange={handleChange}
-          placeholder="Discount"
-        />
+          placeholder="Discount"/>
         <textarea
           name="description"
           value={form.description}
           onChange={handleChange}
           placeholder="Description"
-          required
-        />
+          required/>
         <input
           type="text"
           name="name"
           value={form.name}
           onChange={handleChange}
           placeholder="Name"
-          required
-        />
+          required/>
+           <input
+          type="text"
+          name="btntext"
+          value={form.btntext}
+          onChange={handleChange}
+          placeholder="Button Text"/>
         <input
           type="text"
           name="contact"
           value={form.contact}
           onChange={handleChange}
-          placeholder="Contact"
-        />
+          placeholder="Contact"/>
         <button type="submit">{editingId ? 'Update Ad' : 'Add Ad'}</button>
       </form>
       <div className={styles.adsList}>
         {ads.map((ad) => (
           <div key={ad.id} className={styles.adItem}>
-            <img src={ad.img} alt={ad.name} className={styles.adImage} />
+            <img src={ad?.img} alt={ad.name} className={styles.adImage} />
             <div className={styles.adDetails}>
               <h3>{ad.name}</h3>
+              <p>Title: {ad?.title}</p>
               <p>{ad.description}</p>
+              <p>Offer Name: {ad.contact}</p>
               <p>Discount: {ad.discount}</p>
               <p>Contact: {ad.contact}</p>
+              <p>Button:{ad.btntext}</p>
               <button onClick={() => handleEdit(ad)}>Edit</button>
               <button onClick={() => handleDelete(ad.id)}>Delete</button>
             </div>

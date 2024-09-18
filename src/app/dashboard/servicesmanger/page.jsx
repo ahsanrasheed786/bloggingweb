@@ -468,6 +468,14 @@ const ManageServices = () => {
     desc: '',
     views: 0,
     userEmail: '',
+    facebook:''    ,
+    instragram:'' ,
+    userWebsite:'' , 
+    whatsapp:'' ,  
+    keywords:'',
+     metaDescription:'',
+     metaTitle:''
+
   });
   const [editingId, setEditingId] = useState(null);
 
@@ -569,6 +577,14 @@ const ManageServices = () => {
         desc: '',
         views: 0,
         userEmail: '',
+        facebook:''    ,
+        instragram:'' ,
+        userWebsite:'' , 
+        whatsapp:'' ,  
+        keywords:'',
+        metaDescription:'',
+        metaTitle:''
+
       });
       setEditingId(null);
       fetchServices(); // Refresh the list of services
@@ -672,15 +688,7 @@ const ManageServices = () => {
           onChange={handleChange}
           placeholder="Services"
           className={styles.input}
-        />
-        {/* <input
-          type="text"
-          name="moreservices"
-          value={form.moreservices}
-          onChange={handleChange}
-          placeholder="More Services"
-          className={styles.input}
-        /> */}
+        /> 
         <input
           type="text"
           name="location"
@@ -740,33 +748,76 @@ const ManageServices = () => {
           value={form.totalClient}
           onChange={handleChange}
           placeholder="Total Clients"
-          className={styles.input}
-        />
+          className={styles.input}/>
         <input
           type="text"
           name="title"
           value={form.title}
           onChange={handleChange}
           placeholder="Title"
-          className={styles.input}
-        />
+          className={styles.input}/>
         <textarea
           name="desc"
           value={form.desc}
           onChange={handleChange}
           placeholder="Description"
-          className={styles.textarea}
-        />
+          className={styles.textarea}/>
         <input
           type="email"
           name="userEmail"
           value={form.userEmail}
           onChange={handleChange}
           placeholder="User Email"
-          className={styles.input}
-        />
-
-
+          className={styles.input}/>
+         <input
+          type="text"
+          name="facebook"
+          value={form.facebook}
+          onChange={handleChange}
+          placeholder="facebook"
+          className={styles.input}/>
+          <input
+          type="text"
+          name="instragram"
+          value={form.instragram}
+          onChange={handleChange}
+          placeholder="instragram"
+          className={styles.input}/>
+           <input
+          type="text"
+          name="whatsapp"
+          value={form.whatsapp}
+          onChange={handleChange}
+          placeholder="whatsapp"
+          className={styles.input}/>
+          <input
+          type="text"
+          name="userWebsite"
+          value={form.userWebsite}
+          onChange={handleChange}
+          placeholder="userWebsite"
+          className={styles.input}/>
+           <input
+          type="text"
+          name="metaTitle"
+          value={form.metaTitle}
+          onChange={handleChange}
+          placeholder="metaTitle"
+          className={styles.input}/> 
+          <input
+          type="text"
+          name="keywords"
+          value={form.keywords}
+          onChange={handleChange}
+          placeholder="Metakeywords"
+          className={styles.input}/> 
+          <input
+          type="text"
+          name="metaDescription"
+          value={form.metaDescription}
+          onChange={handleChange}
+          placeholder="metaDescription"
+          className={styles.input}/>
         {/* moreservices form */}
         {form.moreservices.map((service, index) => (
           <div key={index} className={styles.moreService}>
