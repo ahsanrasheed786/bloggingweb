@@ -116,7 +116,7 @@ const Ads = async ({ adsId }) => {
             className={styles.adLink}
           >
             <div className={styles.ad}>
-              <img src={data?.img} alt={data?.title} className={styles.adImage} />
+              <img src={data?.img} alt={data?.title} style={{ height: "100%", width: "100%" }} className={styles.adImage} />
               <div className={styles.adContent}>
                 <h3 className={styles.adTitle}>{data?.title}</h3>
                 <p className={styles.adDescription}>

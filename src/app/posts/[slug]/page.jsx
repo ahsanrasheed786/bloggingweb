@@ -242,7 +242,7 @@ const page =async ({ params }) => {
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img}   alt={data?.imgAlt|| "Article Cover Image"}  className={styles.image} />
+            <img src={data?.img} title={data?.imgTitle || "Article Cover Image"}  alt={data?.imgAlt|| "Article Cover Image"}style={{ height: "100%", width: "100%" }} className={styles.image} />
            </div> )}         
            
        <div className={styles.content}>

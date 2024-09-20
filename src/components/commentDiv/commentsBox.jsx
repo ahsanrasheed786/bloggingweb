@@ -143,7 +143,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState, useContext, useEffect } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
-import PopUpLogIn from "@/components/PopUpLogIn"; // Import your PopUpLogIn component
+import PopUpLogIn from "@/components/popUplogin/PopUpLogIn"; // Import your PopUpLogIn component
 
 const CommentsBox = ({ postSlug, comments }) => {
   const { status } = useSession();
