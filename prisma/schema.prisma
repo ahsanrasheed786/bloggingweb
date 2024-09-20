@@ -1,5 +1,6 @@
 
 // prisma/schema.prisma
+//npx prisma generate
 
 generator client {
   provider = "prisma-client-js"
@@ -156,6 +157,7 @@ model Service{
   metaDescription String?
   metaTitle     String?
 }
+
 
 
 model Rating {

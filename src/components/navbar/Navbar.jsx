@@ -46,7 +46,7 @@ const Navbar = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
+ 
   return (
     <nav style={{ backgroundColor: theme === "light" ? "white" : "#0f172a" }} className={styles.container}>
       <div className={styles.logo}>CoolZoneMaster</div>
