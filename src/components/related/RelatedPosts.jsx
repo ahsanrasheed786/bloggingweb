@@ -45,6 +45,7 @@ const RelatedPosts = ({ post }) => {
                   alt={item.title || "Post image"} 
                   fill 
                   className={styles.image} 
+                  style={{ height: "100%", width: "100%" }}
                 />
               </div>
             )}

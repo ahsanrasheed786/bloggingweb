@@ -242,7 +242,7 @@ const page =async ({ params }) => {
  
           {data?.img && (
           <div className={styles.imageContainer}>
-            <img src={data?.img} title={data?.imgTitle || "Article Cover Image"}  alt={data?.imgAlt|| "Article Cover Image"}style={{ height: "100%", width: "100%" }} className={styles.image} />
+            <img src={data?.img} title={data?.imgTitle || "Article Cover Image"}  alt={data?.imgAlt|| "Article Cover Image"} style={{ height: "100%", width: "100%" }} className={styles.image} />
            </div> )}         
            
        <div className={styles.content}>
@@ -254,7 +254,7 @@ const page =async ({ params }) => {
 
          <h1 className={styles.title}>{data?.title}</h1>
         <div className={styles.mobileSpeech}><TextToSpeech article={data?.desc} /></div>
-       <artical className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>
+       <artical  style={{ height: "100%", width: "100%" }} className={styles.description} aria-label="Article content" dangerouslySetInnerHTML={{ __html: data?.desc }}>
        {/* <div  /> */}
        </artical>
        
